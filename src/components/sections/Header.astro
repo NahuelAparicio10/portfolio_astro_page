@@ -15,7 +15,7 @@ const currentPath = Astro.url.pathname; // Detecta la ruta actual
       <!-- Links desktop -->
       <div class="internal-links hidden md:flex items-center gap-2 ml-1">
         <HeaderLink 
-          href="//portfolio_astro_page/" 
+          href="/" 
           class={`px-3 py-3 font-bold no-underline rounded-md transition-colors
             ${currentPath === "/" 
               ? "text-[var(--accent)] bg-[var(--accent)]/10" 
@@ -23,15 +23,15 @@ const currentPath = Astro.url.pathname; // Detecta la ruta actual
         >Home</HeaderLink>
 
         <HeaderLink 
-          href="/portfolio_astro_page/about" 
+          href="/about" 
           class={`px-3 py-3 font-bold no-underline rounded-md transition-colors
-            ${currentPath === "/portfolio_astro_page/about" 
+            ${currentPath === "/about" 
               ? "text-[var(--accent)] bg-[var(--accent)]/10" 
               : "text-[color:var(--color-text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}
         >About</HeaderLink>
 
         <HeaderLink 
-          href="/portfolio_astro_page/Skills" 
+          href="/Skills" 
           class={`px-3 py-3 font-bold no-underline rounded-md transition-colors
             ${currentPath === "/Skills" 
               ? "text-[var(--accent)] bg-[var(--accent)]/10" 
@@ -39,7 +39,7 @@ const currentPath = Astro.url.pathname; // Detecta la ruta actual
         >Skills</HeaderLink>
 
         <HeaderLink 
-          href="/portfolio_astro_page/blog" 
+          href="/blog" 
           class={`px-3 py-3 font-bold no-underline rounded-md transition-colors
             ${currentPath === "/blog" 
               ? "text-[var(--accent)] bg-[var(--accent)]/10" 
@@ -47,7 +47,7 @@ const currentPath = Astro.url.pathname; // Detecta la ruta actual
         >Game Projects</HeaderLink>
 
         <HeaderLink 
-          href="/portfolio_astro_page/portfolio" 
+          href="/portfolio" 
           class={`px-3 py-3 font-bold no-underline rounded-md transition-colors
             ${currentPath === "/portfolio" 
               ? "text-[var(--accent)] bg-[var(--accent)]/10" 
@@ -93,11 +93,11 @@ const currentPath = Astro.url.pathname; // Detecta la ruta actual
   <!-- Menu móvil -->
   <div id="mobile-menu" class="md:hidden hidden border-t bg-background">
     <div class="mx-auto max-w-6xl px-4 py-3 flex flex-col gap-2">
-      <HeaderLink href="//portfolio_astro_page/" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>Home</HeaderLink>
-      <HeaderLink href="/portfolio_astro_page/about" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/about" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>About</HeaderLink>
-      <HeaderLink href="/portfolio_astro_page/Skills" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/Skills" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>Skills</HeaderLink>
-      <HeaderLink href="/portfolio_astro_page/blog" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/blog" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>Game Projects</HeaderLink>
-      <HeaderLink href="/portfolio_astro_page/portfolio" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/portfolio" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>Projects</HeaderLink>
+      <HeaderLink href="/" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>Home</HeaderLink>
+      <HeaderLink href="/about" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/about" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>About</HeaderLink>
+      <HeaderLink href="/Skills" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/Skills" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>Skills</HeaderLink>
+      <HeaderLink href="/blog" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/blog" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>Game Projects</HeaderLink>
+      <HeaderLink href="/portfolio" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/portfolio" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>Projects</HeaderLink>
       <a href="#contact" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/contact" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>CV & Contact</a>
     </div>
   </div>
