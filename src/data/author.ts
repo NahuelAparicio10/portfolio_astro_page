@@ -1,4 +1,4 @@
-import avatar from '../assets/images/sample-avatar.jpg';
+import avatar from '../assets/images/img1.png';
 
 export const author = {
   name: 'Nahuel Aparicio',
