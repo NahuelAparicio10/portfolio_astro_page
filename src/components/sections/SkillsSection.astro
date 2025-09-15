@@ -1,0 +1,54 @@
+---
+import Carousel from '../ui/carousel/Carousel.astro';
+import { loadLogosFrom } from '../../data/logos';
+import GlowLineSeparator from '@/components/ui/separator/GlowLineSeparator.astro';
+interface SkillItem {
+  icon: string; 
+  title: string;
+  description: string;
+}
+
+interface Props {
+  title?: string;
+  skills: SkillItem[];
+}
+
+const { title, skills } = Astro.props as Props;
+---
+
+<section class="w-full ">
+  <div class="mx-auto max-w-6xl px-4">
+  <GlowLineSeparator class="mb-8 mt-8" />
+
+  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">PROGRAMMING LANGUAGES</h3>
+  
+  <Carousel tools={loadLogosFrom('programming')} />
+  <GlowLineSeparator class="mb-8 mt-8" />
+    
+  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">ENGINES & FRAMEWORKS</h3>
+  
+  <Carousel tools={loadLogosFrom('engines')} />
+  <GlowLineSeparator class="mb-8 mt-8" />
+
+  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">IDEs & CODE EDITORS</h3>  
+  
+  <Carousel tools={loadLogosFrom('ides')} />
+  <GlowLineSeparator class="mb-8 mt-8" />
+
+  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">SOURCE CONTROL & PROJECT MANAGEMENT</h3>
+
+  <Carousel tools={loadLogosFrom('source_control')} />
+  <GlowLineSeparator class="mb-8 mt-8" />
+
+  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">DESIGN, MEDIA & 3D TOOLS</h3>
+
+  <Carousel tools={loadLogosFrom('design')} />
+  <GlowLineSeparator class="mb-8 mt-8" />
+
+  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">SOFT SKILLS</h3>
+
+    
+  </div>
+</section>
+
+

@@ -1,0 +1,109 @@
+---
+title: 'INTO THE WOODS'
+description: '2D platformer developed in Unity as a solo project, featuring complete design and programming. (Solo project, 8 weeks)'
+pubDate: '2022'
+heroImage: '../../assets/images/games/itw.png'
+youtubeTitle: 'Into The Woods'
+youtubeID: 'qzbrbVs9Nfs'
+tags: ['Unity', '2D', 'Platformer', 'PC']
+featured: false
+featuredOrder: 7 
+---
+
+import { Image } from 'astro:assets';
+import image from "../../assets/images/games/IntoTheWoods.png";
+import imageItchio from "../../assets/logos/itchio-logo.svg?url";
+
+###  **Project Info**  
+
+```markdown
+👤 Role: Solo Project
+👥 Team Size: 1  
+⏳ Time frame: 8 weeks (2 months)  
+🎮 Engine: Unity  
+```
+
+<br />
+
+###  **About**
+
+<div className="text-justify">
+This dynamic **platformer game** features three exciting levels: a comprehensive tutorial and two fast-paced stages where you will battle various enemies and parkours to complete your quest.
+
+This was a **solo project** that allowed me to deepen my understanding of game development and Unity while **focusing on maintaining clean code throughout the process.**
+</div>
+
+### **Contributions to the game**
+
+<div className="mt-4 mb-4 flex flex-wrap gap-2 ">
+  {[
+    "C#",
+    "UI & UX",
+    "Art Integration",
+    "Game Design",
+    "Level Design",
+    "Sound Implementation"
+
+  ].map((label) => (
+    <span
+      key={label}
+      className="inline-grid place-items-center rounded-full px-3 py-1 text-xs font-medium leading-[1]"
+      style={{
+        background: "rgba(var(--accent-rgb),0.1)",
+        color: "var(--accent)",
+        border: "1px solid rgba(var(--accent-rgb),0.3)"
+      }}
+    >
+      {label}
+    </span>
+  ))}
+</div>
+
+<div className="text-justify">
+Since this was a **solo project**, I was responsible for every aspect of the game, including:
+
+**Programming (C# / Unity)** – Implemented player movement, combat, enemy behaviors, ability system and interactables.
+
+**Game Design** – Designed the core gameplay loop, tutorial, and level flow.
+
+**Level Design** – Built three unique levels, balancing pacing and challenge.
+
+**UI & UX** – Implemented menus, HUD, and feedback systems.
+
+**Art Integration** – Integrated sprites, animations, and effects into Unity.
+
+**Audio** – Selected, edited, and implemented sound effects and background music.
+
+**Project Management** – Organized tasks and maintained clean, reusable code throughout.
+</div>
+
+<div className="flex flex-col items-center my-8">
+  <a
+    href="https://nahuelcode.itch.io/in-to-the-woods"  
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex flex-col items-center group"
+  >
+    <img
+      src={imageItchio}               
+      alt="Itch.io Logo"
+      width="80"
+      height="80"
+      className="mb-3 transition-transform duration-200 group-hover:scale-110"
+    />
+    <span className="text-lg font-semibold text-[#FFFFFF] group-hover:text-[#1338BE] transition">
+      Download on Itch.io
+    </span>
+  </a>
+</div>
+
+<div className="flex justify-center my-6">
+  <Image src={image}
+    alt="Extra gameplay screenshot of Deadly Miner" 
+  className="w-full max-w-3xl h-auto rounded-xl shadow"
+  />
+</div>
+
+
+
+

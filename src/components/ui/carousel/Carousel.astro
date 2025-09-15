@@ -1,0 +1,27 @@
+---
+import type { LogoItem } from '../../../data/logos';
+
+interface Props { tools: LogoItem[] }
+const { tools = [] } = Astro.props as Props;
+---
+
+<div class="relative z-10 mx-auto px-8 py-4">
+  <div class="flex flex-wrap justify-center gap-8">
+    {tools.map((tool) => (
+      <div class="w-28 group flex flex-col items-center text-center p-4 rounded-lg transition-transform duration-200 hover:scale-105">
+        <div class="w-12 h-12 mb-2 flex items-center justify-center">
+          <img 
+            src={tool.logo} 
+            alt={tool.name} 
+            width="48" 
+            height="48" 
+            class="w-full h-full object-contain transition duration-300 group-hover:scale-110" 
+          />
+        </div>
+        <span class="text-sm font-semibold text-[color:var(--color-text-muted)]">
+          {tool.name}
+        </span>
+      </div>
+    ))}
+  </div>
+</div>

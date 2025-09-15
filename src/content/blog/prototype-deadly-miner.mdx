@@ -1,0 +1,93 @@
+---
+title: 'DEADLY MINER'
+description: 'Unity FPS survival prototype set in monster-filled mines, with combat, resource gathering, and crafting. (Team of 2, 4 weeks).'
+pubDate: '2024'
+heroImage: '../../assets/images/games/fps.png'
+youtubeTitle: 'Prototype Deadly Miner'
+youtubeID: 'lbuMbWeiUPo'
+tags: ['Unity', '3D', 'PC']
+featured: false
+featuredOrder: 5 
+---
+import { Image } from 'astro:assets';
+import image from "../../assets/images/games/miner.png";
+import imageItchio from "../../assets/logos/itchio-logo.svg?url";
+
+
+###  **Project Info**  
+
+```markdown
+👤 Role: Gameplay Programmer & Designer
+👥 Team Size: 2  
+⏳ Time frame: 4 weeks (1 months)  
+🎮 Engine: Unity  
+```
+
+<br />
+
+###  **About**
+<div className="text-justify">
+This **FPS prototype** blends the thrill of first-person combat with a unique survival concept set in a **mining environment.** Players must explore **monster-filled mines, gather resources,** and **craft stronger ammunition** while battling increasingly tougher enemies as they descend deeper into the mine.
+
+The project allowed us to dive into the complexities of **first-person gameplay** and gain experience with mechanics such as shooting, player movement, and level design.
+</div>
+
+### **Contributions to the game**
+<div className="mt-4 mb-4 flex flex-wrap gap-2 ">
+  {[
+    "Enemy AI",
+    "Menu System",
+    "Customized plug-in",
+    "Design Game Concept",
+    "Level Design"
+  ].map((label) => (
+    <span
+      key={label}
+      className="inline-grid place-items-center rounded-full px-3 py-1 text-xs font-medium leading-[1]"
+      style={{
+        background: "rgba(var(--accent-rgb),0.1)",
+        color: "var(--accent)",
+        border: "1px solid rgba(var(--accent-rgb),0.3)"
+      }}
+    >
+      {label}
+    </span>
+  ))}
+</div>
+<div className="text-justify">
+I developed the **enemy systems**, including **enemy AI behaviors (FSM)**, and created the **menu system.** **I customized and optimized the FPS plug-in** to better suit the game's mechanics, integrating it into the project. Additionally, I **designed the game concept** and was responsible for all aspects of level design, ensuring engaging exploration and progression. 
+
+These contributions helped ensure the completion of a functional and immersive prototype.
+</div>
+
+<div className="flex flex-col items-center my-8">
+  <a
+    href="https://nahuelcode.itch.io/deadly-miner"  
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex flex-col items-center group"
+  >
+    <img
+      src={imageItchio}               
+      alt="Itch.io Logo"
+      width="80"
+      height="80"
+      className="mb-3 transition-transform duration-200 group-hover:scale-110"
+    />
+    <span className="text-lg font-semibold text-[#FFFFFF] group-hover:text-[#1338BE] transition">
+      Download on Itch.io
+    </span>
+  </a>
+</div>
+
+<div className="flex justify-center my-6">
+  <Image src={image}
+    alt="Extra gameplay screenshot of Deadly Miner Prototype" 
+    className="w-full max-w-3xl h-auto rounded-xl shadow"
+  />
+</div>
+                
+
+
+
+

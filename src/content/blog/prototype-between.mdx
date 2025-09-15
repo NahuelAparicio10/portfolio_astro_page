@@ -1,0 +1,90 @@
+---
+title: 'PROTOTYPE BETWEEN SHADOWS'
+description: '3D top-down RPG prototype built in Unity, featuring mist-filled exploration, combat, and scalable ability systems. (Team of 2, 4 weeks)'
+pubDate: '2024'
+heroImage: '../../assets/images/games/bs.png'
+youtubeTitle: 'Prototype Between Shadows'
+youtubeID: 'ZU9XFBR0nNo'
+tags: ['Unity', '3D', 'PC', 'Controller']
+featured: false
+featuredOrder: 3 
+---
+
+import { Image } from 'astro:assets';
+import image from "../../assets/images/games/bs.png";
+import imageItchio from "../../assets/logos/itchio-logo.svg?url";
+
+###  **Project Info**  
+
+```markdown
+👤 Role: Gameplay Programmer & Designer  
+👥 Team Size: 2  
+⏳ Time frame: 4 weeks (1 months)  
+🎮 Engine: Unity  
+```
+<br />
+
+###  **About**
+
+<div className="text-justify">
+This **3D RPG prototype** features a **top-down view**, set in a world engulfed in shadows and mist. Players must navigate through misterious terrain, battling enemies as they search for the tower that will bring light to the world and dispel the mist. 
+
+Our goal with this project was to craft an **immersive experience** where players can easily lose themselves in the mist. This allowed us to showcase our skills, focused on combat mechanics and level design.
+</div>
+
+### **Contributions to the game**
+
+<div className="mt-4 mb-4 flex flex-wrap gap-2 ">
+  {[
+    "Player Mechanics",
+    "Ability System Scalable",
+    "UI & Menus",
+    "Sound"
+  ].map((label) => (
+    <span
+      key={label}
+      className="inline-grid place-items-center rounded-full px-3 py-1 text-xs font-medium leading-[1]"
+      style={{
+        background: "rgba(var(--accent-rgb),0.1)",
+        color: "var(--accent)",
+        border: "1px solid rgba(var(--accent-rgb),0.3)"
+      }}
+    >
+      {label}
+    </span>
+  ))}
+</div>
+
+<div className="text-justify">
+
+I was responsible for programming the **player mechanics, ability system,** and **environment interactables,** as well as designing the initial prototype concept. I implemented the **mist plug-in** and integrated it seamlessly into the project. Additionally, I programmed the **menus, user interface (UI),** and **environment sounds** to enhance the overall player experience. 
+
+All of these contributions made it posible to successfully complete the prototype.
+</div>
+
+<div className="flex flex-col items-center my-8">
+  <a
+    href="https://nahuelcode.itch.io/between-shadows"  
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex flex-col items-center group"
+  >
+    <img
+      src={imageItchio}               
+      alt="Itch.io Logo"
+      width="80"
+      height="80"
+      className="mb-3 transition-transform duration-200 group-hover:scale-110"
+    />
+    <span className="text-lg font-semibold text-[#FFFFFF] group-hover:text-[#1338BE] transition">
+      Download on Itch.io
+    </span>
+  </a>
+</div>
+
+<div className="flex justify-center my-6">
+  <Image src={image}
+    alt="Extra gameplay screenshot of Between Shadows Prototype" 
+    className="w-full max-w-3xl h-auto rounded-xl shadow"
+  />
+</div>

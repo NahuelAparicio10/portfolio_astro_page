@@ -1,0 +1,90 @@
+---
+title: 'EL SOPLA JUEGO'
+description: '3D FPS project in Unity where a garbage collector uses a vacuum weapon to complete quirky city quests and repay his debt. (Solo programmer, team of 7, 24 weeks).'
+pubDate: '2025'
+heroImage: '../../assets/images/games/soplajuego.png'
+youtubeTitle: 'El Sopla Juego'
+youtubeID: 'avwgtVoUfO0'
+tags: ['Unity', '3D', 'PC', 'FPS']
+featured: true
+featuredOrder: 1 
+---
+
+import { Image } from 'astro:assets';
+import image from "../../assets/images/games/sopla_juego.png";
+import imageItchio from "../../assets/logos/itchio-logo.svg?url";
+
+###  **Project Info**  
+
+```markdown
+👤 Role: Solo Programmer
+👥 Team Size: 7  
+⏳ Time frame: 24 weeks (6 months)  
+🎮 Engine: Unity  
+```
+
+<br/>
+###  **About**
+<div className="text-justify">
+
+In El Sopla Juego, a **3D FPS**, the player steps into the shoes of a garbage collector armed with a unique weapon — a **vacuum cleaner** that can suck, blow, and shoot absorbed objects. After breaking a neighbor’s garden gnome, the protagonist is forced to repay the debt by completing a variety of missions across the city.
+
+This project was developed as a final degree project in collaboration with a team of artists and musicians. I joined as the **sole programmer**, responsible for turning the team’s creative vision into a functional game. My work focused on designing and implementing all gameplay systems while integrating artistic and audio assets into Unity, ensuring a cohesive and playable prototype.
+</div>
+
+### **Contributions to the game**
+
+<div className="mt-4 mb-4 flex flex-wrap gap-2 ">
+  {[
+    "Player mechanics",
+    "Objects Physics",
+    "Dialogue System",
+    "Quest System",
+    "Save System",
+    "UI & UX"
+  ].map((label) => (
+    <span
+      key={label}
+      className="inline-grid place-items-center rounded-full px-3 py-1 text-xs font-medium leading-[1]"
+      style={{
+        background: "rgba(var(--accent-rgb),0.1)",
+        color: "var(--accent)",
+        border: "1px solid rgba(var(--accent-rgb),0.3)"
+      }}
+    >
+      {label}
+    </span>
+  ))}
+</div>
+
+<div className="text-justify">
+
+As the only programmer on the team, I took full responsibility for the game’s technical development. I implemented the vacuum-based player mechanics (suction, blowing, and projectile shooting), created the object physics interactions, and developed systems for quests, dialogues, and saving/loading. Additionally, I designed and programmed the UI and UX, ensuring intuitive player feedback, and integrated all visual and audio assets provided by the artists and musicians.
+</div>
+
+<div className="flex flex-col items-center my-8">
+  <a
+    href="https://soplajuego.itch.io/elsoplajuego"  
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex flex-col items-center group"
+  >
+    <img
+      src={imageItchio}               
+      alt="Itch.io Logo"
+      width="80"
+      height="80"
+      className="mb-3 transition-transform duration-200 group-hover:scale-110"
+    />
+    <span className="text-lg font-semibold text-[#FFFFFF] group-hover:text-[#1338BE] transition">
+      Download on Itch.io
+    </span>
+  </a>
+</div>
+
+<div className="flex justify-center my-6">
+  <Image src={image}
+    alt="Extra gameplay screenshot of El Sopla Juego" 
+  className="w-full max-w-3xl h-auto rounded-xl shadow"
+  />
+</div>

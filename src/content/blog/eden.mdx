@@ -1,0 +1,90 @@
+---
+title: 'EDEN'
+description: 'A fast-paced 2D roguelike where dashing is your only weapon. Built in Unity featuring quests, upgrades, and a dynamic build system. (Team of 2, 16 weeks)'
+pubDate: '2023'
+heroImage: '../../assets/images/games/eden_menu.png'
+youtubeTitle: 'Eden'
+youtubeID: '614JOiG-xDQ'
+tags: ['Unity', '2D', 'PC', 'Controller']
+featured: false
+featuredOrder: 6 
+---
+import { Image } from 'astro:assets';
+import image from "../../assets/images/games/eden_gameplay.png";
+import imageItchio from "../../assets/logos/itchio-logo.svg?url";
+
+###  **Project Info**  
+
+```markdown
+👤 Role: Gameplay Programmer & Designer
+👥 Team Size: 2  
+⏳ Time frame: 16 weeks (4 months)
+🎮 Engine: Unity  
+```
+
+<br />
+
+###  **About**
+<div className="text-justify">
+This **2D Roguelike** challenges players to progress as far as possible by completing rooms and upgrading their abilities through a variety of items. The core mechanic revolves around dashing. Mastering the dash system is key to achieving success. 
+
+Our goal with this project was to create **engaging gameplay** centered around the **dash mechanic** and a challenging **build system.** We also aimed to design a balanced progression path that includes **quests**, **permanent upgrades**, and **collectible items**. 
+</div>
+
+
+### **Contributions to the game**
+<div className="mt-4 mb-4 flex flex-wrap gap-2 ">
+  {[
+    "Quest System",
+    "JSON Save System",
+    "C#",
+    "Dash mechanics",
+    "QA",
+    "UI & UX",
+    "Game Design",
+
+  ].map((label) => (
+    <span
+      key={label}
+      className="inline-grid place-items-center rounded-full px-3 py-1 text-xs font-medium leading-[1]"
+      style={{
+        background: "rgba(var(--accent-rgb),0.1)",
+        color: "var(--accent)",
+        border: "1px solid rgba(var(--accent-rgb),0.3)"
+      }}
+    >
+      {label}
+    </span>
+  ))}
+</div>
+<div className="text-justify">
+In this game, I **designed and programmed several dash mechanics**, as well as various **rooms and interactables.** I implemented the **quest system and JSON-based save/load data**, along with the corresponding **UI elements**, I also did **QA testing** to review and detect different bugs and balance gameplay statistics. 
+
+</div>
+
+<div className="flex flex-col items-center my-8">
+  <a
+    href="https://pablosko.itch.io/eden"  
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex flex-col items-center group"
+  >
+    <img
+      src={imageItchio}               
+      alt="Itch.io Logo"
+      width="80"
+      height="80"
+      className="mb-3 transition-transform duration-200 group-hover:scale-110"
+    />
+    <span className="text-lg font-semibold text-[#FFFFFF] group-hover:text-[#1338BE] transition">
+      Download on Itch.io
+    </span>
+  </a>
+</div>
+
+<div className="flex justify-center my-6">
+  <Image src={image}
+    alt="Extra gameplay screenshot of Eden" 
+  className="w-full max-w-3xl h-auto rounded-xl shadow"
+  />
+</div>
