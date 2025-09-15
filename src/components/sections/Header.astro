@@ -9,47 +9,47 @@ const currentPath = Astro.url.pathname; // Detecta la ruta actual
     <!-- Logo -->
     <div class="flex items-center gap-3">
       <a class="no-underline hover:opacity-90 flex items-center gap-2" href="/" aria-label="Home">
-        <img src="/NaguCode_Logo.jpg?v=1" alt="" aria-hidden="true" width="45" height="45" />
+        <img src="/portfolio_astro_page/NaguCode_Logo.jpg?v=1" alt="" aria-hidden="true" width="45" height="45" />
       </a>
 
       <!-- Links desktop -->
       <div class="internal-links hidden md:flex items-center gap-2 ml-1">
         <HeaderLink 
-          href="/" 
+          href="/portfolio_astro_page/" 
           class={`px-3 py-3 font-bold no-underline rounded-md transition-colors
-            ${currentPath === "/" 
+            ${currentPath === "/portfolio_astro_page/" 
               ? "text-[var(--accent)] bg-[var(--accent)]/10" 
               : "text-[color:var(--color-text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}
         >Home</HeaderLink>
 
         <HeaderLink 
-          href="/about" 
+          href="/portfolio_astro_page/about" 
           class={`px-3 py-3 font-bold no-underline rounded-md transition-colors
-            ${currentPath === "/about" 
+            ${currentPath === "/portfolio_astro_page/about" 
               ? "text-[var(--accent)] bg-[var(--accent)]/10" 
               : "text-[color:var(--color-text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}
         >About</HeaderLink>
 
         <HeaderLink 
-          href="/Skills" 
+          href="/portfolio_astro_page/Skills" 
           class={`px-3 py-3 font-bold no-underline rounded-md transition-colors
-            ${currentPath === "/Skills" 
+            ${currentPath === "/portfolio_astro_page/Skills" 
               ? "text-[var(--accent)] bg-[var(--accent)]/10" 
               : "text-[color:var(--color-text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}
         >Skills</HeaderLink>
 
         <HeaderLink 
-          href="/blog" 
+          href="/portfolio_astro_page/blog" 
           class={`px-3 py-3 font-bold no-underline rounded-md transition-colors
-            ${currentPath === "/blog" 
+            ${currentPath === "/portfolio_astro_page/blog" 
               ? "text-[var(--accent)] bg-[var(--accent)]/10" 
               : "text-[color:var(--color-text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}
         >Game Projects</HeaderLink>
 
         <HeaderLink 
-          href="/portfolio" 
+          href="/portfolio_astro_page/portfolio" 
           class={`px-3 py-3 font-bold no-underline rounded-md transition-colors
-            ${currentPath === "/portfolio" 
+            ${currentPath === "/portfolio_astro_page/portfolio" 
               ? "text-[var(--accent)] bg-[var(--accent)]/10" 
               : "text-[color:var(--color-text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}
         >Projects</HeaderLink>
@@ -93,11 +93,11 @@ const currentPath = Astro.url.pathname; // Detecta la ruta actual
   <!-- Menu móvil -->
   <div id="mobile-menu" class="md:hidden hidden border-t bg-background">
     <div class="mx-auto max-w-6xl px-4 py-3 flex flex-col gap-2">
-      <HeaderLink href="/" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>Home</HeaderLink>
-      <HeaderLink href="/about" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/about" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>About</HeaderLink>
-      <HeaderLink href="/Skills" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/Skills" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>Skills</HeaderLink>
-      <HeaderLink href="/blog" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/blog" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>Game Projects</HeaderLink>
-      <HeaderLink href="/portfolio" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/portfolio" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>Projects</HeaderLink>
+      <HeaderLink href="/portfolio_astro_page/" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/portfolio_astro_page/" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>Home</HeaderLink>
+      <HeaderLink href="/portfolio_astro_page/about" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/portfolio_astro_page/about" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>About</HeaderLink>
+      <HeaderLink href="/portfolio_astro_page/Skills" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/portfolio_astro_page/Skills" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>Skills</HeaderLink>
+      <HeaderLink href="/portfolio_astro_page/blog" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/portfolio_astro_page/blog" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>Game Projects</HeaderLink>
+      <HeaderLink href="/portfolio_astro_page/portfolio" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/portfolio_astro_page/portfolio" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>Projects</HeaderLink>
       <a href="#contact" class={`px-2 py-3 font-bold no-underline rounded-md ${currentPath === "/contact" ? "text-[var(--accent)] bg-[var(--accent)]/10" : "hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"}`}>CV & Contact</a>
     </div>
   </div>
