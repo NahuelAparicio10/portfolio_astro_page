@@ -1,9 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import FormattedDate from '../../FormattedDate.astro';
 import { calculateReadingTimeFromMarkdown } from '../../../lib/reading';
-import { slugifyTag as slugify } from '../../../lib/slug';
 
 interface Props { post: CollectionEntry<'blog'> }
 const { post } = Astro.props as Props;
@@ -18,7 +16,7 @@ try {
 
 <article class="card-surface p-4 h-full flex flex-col gap-3 relative">
   {post.data.heroImage && (
-    <Image width={640} height={360} src={post.data.heroImage} alt={post.data.title} />
+    <Image width={640} height={360} src={`/portfolio_astro_page${post.data.heroImage}`} alt={post.data.title} />
   )}
   <h4 class="!text-center text-xl font-semibold text-[color:var(--color-text-primary)]">{post.data.title}</h4>
   <p class="text-sm text-[color:var(--color-text-muted)] text-justify">{post.data.description}</p>
@@ -27,10 +25,10 @@ try {
   </div>
   {post.data.tags && post.data.tags.length > 0 && (
     <div class="flex gap-2 flex-wrap">
-      {post.data.tags.map((t) => <a href={`/blog/tag/${t.replace(/\s+/g,'-').toLowerCase()}/`} class="sw-tag interactive-link">{t}</a>)}
+      {post.data.tags.map((t) => <a href={`/portfolio_astro_page/blog/tag/${t.replace(/\s+/g,'-').toLowerCase()}/`} class="sw-tag interactive-link">{t}</a>)}
     </div>
   )}
-  <a href={`/blog/${post.id}/`} class="stretched-link" aria-label={post.data.title}></a>
+  <a href={`/portfolio_astro_page/blog/${post.id}/`} class="stretched-link" aria-label={post.data.title}></a>
 </article>
 
 
