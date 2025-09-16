@@ -87,41 +87,49 @@ const { title, description, showHeader = true, heroImage } = Astro.props as Prop
 				<slot />
 			</div>
 			<section class="w-full py-6 md:py-10">
-				<div class="mx-auto max-w-5xl px-4 text-center">
-					<h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground">
+				<div class="mx-auto max-w-5xl px-4">
+				<div class="flex flex-col md:flex-row items-center gap-6 rounded-2xl p-6 border-2 border-[var(--accent)] bg-[var(--color-bg-primary)]">
+
+				<!-- Imagen -->
+				<img 
+					src="/portfolio_astro_page/img1.png" 
+					alt="Nahuel Aparicio Del Blanco" 
+					class="w-40 h-40 md:w-40 md:h-40 rounded-full object-cover shadow-md"
+				/>
+
+				<!-- Texto -->
+				<div class="text-center">
+					<h1 class="text-1xl md:text-5xl font-extrabold tracking-tight text-foreground">
 					<span class="bg-gradient-to-r from-[var(--accent)] to-[var(--accent-dark)] bg-clip-text text-transparent">
 						Nahuel Aparicio Del Blanco
 					</span>
 					</h1>
-					{(
-					<p class="mt-4 text-lg md:text-xl text-[color:var(--color-text-secondary)] max-w-2xl mx-auto">
-						Gameplay Programmer & Game Developer – Barcelona, Spain.
+					<p class="mt-2 text-lg md:text-xl text-[color:var(--color-text-secondary)]">
+					Gameplay Programmer & Game Developer – Barcelona, Spain.
 					</p>
-					)}
 				</div>
-			</section>
+
+				</div>
+			</div>
+		</section>
 			<p>
-				Ever since I was a kid, I’ve been fascinated by how games create worlds that feel alive. 
-				That curiosity grew into a passion for <b>gameplay programming</b>, where I now focus on building <b>efficient, clean, and fun-to-play systems</b>.
+				Since I was a kid, I have been fascinated by how games create worlds that feel alive. 
+				That curiosity grew into a passion for <b>game development</b> and <b>gameplay programming</b>, 
+				where I now focus on building <b>efficient, modular, and fun-to-play systems</b>.
 			</p>
 			<p>
 				I see myself as a <b>problem solver</b>, always striving to write maintainable code and open to constructive 
   				feedback that helps me improve both personally and professionally.
 			</p>
-
-			<h4><b>Experience Highlight</b></h4>
 			<p>
 				I started programming in <b>2017</b>, focusing mostly on <b>Unity (C#)</b>, while also gaining experience 
-				with <b>C++</b> and engines such as Unreal.  
+				with <b>C++</b> and engines/frameworks such as Unreal, OpenGL, SFML and Phaser.  
 			</p>
 			<p>
-				Recently, I worked as the <b>sole programmer</b> on a collaborative project, implementing core gameplay 
-				mechanics, UI, and quest systems, while integrating art and audio into a cohesive experience.
+				My ultimate goal is to craft <b>game systems</b> that bring ideas and designs to life, 
+				combining technical precision with the magic of play.
 			</p>
-			<p>
-				Beyond Unity and Unreal, I have also developed <b>projects in C++</b> using frameworks such as <b>OpenGL</b> and <b>SFML</b>, 
-				which helped me deepen my understanding of low-level programming, performance, and graphics pipelines.
-			</p>		
+
 			<ArrowSeparator/>
 			</article>
 		</main>

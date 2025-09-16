@@ -23,6 +23,8 @@ export const studies = [
     description:
       "Specialized certification covering the complete game development pipeline - from 3D modeling and animation to AI programming and immersive VR/AR experiences. Built interactive environments using industry-standard tools and best practices.",
     tags: [
+      "CFGS",
+      "HNC",
       "C#",
       "Unity",
       "SOLID",

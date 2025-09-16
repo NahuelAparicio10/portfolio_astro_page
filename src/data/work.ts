@@ -19,7 +19,6 @@ export const work = [
     technologies: [
       "Unity",
       "C#",
-      "React",
       "Firebase/Auth",
       "Git",
       "3D",
