@@ -37,11 +37,11 @@ const { title } = Astro.props as Props;
           {/* Project Image */}
           {p.image && (
           <div class="mt-4 mb-4 overflow-hidden rounded-lg">
-          <img src={`${p.image}`} alt={`Screenshot of ${p.title}`} class="w-full h-48 "/></div>            
+          <img src={p.image} alt={`Screenshot of ${p.title}`} class="w-full h-48 "/></div>            
           )}
           
           <div class="mt-6 flex justify-center">
-            <Button href={`${p.ctaLink}`} variant="secondary" size="sm">{p.ctaText}</Button>
+            <Button href={p.ctaLink} variant="secondary" size="sm">{p.ctaText}</Button>
           </div>
         </article>
       ))}
