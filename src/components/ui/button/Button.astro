@@ -34,6 +34,9 @@ const variants: Record<string, string> = {
 };
 
 const classes = [base, sizes[size], variants[variant], className].filter(Boolean).join(' ');
+
+// Detectar enlaces externos
+const isExternal = href?.startsWith("http://") || href?.startsWith("https://");
 ---
 
 <Tag
@@ -41,9 +44,8 @@ const classes = [base, sizes[size], variants[variant], className].filter(Boolean
   href={href}
   type={!href ? type : undefined}
   aria-disabled={disabled ? 'true' : undefined}
+  {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
   {...rest}
 >
   <slot />
 </Tag>
-
-
