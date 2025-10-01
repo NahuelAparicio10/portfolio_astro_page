@@ -1,0 +1,69 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/sections/es/es_Footer.astro';
+import Header from '../../../components/sections/Header.astro';
+import BlogAllArticles from '../../../components/sections/es/BlogAllArticles.astro';
+import BlogPagination from '../../../components/ui/nav/BlogPagination.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../../consts';
+import FeaturedPost from '../../../components/ui/card/ES_FeaturedPost.astro';
+import GlowLineSeparator from '@/components/ui/separator/GlowLineSeparator.astro';
+
+const PAGE_SIZE = 6;
+
+const allPosts = await getCollection('es');
+
+const featuredPosts = allPosts
+  .filter(p => p.data.featured)
+  .sort((a, b) => (a.data.featuredOrder ?? 9999) - (b.data.featuredOrder ?? 9999));
+
+const rest = allPosts
+  .filter(p => !p.data.featured)
+  .sort((a, b) => (a.data.featuredOrder ?? 9999) - (b.data.featuredOrder ?? 9999));
+
+const firstPagePosts = rest.slice(0, PAGE_SIZE);
+const totalPages = Math.max(1, Math.ceil(rest.length / PAGE_SIZE));
+
+
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark" class="dark">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    {totalPages > 1 && <link rel="next" href={`/portfolio_astro_page/blog/page/2/`} />}
+  </head>
+  <body>
+    <Header />
+
+				<div class="mt-15 mb-7 mx-auto max-w-5xl px-4 text-center">
+					<h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground">
+					<span class="bg-gradient-to-r from-[var(--accent)] to-[var(--accent-dark)] bg-clip-text text-transparent">
+						JUEGOS
+					</span>
+					</h1>
+					<p class="mt-4 text-lg md:text-xl text-[color:var(--color-text-secondary)] max-w-2xl mx-auto">
+Una selección de los juegos que he desarrollado y en los que he contribuido. Haz clic en ellos para ver más información.
+					</p>
+				</div>
+      <GlowLineSeparator/>
+
+    <main class="mt-5 use-utility-layout mx-auto max-w-5xl px-3 py-5 space-y-7">
+      {featuredPosts.length > 0 && (
+        <section class="grid grid-cols-1 gap-6">
+          {featuredPosts.map((p) => (
+            <article class="card-surface p-4 md:p-5 hover-lift sw-featured-card">
+              <FeaturedPost post={p} />
+            </article>
+          ))}
+        </section>
+      )}
+      <br/>
+      <BlogAllArticles posts={firstPagePosts} />
+      <BlogPagination currentPage={1} totalPages={totalPages} />
+      <br/>
+    </main>
+
+    <Footer />
+  </body>
+</html>

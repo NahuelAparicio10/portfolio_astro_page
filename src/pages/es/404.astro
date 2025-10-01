@@ -1,0 +1,27 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/sections/Header.astro';
+import Footer from '../../components/sections/es/es_Footer.astro';
+---
+
+<html lang="en" data-theme="dark" class="dark">
+  <head>
+    <BaseHead title="404 – Page not found" description="The page you are looking for doesn’t exist." />
+  </head>
+  <body>
+    <Header />
+    <main class="mx-auto max-w-6xl px-4 py-16">
+      <section class="card-surface p-8 text-center space-y-4">
+        <h1 class="text-4xl font-bold text-[color:var(--color-text-primary)]">404</h1>
+        <p class="text-lg text-[color:var(--color-text-secondary)]">La página no existe :S.</p>
+        <div class="mt-4 flex items-center justify-center gap-3">
+          <a href="/" class="sw-btn">Vuelve al menu principal</a>
+          <a href="/blog/" class="sw-btn">Portfolio</a>
+        </div>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+

@@ -1,13 +1,13 @@
 ---
 const today = new Date();
-import contactIconRaw from "../../assets/icons/resume-icon.svg?raw";
-import Button from "../ui/button/Button.astro";
-import GlowLineSeparator from "../ui/separator/GlowLineSeparator.astro";
-import mailIconRaw from "../../assets/icons/contact-icon.svg?raw";
-import itchioIconRaw from "../../assets/logos/itchio-logo.svg?raw"
-import twitterIconRaw from "../../assets/icons/x-blog-post-share-icon.svg?raw"
-import githubIconRaw from "../../assets/logos/source_control/01-GitHub-logo.svg?raw"
-import linkdinIconRaw from "../../assets/icons/linkedin.svg?raw"
+import contactIconRaw from "../../../assets/icons/resume-icon.svg?raw";
+import Button from "../../ui/button/Button.astro";
+import GlowLineSeparator from "../../ui/separator/GlowLineSeparator.astro";
+import mailIconRaw from "../../../assets/icons/contact-icon.svg?raw";
+import itchioIconRaw from "../../../assets/logos/itchio-logo.svg?raw"
+import twitterIconRaw from "../../../assets/icons/x-blog-post-share-icon.svg?raw"
+import githubIconRaw from "../../../assets/logos/source_control/01-GitHub-logo.svg?raw"
+import linkdinIconRaw from "../../../assets/icons/linkedin.svg?raw"
 
 function sanitizeToPureWhite(svg: string, size = 20) {
   let s = svg
@@ -54,13 +54,13 @@ const feedUrl = new URL('rss.xml', Astro.site).toString();
 <GlowLineSeparator></GlowLineSeparator>
 
 <footer id="contact" class="py-12 px-4 text-center">
-  <h2 class="text-2xl md:text-3xl font-semibold text-foreground">CONTACT & CV</h2>
-  <p class="mt-2 text-[color:var(--color-text-muted)]">Want to know more about my journey? Here’s my CV.</p>
+  <h2 class="text-2xl md:text-3xl font-semibold text-foreground">CONTACTO Y CV</h2>
+  <p class="mt-2 text-[color:var(--color-text-muted)]">¿Quieres saber más sobre mi trayectoria? Aquí tienes mi CV.</p>
 
   <div class="mt-8 flex justify-center">
-    <Button href="/cv.pdf" variant="secondary" size="md">
+    <Button href="/portfolio_astro_page/CV_Nahuel_Aparicio.pdf" variant="secondary" size="md">
       <span class="inline-flex mr-2" aria-hidden="true" set:html={contactIcon} />
-      Download CV
+      Descargar CV
     </Button>
   </div>
 

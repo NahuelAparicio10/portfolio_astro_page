@@ -1,0 +1,88 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/sections/es/es_Footer.astro';
+import Header from '../../components/sections/Header.astro';
+import SkillsSection from '../../components/sections/es/SkillsSection.astro';
+import { skills } from '../../data/skills';
+
+
+type Props = {
+  title: string;
+  description: string;
+  showHeader?: boolean;
+  heroImage?: ImageMetadata;
+};
+
+const { title, description, showHeader = true, heroImage } = Astro.props as Props;
+
+---
+
+<html lang="en" data-theme="dark" class="dark">
+	<head>
+		<BaseHead title={title} description={description} image={heroImage} />
+		<meta property="og:type" content="article" />
+
+		<style>
+				/* Align blog layout with site container to avoid right overflow and tight column */
+				main {
+					width: 1280px;
+					max-width: calc(100% - 2em);
+					margin: auto;
+					background: var(--color-bg-primary);
+				}
+			.hero-image {
+				width: 100%;
+			}
+			.hero-image img {
+				display: block;
+				margin: 0 auto;
+				border-radius: 12px;
+				box-shadow: var(--box-shadow);
+			}
+				.prose {
+					width: 100%;
+					max-width: 870px; /* widen column */
+					margin: auto;
+					padding: 0.05em;
+					color: var(--color-text-secondary);
+				}
+            .title {
+				margin-bottom: 1em;
+				padding: 1em 0;
+				text-align: center;
+				line-height: 1;
+			}
+			.title h1 {
+                margin: 0 0 0.5em 0;
+                color: var(--color-text-primary);
+			}
+			.date {
+                margin-bottom: 0.5em;
+                color: var(--color-text-muted);
+			}
+			.last-updated-on {
+				font-style: italic;
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article>	
+				<div class="mx-auto max-w-5xl px-4 text-center">
+					<h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground">
+					<span class="bg-gradient-to-r from-[var(--accent)] to-[var(--accent-dark)] bg-clip-text text-transparent">
+						SKILLS Y HERRAMIENTAS
+					</span>
+					</h1>
+					<p class="mt-4 text-lg md:text-xl text-[color:var(--color-text-secondary)] max-w-2xl mx-auto">
+						Mi stack técnico para desarrollo de videojuegos y programación.
+					</p>
+				</div>
+			<SkillsSection title="" skills={skills} />
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

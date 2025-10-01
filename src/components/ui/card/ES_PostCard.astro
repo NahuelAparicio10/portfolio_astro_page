@@ -1,0 +1,34 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { calculateReadingTimeFromMarkdown } from '../../../lib/reading';
+
+interface Props { post: CollectionEntry<'es'> }
+const { post } = Astro.props as Props;
+// Estimate reading time from raw body (Markdown/MDX)
+let readingTimeMin = 0;
+try {
+  // @ts-ignore - body may not exist until rendered; fallback to data.description
+  const md = (post as any).body ?? '';
+  readingTimeMin = calculateReadingTimeFromMarkdown(md || post.data.description || '');
+} catch {}
+---
+
+<article class="card-surface p-4 h-full flex flex-col gap-3 relative">
+  {post.data.heroImage && (
+    <Image width={640} height={360} src={post.data.heroImage} alt={post.data.title} />
+  )}
+  <h4 class="!text-center text-xl font-semibold text-[color:var(--color-text-primary)]">{post.data.title}</h4>
+  <p class="text-sm text-[color:var(--color-text-muted)] text-justify">{post.data.description}</p>
+  <div class="flex flex-col text-sm text-[color:var(--color-text-muted)] gap-1">
+
+  </div>
+  {post.data.tags && post.data.tags.length > 0 && (
+    <div class="flex gap-2 flex-wrap">
+      {post.data.tags.map((t) => <a href={`/portfolio_astro_page/es/blog/tag/${t.replace(/\s+/g,'-').toLowerCase()}/`} class="sw-tag interactive-link">{t}</a>)}
+    </div>
+  )}
+  <a href={`/portfolio_astro_page/es/blog/${post.id}/`} class="stretched-link" aria-label={post.data.title}></a>
+</article>
+
+

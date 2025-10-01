@@ -1,0 +1,91 @@
+---
+title: 'EL SOPLA JUEGO'
+description: 'FPS 3D desarrollado en Unity. Único programador (equipo de 7, 24 semanas).'
+pubDate: '2025'
+heroImage: '../../assets/images/games/soplajuego.png'
+youtubeTitle: 'El Sopla Juego'
+youtubeID: 'avwgtVoUfO0'
+tags: ['Unity', '3D', 'PC', 'FPS']
+featured: true
+featuredOrder: 1 
+---
+
+import { Image } from 'astro:assets';
+import image from "../../assets/images/games/sopla_juego.png";
+import imageItchio from "../../assets/logos/itchio-logo.svg?url";
+
+###  **Información del proyecto**  
+
+```markdown
+👤 Rol: Programador en solitario
+👥 Equipo: 7 
+⏳ Duración: 24 semanas (6 meses)  
+🎮 Motor: Unity
+```
+
+<br/>
+###  **Sobre el juego**
+<div className="text-justify">
+
+El Sopla Juego es un **FPS 3D** donde encarnas a un operario de limpieza armado con un arma única: una **aspiradora** capaz de aspirar, soplar y disparar los objetos absorbidos. Tras romper el gnomo de jardín de un vecino, el protagonista debe pagar la deuda completando distintas misiones por la ciudad.
+
+Este proyecto se desarrolló como Trabajo de Fin de Grado de otras personas que me pidieron colaborar como programador. Así que colabore con un equipo de artistas y músicos. Me incorporé como único programador, responsable de convertir la visión creativa del equipo en un juego funcional. Mi trabajo se centró en diseñar e implementar todas las mecánicas jugables e integrar en Unity los assets artísticos y de audio, asegurando un prototipo coherente y jugable.
+</div>
+
+### **Contribuciones al juego**
+
+<div className="mt-4 mb-4 flex flex-wrap gap-2 ">
+  {[
+    "Mecánicas del jugador",
+    "Física de objetos",
+    "Sistema de diálogos",
+    "Sistema de misiones",
+    "Sistema de guardado",
+    "UI & UX"
+  ].map((label) => (
+    <span
+      key={label}
+      className="inline-grid place-items-center rounded-full px-3 py-1 text-xs font-medium leading-[1]"
+      style={{
+        background: "rgba(var(--accent-rgb),0.1)",
+        color: "var(--accent)",
+        border: "1px solid rgba(var(--accent-rgb),0.3)"
+      }}
+    >
+      {label}
+    </span>
+  ))}
+</div>
+
+<div className="text-justify">
+
+Como único programador, asumí toda la parte técnica del juego. Implementé las mecánicas basadas en la aspiradora (aspirar, soplar y disparar proyectiles), creé las interacciones de física con objetos y desarrollé los sistemas de misiones, diálogos y guardado/carga. Además, diseñé y programé la UI/UX para ofrecer un feedback intuitivo al jugador, e integré todos los recursos visuales y de sonido proporcionados por artistas y músicos.
+
+</div>
+
+<div className="flex flex-col items-center my-8">
+  <a
+    href="https://soplajuego.itch.io/elsoplajuego"  
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex flex-col items-center group"
+  >
+    <img
+      src={imageItchio}               
+      alt="Itch.io Logo"
+      width="80"
+      height="80"
+      className="mb-3 transition-transform duration-200 group-hover:scale-110"
+    />
+    <span className="text-lg font-semibold text-[#FFFFFF] group-hover:text-[#1338BE] transition">
+      Descargar en Itch.io
+    </span>
+  </a>
+</div>
+
+<div className="flex justify-center my-6">
+  <Image src={image}
+    alt="Captura extra del gameplay de El Sopla Juego" 
+  className="w-full max-w-3xl h-auto rounded-xl shadow"
+  />
+</div>

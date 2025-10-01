@@ -1,6 +1,6 @@
 ---
-import Carousel from '../ui/carousel/Carousel.astro';
-import { loadLogosFrom } from '../../data/logos';
+import Carousel from '../../ui/carousel/Carousel.astro';
+import { loadLogosFrom } from '../../../data/logos';
 import GlowLineSeparator from '@/components/ui/separator/GlowLineSeparator.astro';
 interface SkillItem {
   icon: string; 
@@ -20,27 +20,27 @@ const { title, skills } = Astro.props as Props;
   <div class="mx-auto max-w-6xl px-4">
   <GlowLineSeparator class="mb-8 mt-8" />
 
-  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">PROGRAMMING LANGUAGES</h3>
+  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">LENGUAJES DE PROGRAMACIÓN</h3>
   
   <Carousel tools={loadLogosFrom('programming')} />
   <GlowLineSeparator class="mb-8 mt-8" />
     
-  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">ENGINES & FRAMEWORKS</h3>
+  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">MOTORES Y FRAMEWORKS</h3>
   
   <Carousel tools={loadLogosFrom('engines')} />
   <GlowLineSeparator class="mb-8 mt-8" />
 
-  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">IDEs & CODE EDITORS</h3>  
+  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">IDEs Y EDITORES DE CÓDIGO</h3>  
   
   <Carousel tools={loadLogosFrom('ides')} />
   <GlowLineSeparator class="mb-8 mt-8" />
 
-  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">SOURCE CONTROL & PROJECT MANAGEMENT</h3>
+  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">CONTROL DE VERSIONES Y GESTIÓN DE PROYECTOS</h3>
 
   <Carousel tools={loadLogosFrom('source_control')} />
   <GlowLineSeparator class="mb-8 mt-8" />
 
-  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">DESIGN, MEDIA & 3D TOOLS</h3>
+  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">DISEÑO, MEDIA Y HERRAMIENTAS 3D</h3>
 
   <Carousel tools={loadLogosFrom('design')} />
   <GlowLineSeparator class="mb-8 mt-8" />
@@ -49,57 +49,57 @@ const { title, skills } = Astro.props as Props;
     <div class="mt-7 mb-15 flex flex-wrap justify-center gap-3">
       <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
             style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Teamwork & Collaboration
+        Trabajo en equipo
       </span>
       <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
             style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Problem-Solving
+        Resolución de problemas
       </span>
       <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
             style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Adaptability
+        Adaptabilidad
       </span>
       <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
             style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Communication
+        Comunicación
       </span>
       <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
             style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Critical Thinking
+        Pensamiento crítico
       </span>
       <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
             style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Creativity
+        Creatividad
       </span>
       <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
             style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Attention to Detail
+        Atención al detalle
       </span>
       <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
             style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Self-Learning
+        Autodidacta
       </span>
-            <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
+      <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
             style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Resilience
+        Resiliencia
       </span>
     </div>
 
     <GlowLineSeparator class="mb-8 mt-8" />
 
-    <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">LANGUAGES</h3>
+    <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">IDIOMAS</h3>
     <div class="mt-7 flex flex-wrap justify-center gap-3">
       <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
             style="background: rgba(255,0,0,0.1); color: #ff0000; border: 2px solid rgba(255,0,0,0.4);">
-        Spanish (Native)
+        Español (Nativo)
       </span>
       <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
             style="background: rgba(255,0,0,0.1); color: #ff0000; border: 2px solid rgba(255,0,0,0.4);">
-        Catalan (Native)
+        Catalán (Nativo)
       </span>
       <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
             style="background: rgba(255,0,0,0.1); color: #ff0000; border: 2px solid rgba(255,0,0,0.4);">
-        English (B2)
+        Inglés (Nivel B2)
       </span>
     </div>
 

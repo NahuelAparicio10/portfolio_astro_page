@@ -1,0 +1,100 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/sections/es/es_Footer.astro';
+import Header from '../../components/sections/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+
+// Logos
+
+const ctas = [
+  { text: "Sobre mí", href: "/portfolio_astro_page/about", variant: "secondary" },
+  { text: "Skills", href: "/portfolio_astro_page/Skills", variant: "secondary" },
+  { text: "Juegos", href: "/portfolio_astro_page/blog", variant: "secondary" },
+  { text: "Proyectos", href: "/portfolio_astro_page/portfolio", variant: "secondary" },
+  { text: "CV y contacto", href: "/portfolio_astro_page/contact", variant: "secondary" },
+];
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark" class="dark">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <!-- JSON-LD: Organization -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'Nahuel Aparicio',
+      url: new URL('/', Astro.site).toString(),
+      logo: new URL('/favicon.svg', Astro.site).toString(),
+      sameAs: [
+        'https://x.com/naguuu10',
+        'www.linkedin.com/in/nahuel-aparicio-del-blanco-193234327',
+      ],
+    })} />
+	</head>
+<body class="overflow-x-hidden">
+  <Header />
+  <main class="w-full max-w-none p-0 m-0">
+    <div class="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-15">
+      <section class="relative w-screen h-screen overflow-hidden m-0">
+        <!-- VIDEO -->
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          class="absolute inset-0 w-full h-full object-cover z-0 ">
+          <source src="/portfolio_astro_page/videos/fondo.mp4" type="video/mp4" />
+        </video>
+
+        <!-- Overlay oscuro -->
+        <div class="absolute inset-0 bg-black/86 z-10"></div>
+
+        <!-- CONTENIDO -->
+        <div class="relative z-20 flex flex-col items-center justify-center h-full px-6 text-center -mt-20">
+          
+          <!-- Nombre -->
+          <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-foreground mb-4 whitespace-nowrap">
+            <span>NAHUEL</span>
+            <span class="bg-gradient-to-r from-[var(--accent)] to-[var(--accent-dark)] bg-clip-text text-transparent">
+            APARICIO
+            </span>
+          </h1>
+
+          <!-- Rol -->
+          <h3 class="text-2xl md:text-3xl font-semibold text-foreground mb-6">
+            Programador de Gameplay y
+            <span class="bg-gradient-to-r from-[var(--accent)] to-[var(--accent-dark)] bg-clip-text text-transparent">
+            Desarrollador de Videojuegos
+            </span>
+          </h3>
+
+          <!-- Subtítulo -->
+            <p class="max-w-2xl text-base md:text-lg text-[color:var(--color-text-secondary)] mb-8">
+              Programando el puente entre el diseño y la experiencia del jugador.
+            </p>
+
+          <!-- CTA -->
+          {ctas.length > 0 && (
+            <div class="flex flex-wrap justify-center gap-4 mt-7">
+              {ctas.map((cta) => (
+                <a
+                  href={cta.href}
+                  class={`no-underline font-bold px-7 py-3.5 rounded-lg text-lg transition-all
+                    ${cta.variant === "primary"
+                      ? "bg-gradient-to-r from-[var(--accent)] to-[var(--accent-dark)] text-white shadow-lg hover:scale-105 hover:shadow-xl"
+                      : "border border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-black hover:scale-105"}
+                  `}
+                >
+                  {cta.text}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+    </div>
+  </main>
+  <Footer />
+</body>
+</html>
