@@ -6,11 +6,18 @@
 
 - [x] Titular de la home: rol fijo + especialidades rotando (opción 3)
 - [x] Tipografía: Space Grotesk (titulares) + Inter (cuerpo), en WOFF2
-- [x] Categorías de skills: se añade *Game Feel & Feedback*, se descarta
-      *Performance* como bloque independiente
-- [ ] **Nahuel**: aprobar la redacción del puesto actual bajo NDA
-- [ ] **Nahuel**: aportar en qué consistieron los 7 meses de prácticas en
-      Titutitech (no hay historial que lo respalde)
+- [x] Categorías de skills: se añaden *Game Feel & Feedback* y
+      *Networking & Architecture*; se descartan *Performance* y
+      *Platforms & Delivery*
+- [x] Material de las prácticas aportado (informe de 300 h, dep. Gameplay & Tools)
+- [x] Correcciones al borrador del puesto actual aplicadas
+- [ ] **Nahuel**: aprobar la redacción final de ambos puestos bajo NDA
+- [ ] **Nahuel**: describir la "herramienta web interna" (deducida del
+      directorio `web/`, sin confirmar qué hace)
+- [ ] **Nahuel**: confirmar las fechas de prácticas — el informe dice
+      03/11/2025–17/03/2026 y el puesto nov 2025–may 2026
+- [ ] **Nahuel**: decidir si se mencionan PC / Nintendo Switch / Steam en la
+      tarjeta de prácticas, o se deja en "un título comercial"
 - [ ] **Nahuel**: revisar la lista final de skills antes de publicarla
 
 ## 1. Contenido — Skills
@@ -19,6 +26,10 @@
 - [ ] Redactar la categoría **AI & Automation** (Claude Code, Codex, OpenSpec,
       agentes, revisores de código, servidores MCP, creación de skills)
 - [ ] Redactar la categoría **Game Feel & Feedback**
+- [ ] Redactar la categoría **Graphics & Shaders** (URP, Shader Graph, HLSL, OpenGL)
+- [ ] Redactar la categoría **Networking & Architecture** (UDP/TCP, ECS,
+      servidor autoritativo, acoplamiento)
+- [ ] Verificar que cada categoría tiene respaldo en un proyecto o puesto real
 - [ ] Mover los SVG inline a `src/assets/icons/`
 - [ ] Traducir todas las categorías al español
 - [ ] Verificar que no queda ninguna mención heredada de la plantilla

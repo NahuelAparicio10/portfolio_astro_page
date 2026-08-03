@@ -76,25 +76,65 @@ del producto en genérico, responsabilidades concretas).
 > **Game Programmer** · may 2026 – actualidad
 >
 > Desarrollo de un título móvil sin anunciar en Unity. Implementación de sistemas
-> de gameplay y de la capa de *feedback* del juego: secuencias de combate,
-> animaciones, *shaders* de realce y sistema de audio. Desarrollo de herramientas
-> internas de editor para importación de interfaz, inspección de entidades y
-> automatización de builds. Diseño e integración de flujos de desarrollo asistidos
-> por IA: servidor MCP propio, agentes de revisión de código y un *gate* automático
-> de arquitectura que mide acoplamiento y bloquea dependencias prohibidas entre capas.
+> de gameplay —combate, movimiento, físicas y máquinas de estado— y de la capa de
+> *feedback*: animaciones, *shaders* y el sistema de audio de *gameplay*.
+> Desarrollo de herramientas internas de editor, entre ellas un inspector de
+> entidades y una herramienta web interna de equipo. Diseño e implementación de
+> los flujos de desarrollo asistidos por IA del proyecto: agentes y *skills*
+> propios, servidor MCP y un revisor de código automático, junto a un *gate* de
+> arquitectura que mide acoplamiento y bloquea dependencias prohibidas entre capas.
+
+Correcciones aplicadas sobre el primer borrador, indicadas por Nahuel:
+
+- **No** hubo automatización de builds. Retirado.
+- Los agentes, las *skills*, el revisor de código por IA, el inspector de
+  entidades y la herramienta web interna son de **su autoría**, no integraciones.
+- El sistema de audio es **solo de gameplay**, no del juego completo.
+- "*shaders* de realce" → "*shaders*".
+- Gameplay se concreta en combate, movimiento, físicas y estados, evitando
+  términos que no corresponden a su trabajo real.
+
+**Pendiente de confirmar**: la naturaleza de la "herramienta web interna" se
+dedujo del directorio `web/` del repositorio; falta la descripción de Nahuel.
 
 > **Game Developer** (prácticas) · nov 2025 – may 2026
 >
-> Prácticas de 7 meses en desarrollo de videojuegos con Unity y C#. Implementación
-> de funcionalidades de gameplay y componentes de interfaz, integración de sistemas
-> existentes y participación en el ciclo de desarrollo del equipo.
+> Prácticas de 7 meses en el departamento de *Gameplay & Tools* sobre un título
+> comercial para PC y Nintendo Switch. Refactorización del sistema de localización
+> y tipografías sobre *Addressables*, con soporte de fuentes CJK y herramientas de
+> editor propias para su gestión. Desarrollo y adaptación de *shaders* y efectos
+> visuales en URP, incluidos efectos de pantalla completa con *Shader Graph* y un
+> gestor genérico para administrarlos. Implementación desde cero de un sistema de
+> clasificaciones integrado con la API de Steam, con paginación, posición del
+> jugador y estados de carga. Desarrollo de nuevas mecánicas —físicas de rebote y
+> un sistema de puntuación por zonas con sacudida de cámara en función de masa e
+> impacto—, un nivel completo, y herramientas internas para agilizar la
+> incorporación de contenido jugable.
 
-**Pendiente**: el borrador de las prácticas es genérico porque no hay historial
-que lo respalde — los commits del proyecto actual arrancan en mayo de 2026. Nahuel
-debe aportar en qué trabajó esos siete meses.
+Fuente: informe de prácticas aportado por Nahuel (300 h, dep. Gameplay & Tools).
+
+Material disponible que **no** entró en la tarjeta, por extensión. Recuperable si
+se decide alargarla:
+
+- Menú de configuración dinámico por plataforma mediante directivas de compilación
+- Capa de calidad gráfica con postprocesado (Bloom, Motion Blur) en URP
+- Sesiones de QA y *playtesting* con documentación de hallazgos
+- Migración de componentes de navegación obsoletos de Unity
+
+**Discrepancia de fechas**: el informe de prácticas indica 03/11/2025 – 17/03/2026,
+mientras que el puesto figura como nov 2025 – may 2026. Se asume que el prácticum
+universitario fue un subconjunto del contrato y se usan las fechas del puesto.
+Pendiente de confirmación.
+
+#### Aprobación
 
 **Ambos borradores requieren la aprobación explícita de Nahuel** antes de
 publicarse. Él conoce los términos concretos del acuerdo firmado.
+
+Punto concreto a decidir: el informe indica que el proyecto principal del estudio
+está sujeto a NDA. Mencionar *PC*, *Nintendo Switch* y *Steam* acota el producto,
+aunque como credencial tiene valor. Nahuel decide si se mantienen o se sustituyen
+por "un título comercial".
 
 ## 2. Skills
 
@@ -109,22 +149,42 @@ Ninguna corresponde al perfil.
 ### Categorías propuestas
 
 ```
-Gameplay Programming     sistemas de combate, movimiento, estados, secuencias
-Game Feel & Feedback     animación, shaders de realce, audio, respuesta táctil
-Engine & Tools           herramientas de editor, importadores, automatización
-AI & Automation          agentes de código, servidores MCP, flujos por specs
-Architecture & Quality   SOLID, patrones, análisis de acoplamiento, testing
-Platforms & Delivery     móvil, multiplataforma, control de versiones, CI
+Gameplay Programming       combate, movimiento, físicas, máquinas de estado, cámara
+Game Feel & Feedback       animación, VFX, audio, polish de interacción
+Graphics & Shaders         URP, Shader Graph, HLSL, OpenGL, iluminación
+Engine & Tools             herramientas de editor, importadores, motores propios
+AI & Automation            agentes, skills, MCP, revisión automática de código
+Networking & Architecture  UDP/TCP, servidor autoritativo, ECS, SOLID, acoplamiento
 ```
 
-Se añade **Game Feel & Feedback** como categoría propia: el historial muestra
-que una parte sustancial del trabajo es precisamente esa capa (animaciones,
-*shaders* de realce, audio, polish de interacción), y es lo que distingue a un
-gameplay programmer de alguien que solo conecta sistemas.
+Cada categoría se contrasta contra trabajo verificable, propio o profesional:
 
-Se descarta la categoría *Performance* como bloque independiente. La optimización
-se menciona dentro de las categorías donde aplica en lugar de prometer un área de
-especialidad que el historial no respalda.
+| Categoría | Respaldo |
+|---|---|
+| Gameplay Programming | Sistema de combate Souls-like, y los siete juegos del blog |
+| Game Feel & Feedback | Capa de *feedback* del proyecto actual; polish en los juegos propios |
+| Graphics & Shaders | *Shaders* URP y Shader Graph en prácticas; mini-motor OpenGL; olas de Gerstner |
+| Engine & Tools | Herramientas de editor en ambos puestos; mini-motor propio |
+| AI & Automation | Agentes, *skills*, MCP y revisor de código del proyecto actual |
+| Networking & Architecture | Shooter UDP con servidor autoritativo, Parchís TCP, ECS |
+
+Se añade **Game Feel & Feedback** como categoría propia: el historial muestra que
+una parte sustancial del trabajo es esa capa, y es lo que distingue a un gameplay
+programmer de alguien que solo conecta sistemas.
+
+Se añade **Networking & Architecture** tras revisar los proyectos personales: hay
+tres trabajos en C++ con redes, ECS y motor propio (shooter UDP con servidor
+autoritativo y *matchmaking*, Parchís TCP con *lobby*, mini-motor OpenGL) que
+ninguna categoría anterior recogía. Es base técnica que los estudios valoran y
+estaba invisible en el sitio.
+
+Se descartan dos categorías del borrador inicial:
+
+- *Performance* como bloque independiente: no hay trabajo que respalde
+  presentarlo como área de especialidad. La optimización se menciona dentro de
+  las categorías donde sí aplica.
+- *Platforms & Delivery*: se solapaba con Engine & Tools y aportaba poco frente
+  a Networking & Architecture.
 
 La categoría **AI & Automation** merece existir por separado, no diluida dentro
 de "herramientas". Muy pocos perfiles junior de programación de videojuegos

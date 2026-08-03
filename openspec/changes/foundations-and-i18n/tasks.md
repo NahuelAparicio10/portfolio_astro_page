@@ -2,15 +2,21 @@
 
 ## 0. Antes de empezar (requiere acción de Nahuel)
 
-- [x] Renombrar el repositorio a **`nahuelaparicio10.github.io`** en Settings.
-      El nombre debe ser exactamente ese: cualquier otro (`portfolio`, `mi-web`)
-      sigue siendo un *project site* y mantiene el prefijo en la URL. El nombre
-      del repositorio **es** el prefijo; no existe ajuste que lo desactive.
-- [x] Confirmar el remote local (`git remote set-url origin <nueva-url>`)
+- [x] Repositorio renombrado a `portfolio`
+- [x] Remote local actualizado
+- [x] Deploy mediante GitHub Actions (confirmado por Nahuel)
 - [ ] Settings → Pages → Build and deployment → Source: **GitHub Actions**
-      (no "Deploy from a branch"). Volver a comprobarlo **después** de renombrar:
-      el renombrado puede resetearlo, y entonces el workflow pasa en verde
-      pero no publica nada.
+      (no "Deploy from a branch"). Comprobarlo **después** del renombrado: puede
+      haberse reseteado, y entonces el workflow pasa en verde pero no publica.
+- [ ] **DECISIÓN PENDIENTE — el prefijo no se ha eliminado.** Con el repo llamado
+      `portfolio`, la URL es `nahuelaparicio10.github.io/portfolio/` y `base`
+      debe ser `/portfolio`. El nombre del repositorio **es** el prefijo. Las
+      tres salidas posibles:
+      - Renombrar a `nahuelaparicio10.github.io` → `base: '/'`, gratis
+      - Mantener `portfolio` + dominio propio (~12 €/año) → `base: '/'`
+      - Mantener `portfolio` y aceptar `/portfolio` en la URL
+      El resto del change (helper `href()`, eliminar los 49 literales) se hace
+      igual en los tres casos; solo cambia el valor de `base`.
 - [ ] *(Al final del change)* Actualizar la URL donde esté publicada: LinkedIn,
       CV en PDF, itch.io, firma de correo, perfil de GitHub
 
@@ -25,7 +31,8 @@
 
 ## 2. Rutas y base
 
-- [ ] `astro.config.mjs`: `base: '/'`, `site` apuntando al nuevo dominio
+- [ ] `astro.config.mjs`: `base` según la decisión de la sección 0, `site`
+      apuntando a la URL nueva
 - [ ] Crear `src/lib/href.ts` con firma `href(path, lang?)`
 - [ ] Sustituir las 49 apariciones hardcodeadas en los 19 archivos afectados
 - [ ] `global.css`: rutas de `@font-face` sin prefijo de repo

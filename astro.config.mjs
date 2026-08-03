@@ -11,5 +11,5 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  base:'/portfolio_astro_page'
+  base:'/portfolio'
 });

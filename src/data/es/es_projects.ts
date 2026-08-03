@@ -10,7 +10,7 @@ export const projects = [
 		ctaText: "Video →",
 		ctaLink: "https://youtu.be/51P_9O86KOE",
 		icon: unity,
-		image:"/portfolio_astro_page/images/projects/combat_souls.png"
+		image:"/portfolio/images/projects/combat_souls.png"
 	},
 	{
 		title: "Shooter UDP (2025)",
@@ -19,7 +19,7 @@ export const projects = [
 		ctaText: "Git Hub →",
 		ctaLink: "https://github.com/NahuelAparicio10/UDP_Shooter_GameServer",
 		icon: visual_studio,
-		image:"/portfolio_astro_page/images/projects/shooter_udp.png"
+		image:"/portfolio/images/projects/shooter_udp.png"
 	},
 	{
 		title: "Parchís TCP (2025)",
@@ -28,7 +28,7 @@ export const projects = [
 		ctaText: "Git Hub →",
 		ctaLink: "https://github.com/llucferrando/AA2_TCP_Parchis",
 		icon: visual_studio,
-		image:"/portfolio_astro_page/images/projects/splash.png"
+		image:"/portfolio/images/projects/splash.png"
 	},
 	{
 		title: "OpenGL - Mini Motor (2024)",
@@ -37,7 +37,7 @@ export const projects = [
 		ctaText: "Git Hub →",
 		ctaLink: "https://github.com/NahuelAparicio10/OpenGL_MiniEngine",
 		icon: visual_studio,
-		image:"/portfolio_astro_page/images/projects/engine_spotlight.png"
+		image:"/portfolio/images/projects/engine_spotlight.png"
 	},
 	{
 		title: "Gerstner Waves (2024)",
@@ -46,7 +46,7 @@ export const projects = [
 		ctaText: "Git Hub →",
 		ctaLink: "https://github.com/NahuelAparicio10/GerstnerWaves",
 		icon: unity,
-		image:"/portfolio_astro_page/images/projects/waves.png"
+		image:"/portfolio/images/projects/waves.png"
 	},
 
 ];

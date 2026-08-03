@@ -4,7 +4,7 @@ import HeaderLink from './HeaderLink.astro';
 const currentPath = Astro.url.pathname;
 
 // EN = raíz; ES = /es
-const BASE = '/portfolio_astro_page';
+const BASE = '/portfolio';
 const ES_PREFIX = `${BASE}/es`;
 
 const isES =
@@ -35,7 +35,7 @@ const activeClass = (href: string) =>
     <!-- Logo -->
     <div class="flex items-center gap-3">
       <a class="no-underline hover:opacity-90 flex items-center gap-2" href={path('/')} aria-label="Home">
-        <img src="/portfolio_astro_page/NaguCode_Logo.jpg?v=1" alt="" aria-hidden="true" width="45" height="45" />
+        <img src="/portfolio/NaguCode_Logo.jpg?v=1" alt="" aria-hidden="true" width="45" height="45" />
       </a>
 
       <!-- Links desktop -->
@@ -156,7 +156,7 @@ const activeClass = (href: string) =>
 
   const langBtn = document.querySelector('[data-lang-btn]');
   const langLabel = document.querySelector('[data-lang-current]');
-  const BASE = '/portfolio_astro_page';
+  const BASE = '/portfolio';
   const ES_PREFIX = BASE + '/es';
 
   const isEsPath = (p) => p === ES_PREFIX || p === ES_PREFIX + '/' || p.startsWith(ES_PREFIX + '/');
