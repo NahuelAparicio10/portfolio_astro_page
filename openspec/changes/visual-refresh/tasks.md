@@ -1,0 +1,99 @@
+# Tareas — Lavado de cara
+
+> Requiere `foundations-and-i18n` completado.
+
+## 0. Decisiones pendientes de Nahuel
+
+- [ ] Elegir titular de la home (propuesta: rol fijo + especialidades rotando)
+- [ ] Aprobar la redacción del puesto actual bajo NDA
+- [ ] Decidir si se cambia la tipografía (hoy Atkinson, la de la plantilla)
+- [ ] Revisar y corregir la lista de skills antes de publicarla
+
+## 1. Contenido — Skills
+
+- [ ] Reescribir `data/skills.ts` con las seis categorías reales
+- [ ] Redactar la categoría **AI & Automation** (Claude Code, Codex, OpenSpec,
+      agentes, revisores de código, creación de skills, automatización)
+- [ ] Mover los SVG inline a `src/assets/icons/`
+- [ ] Traducir todas las categorías al español
+- [ ] Verificar que no queda ninguna mención heredada de la plantilla
+
+## 2. Contenido — Experiencia
+
+- [ ] Añadir Titutitech · Game Programmer (may 2026 – actualidad, jornada completa)
+- [ ] Actualizar Titutitech · Game Developer (nov 2025 – may 2026, prácticas)
+- [ ] Redactar la descripción bajo NDA y someterla a revisión
+- [ ] Decidir la representación visual: puestos anidados bajo la empresa o
+      entradas hermanas
+- [ ] Ajustar el componente `Timeline` a la representación elegida
+- [ ] Verificar que ambos idiomas muestran los mismos puestos
+
+## 3. Contenido — Posicionamiento
+
+- [ ] Nuevo titular en la home, en ambos idiomas
+- [ ] Actualizar el subtítulo y la descripción
+- [ ] Actualizar `SITE_DESCRIPTION` en `consts.ts`
+- [ ] Revisar la página `about` para que sea coherente
+- [ ] Revisar los metadatos Open Graph y Twitter
+
+## 4. Base del sistema de movimiento
+
+- [ ] Crear `src/lib/motion.ts` con el observador de reveal
+- [ ] Definir tokens de movimiento en CSS (duraciones, easings, distancias)
+- [ ] Implementar el reveal partiendo de contenido **visible** (no al revés)
+- [ ] Implementar el stagger entre hijos
+- [ ] Bloque global `prefers-reduced-motion`
+- [ ] Verificar que con JavaScript deshabilitado todo el contenido se ve
+
+## 5. Aplicar el movimiento
+
+- [ ] Añadir `<ClientRouter />` para transiciones entre páginas
+- [ ] Reveal en las secciones de la home
+- [ ] Reveal + stagger en la rejilla de proyectos
+- [ ] Reveal en la línea temporal de experiencia y estudios
+- [ ] Reveal en las tarjetas de skills
+- [ ] Animación de entrada del titular del hero
+- [ ] Rotación de especialidades en el hero, si se elige esa opción
+- [ ] Revisar el conjunto: eliminar lo que resulte excesivo
+
+## 6. Micro-interacciones
+
+- [ ] Ampliar `.card-surface` con glow azul en hover
+- [ ] Estados de pulsación en botones
+- [ ] Indicadores de foco visibles en todo lo interactivo
+- [ ] Subrayado animado en los enlaces del nav
+- [ ] Feedback táctil en dispositivos móviles
+
+## 7. Hero y vídeo
+
+- [ ] Instalar `ffmpeg` (no está disponible en el entorno)
+- [ ] Recortar el loop a 8-12 s
+- [ ] Comprimir a 1280×720, CRF alto, preset slow → objetivo < 1 MB
+- [ ] Generar variante WebM/AV1
+- [ ] Generar `poster` en WebP
+- [ ] Actualizar el elemento `<video>`: `poster`, `<source>` múltiples, `preload`
+- [ ] Confirmar que sigue reproduciéndose en móvil
+- [ ] Fallback a póster con `prefers-reduced-motion`
+- [ ] Comparar comprimido vs original bajo el overlay al 86%
+- [ ] Rediseñar la composición del hero con la paleta azul
+
+## 8. Móvil
+
+- [ ] Auditar los objetivos táctiles (mínimo 44×44 px)
+- [ ] Menú móvil a pantalla completa con animación
+- [ ] Sustituir el truco `w-screen left-1/2 -ml-[50vw]` por algo robusto
+- [ ] Verificar que no hay desbordamiento horizontal a 320 px
+- [ ] Comprobar la fluidez del scroll en un móvil real
+- [ ] Revisar tamaños de tipografía en pantallas pequeñas
+
+## 9. Verificación
+
+- [ ] Lighthouse en móvil y escritorio (rendimiento y accesibilidad)
+- [ ] Medir el JavaScript añadido por el sistema de movimiento (< 5 KB gzip)
+- [ ] Probar con `prefers-reduced-motion` activado
+- [ ] Probar con JavaScript deshabilitado
+- [ ] Navegación completa por teclado
+- [ ] Revisar en Safari iOS (autoplay en modo bajo consumo)
+- [ ] Revisar en Chrome Android
+- [ ] Recorrer las 12 rutas en ambos idiomas
+- [ ] Revisión final de contenido con Nahuel antes de desplegar

@@ -1,0 +1,36 @@
+schema: spec-driven
+
+context: |
+  Portfolio personal de Nahuel Aparicio — game programmer.
+
+  Stack: Astro 5 (salida estática), Tailwind CSS 4 vía plugin de Vite,
+  MDX para el contenido del blog, TypeScript. Sin framework de UI
+  (ni React ni Vue): componentes .astro puros.
+
+  Despliegue: GitHub Pages mediante GitHub Actions (.github/workflows/deploy.yml).
+
+  Idiomas: inglés (raíz) y español (/es/). El inglés es el idioma por defecto
+  y no lleva prefijo.
+
+  Convenciones:
+  - Indentación de 2 espacios, TypeScript tipado.
+  - Los tokens de diseño viven en src/styles/; los componentes usan variables
+    CSS, nunca valores de color literales.
+  - Las rutas se construyen mediante el helper, nunca como literales.
+  - Los textos de interfaz van en los diccionarios de src/i18n/, no incrustados
+    en los componentes.
+
+  Nota: los archivos CLAUDE.md del sistema del usuario corresponden a otros
+  proyectos (PokerRogue, en C#/Unity, y la memoria del TFG). Sus convenciones
+  NO aplican a este repositorio.
+
+rules:
+  proposal:
+    - Redactar en castellano
+    - Incluir siempre una sección "Qué NO cambia"
+  design:
+    - Redactar en castellano
+    - Documentar las alternativas consideradas y por qué se descartaron
+  tasks:
+    - Redactar en castellano
+    - Marcar explícitamente las tareas que requieren una decisión de Nahuel
