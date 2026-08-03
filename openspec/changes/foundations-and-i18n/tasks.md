@@ -2,11 +2,17 @@
 
 ## 0. Antes de empezar (requiere acción de Nahuel)
 
-- [ ] Inventariar dónde está publicada la URL actual (LinkedIn, CV en PDF,
-      itch.io, firma de correo, GitHub profile) para poder actualizarla después
-- [ ] Renombrar el repositorio a `nahuelaparicio10.github.io` en Settings
-- [ ] Actualizar el remote local: `git remote set-url origin <nueva-url>`
-- [ ] Confirmar que GitHub Pages sigue apuntando a GitHub Actions
+- [x] Renombrar el repositorio a **`nahuelaparicio10.github.io`** en Settings.
+      El nombre debe ser exactamente ese: cualquier otro (`portfolio`, `mi-web`)
+      sigue siendo un *project site* y mantiene el prefijo en la URL. El nombre
+      del repositorio **es** el prefijo; no existe ajuste que lo desactive.
+- [x] Confirmar el remote local (`git remote set-url origin <nueva-url>`)
+- [ ] Settings → Pages → Build and deployment → Source: **GitHub Actions**
+      (no "Deploy from a branch"). Volver a comprobarlo **después** de renombrar:
+      el renombrado puede resetearlo, y entonces el workflow pasa en verde
+      pero no publica nada.
+- [ ] *(Al final del change)* Actualizar la URL donde esté publicada: LinkedIn,
+      CV en PDF, itch.io, firma de correo, perfil de GitHub
 
 ## 1. Limpieza previa
 

@@ -10,6 +10,20 @@ export const workIcons = {
 };
 
 export const work = [
+     {
+    title: "Game Developer",
+    company: "Titutitech",
+    region: "Barcelona, Spain.",
+    description:
+      "Currently working.",
+    technologies: [
+      "Unity",
+      "C#",
+      "Optimization",
+      "Fork",
+      "UI"
+    ],
+  },
   {
     title: "Unity Developer Intership",
     company: "Fundación Obicex",
@@ -25,6 +39,7 @@ export const work = [
       "UI"
     ],
   }
+ 
 ];
 
 export type WorkItem = (typeof work)[number];

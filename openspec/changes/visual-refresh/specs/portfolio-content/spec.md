@@ -45,6 +45,38 @@ La línea temporal SHALL reflejar los puestos actuales con sus fechas reales.
 - **THEN** describe responsabilidades concretas
 - **AND** no contiene textos genéricos como "Currently working."
 
+#### Scenario: periodos visibles
+
+- **WHEN** se consulta cualquier entrada de la línea temporal
+- **THEN** muestra su periodo como dato propio
+- **AND** la duración no está embebida dentro del texto descriptivo
+
+### Requirement: Identidad tipográfica propia
+
+El sitio SHALL usar una tipografía elegida para el proyecto, no la heredada de la
+plantilla de partida.
+
+#### Scenario: jerarquía tipográfica
+
+- **WHEN** se compara un titular con un párrafo
+- **THEN** usan familias distintas, con más carácter en el titular y mayor
+      neutralidad en el cuerpo
+
+#### Scenario: formato de las fuentes
+
+- **WHEN** el navegador solicita las fuentes
+- **THEN** se sirven en WOFF2
+
+#### Scenario: peso tipográfico
+
+- **WHEN** se mide el peso total de las fuentes servidas
+- **THEN** no supera al del conjunto anterior
+
+#### Scenario: caracteres del español
+
+- **WHEN** se renderiza texto en español
+- **THEN** las tildes, la eñe y los signos de apertura se muestran correctamente
+
 ### Requirement: Confidencialidad del trabajo actual
 
 Las descripciones del puesto actual SHALL comunicar el trabajo realizado sin

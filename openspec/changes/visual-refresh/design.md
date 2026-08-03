@@ -24,25 +24,77 @@ editor, IA y automatización del pipeline.
 | 2 | Gameplay & Tools Programmer | Preciso pero deja fuera la IA |
 | 3 | Game Programmer + especialidades rotando | Cuenta más sin ocupar más |
 
-Se propone la **3**: rol fijo, y debajo `Gameplay · Tools · AI Automation`
-rotando con animación. Cuenta la historia completa en el mismo espacio y la
-animación tiene una razón de ser, en vez de ser decorativa.
+**Decidida la 3**: rol fijo, y debajo `Gameplay · Tools · AI Automation` rotando
+con animación. Cuenta la historia completa en el mismo espacio y la animación
+tiene una razón de ser, en vez de ser decorativa.
 
-Queda pendiente de decisión de Nahuel.
+Requisitos de la rotación, para que no degrade la página:
+
+- El rol (`Game Programmer`) es estático. Solo rota la especialidad.
+- La primera especialidad se renderiza en el HTML: sin JavaScript se ve una,
+  no un hueco.
+- Se reserva la anchura de la palabra más larga, para que el titular no
+  desplace el contenido al cambiar.
+- Con `prefers-reduced-motion` no rota: muestra las tres separadas por puntos.
+- Cada término existe en ambos idiomas.
 
 ### Redacción bajo NDA
 
 El principio: describir **qué se hace**, no **qué es el producto**.
 
-```
-Game Programmer en un título móvil sin anunciar. Sistemas de gameplay,
-herramientas internas de editor y automatización del pipeline de desarrollo
-asistida por IA.
-```
+#### Perfil de contribución real
 
-Cero información del producto, describe el valor aportado. Es la fórmula estándar
-en la industria. Aun así, **la redacción final la aprueba Nahuel** antes de que
-se publique.
+Se revisó el repositorio del proyecto actual para fundamentar la descripción.
+Datos objetivos: 470 commits, segundo contribuidor de doce, con dos ramas de
+funcionalidad propias (`feature/tools` con 24 integraciones y `feature/agents-mcps`
+con 14).
+
+Las áreas de trabajo que se desprenden del historial:
+
+| Área | Evidencia |
+|---|---|
+| Gameplay y *feedback* | Widgets de combate, secuencias, animaciones de entrada y wobble, *shader* de realce, sistema de audio y su normalización, polish de interacción |
+| Herramientas de editor | Importador de interfaz, visor de entidades, lanzador de vistas, gestor de builds, ventana de resolución de imágenes, postprocesador de sprites, capa compartida de editor con paleta y estilos propios |
+| IA y automatización | Servidor MCP propio en Node, skills a medida de revisión de código y commits, integración de un flujo dirigido por especificaciones con comandos propios |
+| Gobernanza de arquitectura | Herramienta en C# que construye el grafo de dependencias, calcula acoplamiento, detecta dependencias prohibidas entre capas y actúa como *gate* de integración |
+
+#### Límite de confidencialidad
+
+El repositorio consultado **es** el proyecto sujeto a NDA. Queda explícitamente
+fuera de cualquier texto publicable: el nombre del juego, su género, su temática,
+el nombre del estudio, la composición del equipo y cualquier nombre de sistema
+que revele la naturaleza del producto.
+
+Lo que sí es publicable es el perfil de contribución del propio Nahuel, descrito
+en términos de disciplina técnica.
+
+#### Borradores
+
+Siguen el formato de la tarjeta de prácticas ya existente (duración, naturaleza
+del producto en genérico, responsabilidades concretas).
+
+> **Game Programmer** · may 2026 – actualidad
+>
+> Desarrollo de un título móvil sin anunciar en Unity. Implementación de sistemas
+> de gameplay y de la capa de *feedback* del juego: secuencias de combate,
+> animaciones, *shaders* de realce y sistema de audio. Desarrollo de herramientas
+> internas de editor para importación de interfaz, inspección de entidades y
+> automatización de builds. Diseño e integración de flujos de desarrollo asistidos
+> por IA: servidor MCP propio, agentes de revisión de código y un *gate* automático
+> de arquitectura que mide acoplamiento y bloquea dependencias prohibidas entre capas.
+
+> **Game Developer** (prácticas) · nov 2025 – may 2026
+>
+> Prácticas de 7 meses en desarrollo de videojuegos con Unity y C#. Implementación
+> de funcionalidades de gameplay y componentes de interfaz, integración de sistemas
+> existentes y participación en el ciclo de desarrollo del equipo.
+
+**Pendiente**: el borrador de las prácticas es genérico porque no hay historial
+que lo respalde — los commits del proyecto actual arrancan en mayo de 2026. Nahuel
+debe aportar en qué trabajó esos siete meses.
+
+**Ambos borradores requieren la aprobación explícita de Nahuel** antes de
+publicarse. Él conoce los términos concretos del acuerdo firmado.
 
 ## 2. Skills
 
@@ -57,13 +109,22 @@ Ninguna corresponde al perfil.
 ### Categorías propuestas
 
 ```
-Gameplay Programming     sistemas de combate, movimiento, cámara, estados
-Engine & Tools           herramientas de editor, automatización de flujos
-AI & Automation          agentes de código, tooling asistido por IA, pipeline
-Architecture & Quality   SOLID, patrones, código mantenible, revisión
-Performance              profiling, optimización, presupuestos en móvil
+Gameplay Programming     sistemas de combate, movimiento, estados, secuencias
+Game Feel & Feedback     animación, shaders de realce, audio, respuesta táctil
+Engine & Tools           herramientas de editor, importadores, automatización
+AI & Automation          agentes de código, servidores MCP, flujos por specs
+Architecture & Quality   SOLID, patrones, análisis de acoplamiento, testing
 Platforms & Delivery     móvil, multiplataforma, control de versiones, CI
 ```
+
+Se añade **Game Feel & Feedback** como categoría propia: el historial muestra
+que una parte sustancial del trabajo es precisamente esa capa (animaciones,
+*shaders* de realce, audio, polish de interacción), y es lo que distingue a un
+gameplay programmer de alguien que solo conecta sistemas.
+
+Se descarta la categoría *Performance* como bloque independiente. La optimización
+se menciona dentro de las categorías donde aplica en lugar de prometer un área de
+especialidad que el historial no respalda.
 
 La categoría **AI & Automation** merece existir por separado, no diluida dentro
 de "herramientas". Muy pocos perfiles junior de programación de videojuegos
@@ -100,7 +161,72 @@ empresa repetida. Se decide al implementar, según cómo quede visualmente — l
 opción anidada comunica mejor la progresión (prácticas → contratado), que es
 precisamente lo que interesa transmitir.
 
-## 4. Sistema de movimiento
+### El Timeline no soporta fechas
+
+El componente actual define sus items como:
+
+```ts
+interface Item {
+  title, company, region, description, technologies?
+}
+```
+
+**No hay campo de periodo.** Hoy la duración vive dentro del texto de la
+descripción (*"4-month internship..."*), que es la razón de que el puesto actual
+diga solo *"Currently working."* — no había dónde poner la fecha.
+
+Se añade un campo `period` al item y se renderiza como metadato, junto a empresa
+y ubicación. Con eso las tres tarjetas quedan homogéneas y la progresión de
+fechas se lee de un vistazo.
+
+### Bug de color visible en el Timeline
+
+```astro
+style="background: rgba(var(--accent-rgb),0.1);        ← 59,130,246  azul
+       color: var(--accent);                           ← #06B6D4     cian
+       border: 1px solid rgba(var(--accent-rgb),0.3);" ← 59,130,246  azul
+```
+
+Las etiquetas de tecnología se renderizan hoy con fondo y borde azules y texto
+cian, porque `--accent-rgb` y `--accent` son colores distintos. Es el síntoma
+visible del problema de tokens; se resuelve en `foundations-and-i18n` al derivar
+`--accent` de `--accent-rgb`. Se anota aquí para verificarlo al revisar esta
+sección.
+
+## 4. Tipografía
+
+Actualmente el sitio usa **Atkinson Hyperlegible** para todo, que es la fuente por
+defecto de la plantilla de Astro. Es una tipografía excelente —diseñada para baja
+visión— pero es la que lleva cualquier proyecto de Astro sin tocar, y no aporta
+identidad.
+
+### Decisión
+
+| Uso | Familia | Motivo |
+|---|---|---|
+| Titulares | **Space Grotesk** | Geométrica y técnica, con carácter propio, sin caer en el cliché de tipografía "gamer" |
+| Cuerpo | **Inter** | Diseñada para pantalla, neutra, aguanta el texto largo del blog sin cansar |
+
+Ambas son variables y con licencia SIL OFL, por lo que se autoalojan sin depender
+de un CDN externo.
+
+El reparto es deliberado: la personalidad la aporta el titular, que se lee en un
+segundo; el cuerpo debe desaparecer y dejar leer. Usar una tipografía con carácter
+para párrafos largos es un error frecuente que penaliza la lectura del blog.
+
+### Formato
+
+Las fuentes actuales están en **WOFF, no WOFF2**. WOFF2 comprime en torno a un 30 %
+mejor y lo soporta cualquier navegador desde 2016.
+
+- Servir exclusivamente WOFF2.
+- Subsetting a latín + latín extendido (hace falta para el español).
+- `font-display: swap` y precarga solo de los cortes realmente usados.
+
+Con subsetting y WOFF2, dos familias variables deberían pesar lo mismo o menos que
+los dos archivos WOFF actuales. Se verifica midiendo, no por suposición.
+
+## 5. Sistema de movimiento
 
 ### Principios
 
@@ -140,7 +266,7 @@ en lugar de reemplazarlo.
 Un portfolio que presume de rendimiento no debería cargar 50 KB de librería de
 animación para hacer fades.
 
-## 5. Hero y vídeo
+## 6. Hero y vídeo
 
 ### El hallazgo
 
@@ -179,7 +305,7 @@ Dos limitaciones que no dependen de nosotros:
 `ffmpeg` no está disponible en el entorno actual; hay que instalarlo o usar una
 herramienta equivalente para la compresión.
 
-## 6. Móvil
+## 7. Móvil
 
 El requisito es que sea juicy en móvil, no solo que no se rompa.
 

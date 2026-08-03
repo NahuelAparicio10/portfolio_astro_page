@@ -2,31 +2,52 @@
 
 > Requiere `foundations-and-i18n` completado.
 
-## 0. Decisiones pendientes de Nahuel
+## 0. Decisiones
 
-- [ ] Elegir titular de la home (propuesta: rol fijo + especialidades rotando)
-- [ ] Aprobar la redacción del puesto actual bajo NDA
-- [ ] Decidir si se cambia la tipografía (hoy Atkinson, la de la plantilla)
-- [ ] Revisar y corregir la lista de skills antes de publicarla
+- [x] Titular de la home: rol fijo + especialidades rotando (opción 3)
+- [x] Tipografía: Space Grotesk (titulares) + Inter (cuerpo), en WOFF2
+- [x] Categorías de skills: se añade *Game Feel & Feedback*, se descarta
+      *Performance* como bloque independiente
+- [ ] **Nahuel**: aprobar la redacción del puesto actual bajo NDA
+- [ ] **Nahuel**: aportar en qué consistieron los 7 meses de prácticas en
+      Titutitech (no hay historial que lo respalde)
+- [ ] **Nahuel**: revisar la lista final de skills antes de publicarla
 
 ## 1. Contenido — Skills
 
 - [ ] Reescribir `data/skills.ts` con las seis categorías reales
 - [ ] Redactar la categoría **AI & Automation** (Claude Code, Codex, OpenSpec,
-      agentes, revisores de código, creación de skills, automatización)
+      agentes, revisores de código, servidores MCP, creación de skills)
+- [ ] Redactar la categoría **Game Feel & Feedback**
 - [ ] Mover los SVG inline a `src/assets/icons/`
 - [ ] Traducir todas las categorías al español
 - [ ] Verificar que no queda ninguna mención heredada de la plantilla
 
 ## 2. Contenido — Experiencia
 
+- [ ] Añadir campo `period` a la interfaz `Item` del `Timeline`
+- [ ] Renderizar el periodo como metadato junto a empresa y ubicación
+- [ ] Sacar las duraciones del texto de descripción a `period`
+      (hoy "4-month internship..." vive dentro del párrafo)
 - [ ] Añadir Titutitech · Game Programmer (may 2026 – actualidad, jornada completa)
-- [ ] Actualizar Titutitech · Game Developer (nov 2025 – may 2026, prácticas)
-- [ ] Redactar la descripción bajo NDA y someterla a revisión
+- [ ] Actualizar Titutitech · Game Developer a 7 meses (nov 2025 – may 2026, prácticas)
+- [ ] Redactar la descripción bajo NDA y someterla a aprobación
 - [ ] Decidir la representación visual: puestos anidados bajo la empresa o
       entradas hermanas
-- [ ] Ajustar el componente `Timeline` a la representación elegida
 - [ ] Verificar que ambos idiomas muestran los mismos puestos
+- [ ] Verificar que las etiquetas de tecnología ya no mezclan azul y cian
+      (bug de `--accent-rgb`, se arregla en `foundations-and-i18n`)
+
+## 2b. Tipografía
+
+- [ ] Descargar Space Grotesk e Inter (variables, SIL OFL)
+- [ ] Subsetting a latín + latín extendido y conversión a WOFF2
+- [ ] Sustituir las declaraciones `@font-face` de Atkinson en `global.css`
+- [ ] Asignar Space Grotesk a titulares e Inter al cuerpo
+- [ ] Actualizar las etiquetas `<link rel="preload">` de `BaseHead.astro`
+- [ ] Borrar `public/fonts/atkinson-*.woff`
+- [ ] Medir: el peso total de fuentes no debe superar al actual
+- [ ] Revisar que los acentos y la eñe se renderizan bien en español
 
 ## 3. Contenido — Posicionamiento
 
@@ -53,7 +74,10 @@
 - [ ] Reveal en la línea temporal de experiencia y estudios
 - [ ] Reveal en las tarjetas de skills
 - [ ] Animación de entrada del titular del hero
-- [ ] Rotación de especialidades en el hero, si se elige esa opción
+- [ ] Rotación de especialidades (`Gameplay · Tools · AI Automation`)
+- [ ] La primera especialidad se renderiza en HTML, no por JavaScript
+- [ ] Reservar anchura para evitar desplazamiento del contenido al rotar
+- [ ] Con `prefers-reduced-motion`: mostrar las tres, sin rotación
 - [ ] Revisar el conjunto: eliminar lo que resulte excesivo
 
 ## 6. Micro-interacciones
