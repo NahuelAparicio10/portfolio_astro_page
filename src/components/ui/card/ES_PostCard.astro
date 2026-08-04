@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { href } from '../../../lib/href';
 import type { CollectionEntry } from 'astro:content';
 import { calculateReadingTimeFromMarkdown } from '../../../lib/reading';
 
@@ -25,10 +26,10 @@ try {
   </div>
   {post.data.tags && post.data.tags.length > 0 && (
     <div class="flex gap-2 flex-wrap">
-      {post.data.tags.map((t) => <a href={`/portfolio/es/blog/tag/${t.replace(/\s+/g,'-').toLowerCase()}/`} class="sw-tag interactive-link">{t}</a>)}
+      {post.data.tags.map((t) => <a href={href(`/blog/tag/${t.replace(/\s+/g,'-').toLowerCase()}/`, 'es')} class="sw-tag interactive-link">{t}</a>)}
     </div>
   )}
-  <a href={`/portfolio/es/blog/${post.id}/`} class="stretched-link" aria-label={post.data.title}></a>
+  <a href={href(`/blog/${post.id}/`, 'es')} class="stretched-link" aria-label={post.data.title}></a>
 </article>
 
 

@@ -1,23 +1,22 @@
 /* Load Starwind core first so our tokens can override its CSS variables */
 @import "./starwind.css";
-/* Design tokens and theme overrides */
 @import "./tokens.css";
-@import "./themes/dark.css";
-@import "./themes/light.css";
 /* Project-specific utilities */
 @import "./utilities.css";
 
 
+/* Fonts live in src/assets so Vite rewrites these URLs with the correct base.
+   Never hardcode the deployment base here: CSS cannot import the href helper. */
 @font-face {
 	font-family: "Atkinson";
-	src: url("/portfolio/fonts/atkinson-regular.woff") format("woff");
+	src: url("../assets/fonts/atkinson-regular.woff") format("woff");
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
 }
 @font-face {
 	font-family: "Atkinson";
-	src: url("/portfolio/fonts/atkinson-bold.woff") format("woff");
+	src: url("../assets/fonts/atkinson-bold.woff") format("woff");
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;

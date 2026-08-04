@@ -11,14 +11,19 @@
       *Platforms & Delivery*
 - [x] Material de las prácticas aportado (informe de 300 h, dep. Gameplay & Tools)
 - [x] Correcciones al borrador del puesto actual aplicadas
-- [ ] **Nahuel**: aprobar la redacción final de ambos puestos bajo NDA
-- [ ] **Nahuel**: describir la "herramienta web interna" (deducida del
-      directorio `web/`, sin confirmar qué hace)
-- [ ] **Nahuel**: confirmar las fechas de prácticas — el informe dice
-      03/11/2025–17/03/2026 y el puesto nov 2025–may 2026
-- [ ] **Nahuel**: decidir si se mencionan PC / Nintendo Switch / Steam en la
-      tarjeta de prácticas, o se deja en "un título comercial"
-- [ ] **Nahuel**: revisar la lista final de skills antes de publicarla
+- [x] Herramienta web descrita: aplicación de autoría en Next.js/React/TypeScript
+      con entidades y arquetipos, agentes de IA, RBAC y auditoría
+- [x] Fechas de prácticas: sin día exacto, rango de meses + mención de la
+      ampliación extracurricular
+- [x] Plataformas: se mencionan PC, Nintendo Switch y Steam
+- [x] *utility AI*, *HFSM*, combate, movimiento y físicas pertenecen al TFG,
+      no al empleo actual
+- [x] Puesto actual reescrito contra el código real: MVP de la escena de juego,
+      secuencias de ronda, importador de Figma y editor de entidades
+- [x] Categorías de skills aprobadas por Nahuel
+- [x] *Between Shadows* (TFG) se añadirá como proyecto más adelante, cuando
+      Nahuel tenga vídeo y material gráfico preparados
+- [x] **Nahuel**: aprobar la redacción final de ambos puestos bajo NDA
 
 ## 1. Contenido — Skills
 
@@ -29,6 +34,10 @@
 - [ ] Redactar la categoría **Graphics & Shaders** (URP, Shader Graph, HLSL, OpenGL)
 - [ ] Redactar la categoría **Networking & Architecture** (UDP/TCP, ECS,
       servidor autoritativo, acoplamiento)
+- [ ] Incluir en **Engine & Tools**: importador de Figma con reimportación
+      incremental, editor de entidades y app web de autoría (Next.js/React/TS)
+- [ ] Incluir *HFSM* y *utility AI* en **Gameplay Programming** (respaldados por
+      el TFG, pendiente de publicarse como proyecto)
 - [ ] Verificar que cada categoría tiene respaldo en un proyecto o puesto real
 - [ ] Mover los SVG inline a `src/assets/icons/`
 - [ ] Traducir todas las categorías al español

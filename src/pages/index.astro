@@ -3,15 +3,14 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/sections/Footer.astro';
 import Header from '../components/sections/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-
-// Logos
+import { asset, href } from '../lib/href';
 
 const ctas = [
-  { text: "About Me", href: "/portfolio/about", variant: "secondary" },
-  { text: "Skills", href: "/portfolio/Skills", variant: "secondary" },
-  { text: "Game Projects", href: "/portfolio/blog", variant: "secondary" },
-  { text: "Projects", href: "/portfolio/portfolio", variant: "secondary" },
-  { text: "Contact Me", href: "/portfolio/contact", variant: "secondary" },
+  { text: "About Me", href: href("/about"), variant: "secondary" },
+  { text: "Skills", href: href("/Skills"), variant: "secondary" },
+  { text: "Game Projects", href: href("/blog"), variant: "secondary" },
+  { text: "Projects", href: href("/portfolio"), variant: "secondary" },
+  { text: "Contact Me", href: href("/contact"), variant: "secondary" },
 ];
 ---
 
@@ -44,7 +43,7 @@ const ctas = [
           loop
           playsinline
           class="absolute inset-0 w-full h-full object-cover z-0 ">
-          <source src="/portfolio/videos/fondo.mp4" type="video/mp4" />
+          <source src={asset("/videos/fondo.mp4")} type="video/mp4" />
         </video>
 
         <!-- Overlay oscuro -->

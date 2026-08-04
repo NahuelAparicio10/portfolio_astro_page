@@ -1,119 +1,121 @@
 ---
 import HeaderLink from './HeaderLink.astro';
+import {
+  asset,
+  getLocaleFromPath,
+  href,
+  isSamePath,
+  localizedUrl,
+} from '../../lib/href';
+import { useTranslations } from '../../i18n';
 
 const currentPath = Astro.url.pathname;
+const locale = getLocaleFromPath(currentPath);
+const isES = locale === 'es';
+const t = useTranslations(locale);
 
-// EN = raíz; ES = /es
-const BASE = '/portfolio';
-const ES_PREFIX = `${BASE}/es`;
+/**
+ * URL of the current page in the other language, resolved on the server so the
+ * browser never has to do path arithmetic.
+ */
+const altUrl = localizedUrl(currentPath, isES ? 'en' : 'es');
 
-const isES =
-  currentPath === ES_PREFIX ||
-  currentPath === `${ES_PREFIX}/` ||
-  currentPath.startsWith(`${ES_PREFIX}/`);
+const path = (slug: string) => href(slug, locale);
 
-const join = (a: string, b: string) =>
-  a.replace(/\/+$/, '') + '/' + b.replace(/^\/+/, '');
-const normalize = (s: string) =>
-  s !== '/' && s.endsWith('/') ? s.slice(0, -1) : s;
-
-const langBase = isES ? ES_PREFIX : BASE;
-const path = (slug: string) => {
-  if (slug === '/' || slug === '') return `${langBase}/`;
-  return join(langBase, slug);
-};
-const activeClass = (href: string) =>
+const activeClass = (target: string) =>
   `px-3 py-3 font-bold no-underline rounded-md transition-colors ${
-    normalize(currentPath) === normalize(href)
+    isSamePath(currentPath, target)
       ? 'text-[var(--accent)] bg-[var(--accent)]/10'
       : 'text-[color:var(--color-text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/10'
   }`;
+
+const nav = [
+  { slug: '/', label: t.nav.home },
+  { slug: '/about', label: t.nav.about },
+  { slug: '/Skills', label: t.nav.skills },
+  { slug: '/blog', label: t.nav.games },
+  { slug: '/portfolio', label: t.nav.projects },
+  { slug: '/#contact', label: t.nav.contact },
+];
 ---
 
 <header class="bg-background text-foreground border-b sw-header mb-0">
   <nav class="mx-auto max-w-6xl px-4 py-2 flex items-center justify-between">
-    <!-- Logo -->
+    <!-- Logo + enlaces de escritorio -->
     <div class="flex items-center gap-3">
       <a class="no-underline hover:opacity-90 flex items-center gap-2" href={path('/')} aria-label="Home">
-        <img src="/portfolio/NaguCode_Logo.jpg?v=1" alt="" aria-hidden="true" width="45" height="45" />
+        <img src={asset('/NaguCode_Logo.jpg')} alt="" aria-hidden="true" width="45" height="45" />
       </a>
 
-      <!-- Links desktop -->
       <div class="internal-links hidden md:flex items-center gap-2 ml-1">
-        <HeaderLink href={path('/')} class={activeClass(path('/'))}>{isES ? 'Inicio' : 'Home'}</HeaderLink>
-        <HeaderLink href={path('/about')} class={activeClass(path('/about'))}>{isES ? 'Sobre mí' : 'About'}</HeaderLink>
-        <HeaderLink href={path('/Skills')} class={activeClass(path('/Skills'))}>{isES ? 'Skills' : 'Skills'}</HeaderLink>
-        <HeaderLink href={path('/blog')} class={activeClass(path('/blog'))}>{isES ? 'Juegos' : 'Game Projects'}</HeaderLink>
-        <HeaderLink href={path('/portfolio')} class={activeClass(path('/portfolio'))}>{isES ? 'Proyectos' : 'Projects'}</HeaderLink>
-        <a href={path('/#contact')} class={activeClass(path('/#contact'))}>{isES ? 'CV y Contacto' : 'CV & Contact'}</a>
+        {nav.map((item) => (
+          <HeaderLink href={path(item.slug)} class={activeClass(path(item.slug))}>{item.label}</HeaderLink>
+        ))}
       </div>
     </div>
 
-    <!-- Social + Idioma + Hamburguesa -->
-
-     <!-- Botón EN/ES (switch con icono de idioma en el thumb) -->
-      <button
-        data-lang-btn
-        class="inline-flex items-center gap-2 rounded-md px-2 py-2 border border-[color:var(--color-text-muted)]/30 text-[color:var(--color-text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/10 transition-colors"
-        role="switch"
-        aria-checked={isES ? 'true' : 'false'}
-        aria-label="Switch language EN/ES"
-        title={isES ? 'Switch to English' : 'Cambiar a Español'}
+    <!-- Idioma + hamburguesa -->
+    <div class="flex items-center gap-2">
+      <a
+        href={altUrl}
+        hreflang={isES ? 'en' : 'es'}
+        class="inline-flex items-center gap-2 rounded-md px-2 py-2 border border-[color:var(--color-text-muted)]/30 text-[color:var(--color-text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/10 transition-colors no-underline"
+        aria-label={t.nav.switchLanguage}
+        title={t.nav.switchLanguage}
       >
-        <span class="sr-only">Switch language EN/ES</span>
-
-        <!-- Pista -->
         <span
-          data-track
-          class="relative inline-flex h-6 w-14 items-center rounded-full border border-[color:var(--color-text-muted)]/30 transition-colors bg-[color:var(--color-text-muted)]/20 text-[color:var(--color-text-secondary)]"
+          aria-hidden="true"
+          class:list={[
+            'relative inline-flex h-6 w-14 items-center rounded-full border border-[color:var(--color-text-muted)]/30 transition-colors',
+            isES
+              ? 'bg-[var(--accent)]/20 text-[var(--accent)]'
+              : 'bg-[color:var(--color-text-muted)]/20 text-[color:var(--color-text-secondary)]',
+          ]}
         >
-          <!-- Marcadores fantasma EN/ES -->
           <span class="absolute left-1 text-[10px] opacity-60 select-none pointer-events-none">EN</span>
           <span class="absolute right-1 text-[10px] opacity-60 select-none pointer-events-none">ES</span>
 
-          <!-- Thumb con icono -->
           <span
-            aria-hidden="true"
-            data-thumb
-            class="inline-flex items-center justify-center h-5 w-5 rounded-full bg-current shadow transform translate-x-0 transition-transform"
+            class:list={[
+              'inline-flex items-center justify-center h-5 w-5 rounded-full bg-current shadow transform transition-transform',
+              isES ? 'translate-x-8' : 'translate-x-0',
+            ]}
           >
-            <!-- Flag EN (UK style minimal) -->
-            <svg data-flag-en viewBox="0 0 24 24" class="h-3.5 w-3.5" aria-hidden="true">
-              <defs>
-                <clipPath id="clip">
-                  <rect x="0" y="0" width="24" height="24" rx="2" ry="2"></rect>
-                </clipPath>
-              </defs>
-              <g clip-path="url(#clip)">
-                <rect width="24" height="24" fill="#0A17A7"></rect>
-                <path d="M0,0 L24,24 M24,0 L0,24" stroke="#FFF" stroke-width="4"></path>
-                <path d="M0,0 L24,24 M24,0 L0,24" stroke="#C8102E" stroke-width="2"></path>
-                <rect x="10" y="0" width="4" height="24" fill="#FFF"></rect>
-                <rect x="0" y="10" width="24" height="4" fill="#FFF"></rect>
-                <rect x="11" y="0" width="2" height="24" fill="#C8102E"></rect>
-                <rect x="0" y="11" width="24" height="2" fill="#C8102E"></rect>
-              </g>
-            </svg>
-
-            <!-- Flag ES (minimal) -->
-            <svg data-flag-es viewBox="0 0 24 24" class="h-3.5 w-3.5 hidden" aria-hidden="true">
-              <rect width="24" height="24" fill="#AA151B"></rect>
-              <rect y="6" width="24" height="12" fill="#F1BF00"></rect>
-            </svg>
+            {isES ? (
+              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" aria-hidden="true">
+                <rect width="24" height="24" fill="#AA151B"></rect>
+                <rect y="6" width="24" height="12" fill="#F1BF00"></rect>
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" aria-hidden="true">
+                <defs>
+                  <clipPath id="flag-en-clip">
+                    <rect x="0" y="0" width="24" height="24" rx="2" ry="2"></rect>
+                  </clipPath>
+                </defs>
+                <g clip-path="url(#flag-en-clip)">
+                  <rect width="24" height="24" fill="#0A17A7"></rect>
+                  <path d="M0,0 L24,24 M24,0 L0,24" stroke="#FFF" stroke-width="4"></path>
+                  <path d="M0,0 L24,24 M24,0 L0,24" stroke="#C8102E" stroke-width="2"></path>
+                  <rect x="10" y="0" width="4" height="24" fill="#FFF"></rect>
+                  <rect x="0" y="10" width="24" height="4" fill="#FFF"></rect>
+                  <rect x="11" y="0" width="2" height="24" fill="#C8102E"></rect>
+                  <rect x="0" y="11" width="24" height="2" fill="#C8102E"></rect>
+                </g>
+              </svg>
+            )}
           </span>
         </span>
 
-        <!-- Etiqueta actual -->
-        <span class="font-semibold w-7 text-center" data-lang-current>{isES ? 'ES' : 'EN'}</span>
-      </button>
+        <span class="font-semibold w-7 text-center">{isES ? 'ES' : 'EN'}</span>
+      </a>
 
-      <!-- Hamburguesa -->
       <button
         data-menu-btn
         class="md:hidden inline-flex items-center justify-center rounded-md p-2 border border-[color:var(--color-text-muted)]/30"
         aria-controls="mobile-menu"
         aria-expanded="false"
-        aria-label="Open menu"
+        aria-label={t.nav.openMenu}
       >
         <svg class="h-6 w-6" viewBox="0 0 24 24" aria-hidden="true">
           <path fill="currentColor" d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/>
@@ -125,19 +127,17 @@ const activeClass = (href: string) =>
   <!-- Menú móvil -->
   <div id="mobile-menu" class="md:hidden hidden border-t bg-background">
     <div class="mx-auto max-w-6xl px-4 py-3 flex flex-col gap-2">
-      <HeaderLink href={path('/')} class={activeClass(path('/'))}>{isES ? 'Inicio' : 'Home'}</HeaderLink>
-      <HeaderLink href={path('/about')} class={activeClass(path('/about'))}>{isES ? 'Sobre mí' : 'About'}</HeaderLink>
-      <HeaderLink href={path('/Skills')} class={activeClass(path('/Skills'))}>{isES ? 'Skills' : 'Skills'}</HeaderLink>
-      <HeaderLink href={path('/blog')} class={activeClass(path('/blog'))}>{isES ? 'Juegos' : 'Game Projects'}</HeaderLink>
-      <HeaderLink href={path('/portfolio')} class={activeClass(path('/portfolio'))}>{isES ? 'Proyectos' : 'Projects'}</HeaderLink>
-      <a href={path('/#contact')} class={activeClass(path('/#contact'))}>{isES ? 'CV y Contacto' : 'CV & Contact'}</a>
+      {nav.map((item) => (
+        <HeaderLink href={path(item.slug)} class={activeClass(path(item.slug))}>{item.label}</HeaderLink>
+      ))}
     </div>
   </div>
 </header>
 
-<script is:inline>
-  const btn = document.querySelector('[data-menu-btn]');
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-menu-btn]');
   const panel = document.getElementById('mobile-menu');
+
   function toggleMenu() {
     if (!panel || !btn) return;
     const isOpen = !panel.classList.contains('hidden');
@@ -145,69 +145,18 @@ const activeClass = (href: string) =>
     btn.setAttribute('aria-expanded', String(!isOpen));
     document.documentElement.classList.toggle('overflow-hidden', !isOpen);
   }
+
   btn?.addEventListener('click', toggleMenu);
+
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !panel?.classList.contains('hidden')) toggleMenu();
+    if (e.key === 'Escape' && panel && !panel.classList.contains('hidden')) toggleMenu();
   });
+
   document.addEventListener('click', (e) => {
     if (!panel || !btn) return;
-    if (!panel.contains(e.target) && !btn.contains(e.target) && !panel.classList.contains('hidden')) toggleMenu();
-  });
-
-  const langBtn = document.querySelector('[data-lang-btn]');
-  const langLabel = document.querySelector('[data-lang-current]');
-  const BASE = '/portfolio';
-  const ES_PREFIX = BASE + '/es';
-
-  const isEsPath = (p) => p === ES_PREFIX || p === ES_PREFIX + '/' || p.startsWith(ES_PREFIX + '/');
-  const toES = (p) => (p.endsWith('/') ? p : p + '/').replace(new RegExp('^' + BASE + '/'), ES_PREFIX + '/');
-  const toEN = (p) => p.replace(new RegExp('^' + ES_PREFIX + '(/)?'), BASE + '/');
-
-function refreshLangUI() {
-  const es = isEsPath(location.pathname);
-  const track = document.querySelector('[data-track]');
-  const thumb = document.querySelector('[data-thumb]');
-  const flagEN = document.querySelector('[data-flag-en]');
-  const flagES = document.querySelector('[data-flag-es]');
-
-  langBtn?.setAttribute('aria-checked', es ? 'true' : 'false');
-  if (langLabel) langLabel.textContent = es ? 'ES' : 'EN';
-  langBtn?.setAttribute('title', es ? 'Switch to English' : 'Cambiar a Español');
-
-  if (track) {
-    track.classList.toggle('bg-[var(--accent)]/20', es);
-    track.classList.toggle('text-[var(--accent)]', es);
-    track.classList.toggle('bg-[color:var(--color-text-muted)]/20', !es);
-    track.classList.toggle('text-[color:var(--color-text-secondary)]', !es);
-  }
-
-  if (thumb) {
-    thumb.classList.toggle('translate-x-8', es); 
-    thumb.classList.toggle('translate-x-0', !es); 
-  }
-
-  if (flagEN && flagES) {
-    flagEN.classList.toggle('hidden', es); 
-    flagES.classList.toggle('hidden', !es); 
-  }
-}
-
-  langBtn?.addEventListener('click', () => {
-    const es = isEsPath(location.pathname);
-    const next = es ? toEN(location.pathname) : toES(location.pathname);
-    try { localStorage.setItem('lang', es ? 'en' : 'es'); } catch {}
-    window.location.href = next + window.location.search + window.location.hash;
-  });
-
-  // Respeta preferencia guardada
-  try {
-    const pref = localStorage.getItem('lang');
-    if (pref === 'es' && !isEsPath(location.pathname)) {
-      window.location.replace(toES(location.pathname) + window.location.search + window.location.hash);
-    } else if (pref === 'en' && isEsPath(location.pathname)) {
-      window.location.replace(toEN(location.pathname) + window.location.search + window.location.hash);
+    const target = e.target as Node;
+    if (!panel.contains(target) && !btn.contains(target) && !panel.classList.contains('hidden')) {
+      toggleMenu();
     }
-  } catch {}
-
-  refreshLangUI();
+  });
 </script>

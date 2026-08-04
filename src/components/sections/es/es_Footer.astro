@@ -1,4 +1,5 @@
 ---
+import { asset } from "../../../lib/href";
 const today = new Date();
 import contactIconRaw from "../../../assets/icons/resume-icon.svg?raw";
 import Button from "../../ui/button/Button.astro";
@@ -58,7 +59,7 @@ const feedUrl = new URL('rss.xml', Astro.site).toString();
   <p class="mt-2 text-[color:var(--color-text-muted)]">¿Quieres saber más sobre mi trayectoria? Aquí tienes mi CV.</p>
 
   <div class="mt-8 flex justify-center">
-    <Button href="/portfolio/CV_Nahuel_ESP.pdf" variant="secondary" size="md">
+    <Button href={asset("/CV_Nahuel_ESP.pdf")} variant="secondary" size="md">
       <span class="inline-flex mr-2" aria-hidden="true" set:html={contactIcon} />
       Descargar CV
     </Button>

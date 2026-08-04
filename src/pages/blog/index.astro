@@ -1,4 +1,5 @@
 ---
+import { href } from "../../lib/href";
 import { getCollection, render } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/sections/Footer.astro';
@@ -31,7 +32,7 @@ const totalPages = Math.max(1, Math.ceil(rest.length / PAGE_SIZE));
 <html lang="en" data-theme="dark" class="dark">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    {totalPages > 1 && <link rel="next" href={`/portfolio/blog/page/2/`} />}
+    {totalPages > 1 && <link rel="next" href={href("/blog/page/2/")} />}
   </head>
   <body>
     <Header />

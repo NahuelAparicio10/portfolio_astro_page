@@ -1,52 +1,113 @@
-/* Base design tokens and defaults. These map to Starwind's inline theme variables. */
+/**
+ * Design tokens — single source of truth.
+ *
+ * The site ships a single dark theme. There is no theme switcher, and every
+ * page hardcodes `data-theme="dark"`, so the previous light theme was dead
+ * code that never applied. Tokens now live in `:root` and the dark selectors
+ * are kept as aliases only so existing `.dark` / `[data-theme="dark"]` markup
+ * keeps working.
+ *
+ * Contrast is measured, not eyeballed. Values noted below are WCAG ratios
+ * against the page background (#070B16).
+ */
 :root {
-  /* Brand */
-  --accent: #FF8A4C;
-  --accent-dark: #F97316;
-  --accent-rgb: 255, 138, 76;
+  /* ------------------------------------------------------------------ *
+   * Brand — blue
+   * `--accent-rgb` is the source of truth so rgba(var(--accent-rgb), a)
+   * always composes the same colour. `--accent` derives from it.
+   * ------------------------------------------------------------------ */
+  --accent-rgb: 96, 165, 250;        /* #60A5FA — 7.73:1 on background */
+  --accent: rgb(var(--accent-rgb));
+  --accent-light: #93C5FD;
+  --accent-dark: #3B82F6;
 
-  /* Neutrals (light baseline; dark overrides live in themes/dark.css) */
-  --black: 15, 18, 25;
-  --gray: 96, 115, 159;
-  --gray-light: 229, 233, 240;
-  --gray-dark: 34, 41, 57;
+  /* ------------------------------------------------------------------ *
+   * Navy surface scale
+   * ------------------------------------------------------------------ */
+  --navy-950: #070B16;   /* page background */
+  --navy-900: #0C1222;   /* raised surface  */
+  --navy-850: #131B2E;   /* card / hover    */
+  --navy-800: #1A2338;   /* borders, dividers */
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 8px 15px rgba(0, 0, 0, 0.12);
-  --shadow-xl: 0 12px 25px rgba(0, 0, 0, 0.16);
-  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.2);
+  /* Neutrals. `--black` is the text-on-dark base, kept for legacy rgb() use. */
+  --black: 255, 255, 255;
+  --gray: 171, 178, 191;
+  --gray-light: 40, 44, 52;
+  --gray-dark: 220, 223, 228;
+
+  /* ------------------------------------------------------------------ *
+   * Semantic tokens
+   * ------------------------------------------------------------------ */
+  --color-text-primary: rgb(var(--black));    /* 17.86:1 */
+  --color-text-secondary: rgb(var(--gray-dark)); /* 14.71:1 */
+  --color-text-muted: rgb(var(--gray));       /*  9.22:1 */
+  --color-bg-primary: var(--background);
+  --color-bg-secondary: var(--navy-900);
+  --color-bg-tertiary: var(--navy-850);
+  --color-border: rgba(255, 255, 255, 0.10);
+  --color-border-light: rgba(255, 255, 255, 0.06);
+  --color-accent-text: var(--accent);
+  --color-accent-bg: rgba(var(--accent-rgb), 0.15);
+
+  /* Translucent surfaces layered over the navy background */
+  --surface-100: rgba(255, 255, 255, 0.04);
+  --surface-200: rgba(255, 255, 255, 0.07);
+  --surface-300: rgba(255, 255, 255, 0.11);
+
+  /* ------------------------------------------------------------------ *
+   * Elevation
+   * ------------------------------------------------------------------ */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.18);
+  --shadow-md: 0 6px 14px rgba(0, 0, 0, 0.28);
+  --shadow-lg: 0 10px 28px rgba(0, 0, 0, 0.35);
+  --shadow-xl: 0 18px 44px rgba(0, 0, 0, 0.42);
+  --shadow-2xl: 0 30px 80px rgba(0, 0, 0, 0.5);
 
   --box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.12),
-    0 8px 24px rgba(0, 0, 0, 0.12),
-    0 16px 32px rgba(0, 0, 0, 0.12);
+    0 2px 6px rgba(0, 0, 0, 0.4),
+    0 8px 24px rgba(0, 0, 0, 0.2),
+    0 16px 32px rgba(0, 0, 0, 0.2);
 
-  /* Map to Starwind token variables via inline @theme in starwind.css */
-  --background: #ffffff;
-  --foreground: #0f1219;
-  --card: #ffffff;
-  --card-foreground: #0f1219;
-  --popover: #ffffff;
-  --popover-foreground: #0f1219;
+  /* Accent glow. Consumed by .card-surface:hover in utilities.css — it was
+     referenced there but never defined, which invalidated the whole rule. */
+  --glow-accent: 0 0 28px rgba(var(--accent-rgb), 0.35);
+
+  /* ------------------------------------------------------------------ *
+   * Starwind component tokens
+   * ------------------------------------------------------------------ */
+  --background: var(--navy-950);
+  --foreground: rgb(243, 244, 246);
+  --card: var(--surface-100);
+  --card-foreground: rgb(243, 244, 246);
+  --popover: var(--navy-850);
+  --popover-foreground: rgb(243, 244, 246);
   --primary: var(--accent);
-  --primary-foreground: #ffffff;
-  --secondary: #FFB36B;
-  --secondary-foreground: #0f1219;
-  --muted: rgb(246, 247, 249);
-  --muted-foreground: rgb(96, 115, 159);
+  --primary-foreground: #0f1219;
+  --secondary: var(--accent-dark);
+  --secondary-foreground: #ffffff;
+  --muted: var(--surface-100);
+  --muted-foreground: rgb(171, 178, 191);
   --accent-foreground: #0f1219;
-  --info: #7dd3fc;
+
+  --info: var(--accent-dark);
   --info-foreground: #082f49;
-  --success: #86efac;
+  --success: #10b981;
   --success-foreground: #052e16;
-  --warning: #fcd34d;
+  --warning: #f59e0b;
   --warning-foreground: #451a03;
   --error: #ef4444;
   --error-foreground: #ffffff;
-  --border: rgb(229, 233, 240);
-  --input: rgb(229, 233, 240);
+
+  --border: var(--surface-300);
+  --input: var(--surface-300);
   --outline: var(--accent);
+
   --radius: 0.75rem;
+}
+
+/* Aliases: every page renders with `data-theme="dark" class="dark"`, and
+   Tailwind's `dark:` variant needs the class. Tokens are identical to :root. */
+[data-theme="dark"],
+.dark {
+  color-scheme: dark;
 }

@@ -75,32 +75,102 @@ del producto en genérico, responsabilidades concretas).
 
 > **Game Programmer** · may 2026 – actualidad
 >
-> Desarrollo de un título móvil sin anunciar en Unity. Implementación de sistemas
-> de gameplay —combate, movimiento, físicas y máquinas de estado— y de la capa de
-> *feedback*: animaciones, *shaders* y el sistema de audio de *gameplay*.
-> Desarrollo de herramientas internas de editor, entre ellas un inspector de
-> entidades y una herramienta web interna de equipo. Diseño e implementación de
-> los flujos de desarrollo asistidos por IA del proyecto: agentes y *skills*
-> propios, servidor MCP y un revisor de código automático, junto a un *gate* de
-> arquitectura que mide acoplamiento y bloquea dependencias prohibidas entre capas.
+> Desarrollo de un título móvil sin anunciar en Unity. Implementación de la capa
+> de presentación e interfaz de la escena de juego bajo un patrón MVP:
+> orquestación de secuencias de ronda, indicadores de estado, animaciones,
+> *shaders* y parte de audio del *gameplay*. Desarrollo de herramientas internas de editor,
+> entre ellas un importador de interfaz desde Figma con reimportación incremental,
+> generación de jerarquías y mapeo de componentes, y un editor visual de las
+> entidades del juego. Desarrollo de una aplicación web de autoría (Next.js, React
+> y TypeScript) para definir y caracterizar entidades, consultar sus relaciones y
+> editarlas mediante agentes de IA, con control de acceso por roles y registro de
+> auditoría. Diseño e implementación de los flujos de desarrollo asistidos por IA
+> del proyecto: agentes y *skills* propios, servidor MCP y un revisor de código
+> automático, junto a un *gate* de arquitectura que mide acoplamiento y bloquea
+> dependencias prohibidas entre capas.
+
+#### Áreas de trabajo verificadas en el código Unity
+
+Los cuarenta archivos más modificados por Nahuel delimitan el trabajo real:
+
+```
+UI y escena de juego (MVP)
+  PlaySceneView · PlayScenePresenter · CardGameManager
+  BreachBarSequenceController · BreachSequencePlanBuilder
+  HeatBarController · EnemyHealthBarController · EChipsDisplayController
+  WorldHubPresenter · CollectionEntityPopupView · binders de crafteo
+
+Editor · importador de interfaz desde Figma
+  FigmaImportService · UIDesignGenerator · UIButtonFactory
+  UIComponentFactory · SemanticElementBuilder · ComponentMapper
+  FigmaAssetDownloader · FigmaNodeDataConverter · UIHierarchyUtils
+  Tests/UIImporter/SmartReimportDiffTests
+
+Editor · visor y editor de entidades
+  EntityViewerWindow · EntityDetailPanel · EntityListPanel
+  EntityEditorService · EntityCardPreviewWindow · EntityCardViewerPanel
+```
+
+El importador de Figma destaca por encima del resto: genera jerarquías de
+interfaz, mapea componentes y admite reimportación incremental con tests de
+diferencias. Es una herramienta que ahorra trabajo manual a todo el equipo, y
+conviene que aparezca de forma explícita.
+
+#### La herramienta web de autoría
+
+Se revisó `web/` para describirla con precisión. Es una aplicación full-stack, no
+un utilitario:
+
+```
+Next.js 15 · React 19 · TypeScript · Refine · Ant Design · Zod · Vitest
+
+Capa BFF              rutas de API que median con el servidor del juego
+Autoría de entidades  entidades y arquetipos, esquemas validados,
+                      vocabulario de reglas, descriptores de autoría
+Agentes de IA         SDK de OpenCode, gestor de sesiones con streaming;
+                      permite crear y editar entidades conversando con un agente
+Auth y RBAC           OAuth de Google y local, roles, capacidades,
+                      acceso por organización
+Auditoría             registro append-only, diffs, escritura atómica, panel
+```
+
+Implicación para las skills: el perfil **sí** incluye ahora desarrollo web
+full-stack real con React, Next.js y TypeScript. Es exactamente el stack que la
+plantilla afirmaba en falso; la diferencia es que ahora hay trabajo detrás.
+
+Aun así **no se crea una categoría "Full-Stack"**: presentarse como game
+programmer que además construye herramientas internas es más fuerte que
+presentarse como game programmer y desarrollador web. La aplicación se describe
+dentro de *Engine & Tools*, mencionando el stack.
 
 Correcciones aplicadas sobre el primer borrador, indicadas por Nahuel:
 
 - **No** hubo automatización de builds. Retirado.
 - Los agentes, las *skills*, el revisor de código por IA, el inspector de
-  entidades y la herramienta web interna son de **su autoría**, no integraciones.
+  entidades y la aplicación web de autoría son de **su autoría**, no integraciones.
 - El sistema de audio es **solo de gameplay**, no del juego completo.
 - "*shaders* de realce" → "*shaders*".
-- Gameplay se concreta en combate, movimiento, físicas y estados, evitando
-  términos que no corresponden a su trabajo real.
+- **Corrección importante**: combate, movimiento, físicas y máquinas de estado
+  **no** corresponden a este puesto. Pertenecen al TFG. El producto actual no
+  tiene esa clase de sistemas, y atribuírselos era un error de bulto. El trabajo
+  real es capa de presentación con patrón MVP, secuencias de ronda y herramientas
+  de editor, según se verifica en el código.
+- *utility AI* y *HFSM* son igualmente del TFG y van solo a la sección de skills,
+  respaldados por ese proyecto.
 
-**Pendiente de confirmar**: la naturaleza de la "herramienta web interna" se
-dedujo del directorio `web/` del repositorio; falta la descripción de Nahuel.
+#### Información conocida que queda fuera por NDA
+
+Nahuel aportó la naturaleza del producto como contexto para evitar filtraciones
+accidentales, no para incluirla. Queda explícitamente excluido de todo texto
+publicable: el género del juego, cualquier referencia a títulos comparables, la
+temática y la mecánica. La única mención admitida es "un título móvil sin
+anunciar".
 
 > **Game Developer** (prácticas) · nov 2025 – may 2026
 >
-> Prácticas de 7 meses en el departamento de *Gameplay & Tools* sobre un título
-> comercial para PC y Nintendo Switch. Refactorización del sistema de localización
+> Prácticas en el departamento de *Gameplay & Tools*, ampliadas con un periodo
+> extracurricular, sobre un título comercial para PC y Nintendo Switch distribuido
+> en Steam. Refactorización del sistema de localización
 > y tipografías sobre *Addressables*, con soporte de fuentes CJK y herramientas de
 > editor propias para su gestión. Desarrollo y adaptación de *shaders* y efectos
 > visuales en URP, incluidos efectos de pantalla completa con *Shader Graph* y un
@@ -121,20 +191,18 @@ se decide alargarla:
 - Sesiones de QA y *playtesting* con documentación de hallazgos
 - Migración de componentes de navegación obsoletos de Unity
 
-**Discrepancia de fechas**: el informe de prácticas indica 03/11/2025 – 17/03/2026,
-mientras que el puesto figura como nov 2025 – may 2026. Se asume que el prácticum
-universitario fue un subconjunto del contrato y se usan las fechas del puesto.
-Pendiente de confirmación.
+**Fechas**: resuelto. El prácticum universitario (300 h) terminó en marzo de 2026
+y se amplió con un periodo extracurricular hasta mayo. No se publican fechas
+exactas de día: la tarjeta indica el rango de meses y menciona la ampliación.
+
+**Plataformas**: confirmado que se mencionan PC, Nintendo Switch y Steam.
 
 #### Aprobación
 
 **Ambos borradores requieren la aprobación explícita de Nahuel** antes de
 publicarse. Él conoce los términos concretos del acuerdo firmado.
 
-Punto concreto a decidir: el informe indica que el proyecto principal del estudio
-está sujeto a NDA. Mencionar *PC*, *Nintendo Switch* y *Steam* acota el producto,
-aunque como credencial tiene valor. Nahuel decide si se mantienen o se sustituyen
-por "un título comercial".
+Decidido: en la tarjeta de prácticas se mencionan PC, Nintendo Switch y Steam.
 
 ## 2. Skills
 
@@ -161,12 +229,17 @@ Cada categoría se contrasta contra trabajo verificable, propio o profesional:
 
 | Categoría | Respaldo |
 |---|---|
-| Gameplay Programming | Sistema de combate Souls-like, y los siete juegos del blog |
+| Gameplay Programming | Sistema de combate Souls-like, TFG (*HFSM* y *utility AI* para IA de enemigos), y los siete juegos del blog |
 | Game Feel & Feedback | Capa de *feedback* del proyecto actual; polish en los juegos propios |
 | Graphics & Shaders | *Shaders* URP y Shader Graph en prácticas; mini-motor OpenGL; olas de Gerstner |
-| Engine & Tools | Herramientas de editor en ambos puestos; mini-motor propio |
+| Engine & Tools | Herramientas de editor en ambos puestos; aplicación web de autoría; herramientas del TFG; mini-motor propio |
 | AI & Automation | Agentes, *skills*, MCP y revisor de código del proyecto actual |
 | Networking & Architecture | Shooter UDP con servidor autoritativo, Parchís TCP, ECS |
+
+**Origen de *utility AI* y *HFSM***: proceden del TFG, no del empleo actual. Solo
+pueden figurar en skills si el TFG existe como proyecto visible en el sitio (ver
+más abajo); en caso contrario se estaría afirmando una competencia sin respaldo
+consultable, que es exactamente el defecto del `skills.ts` de la plantilla.
 
 Se añade **Game Feel & Feedback** como categoría propia: el historial muestra que
 una parte sustancial del trabajo es esa capa, y es lo que distingue a un gameplay
@@ -201,6 +274,28 @@ a `src/assets/icons/`, en coherencia con el resto de iconos del proyecto.
 
 Estado actual: `data/work.ts` tiene 2 entradas, `data/es/es_work.ts` tiene 1.
 Ya desincronizados — lo arregla `foundations-and-i18n` al unificar los datos.
+
+### El TFG no está en el portfolio
+
+El único rastro de *Between Shadows* en el sitio es una entrada de 2024:
+*"3D top-down RPG prototype. (Team of 2, 4 weeks)"*.
+
+El TFG es un trabajo sustancialmente mayor: sistema de combate completo del
+jugador, IA de enemigos mediante *HFSM* y *utility AI*, y tres herramientas de
+editor propias (línea de tiempo de combate, ventana de balance automático y
+editor de diálogos por grafo de nodos).
+
+Es previsiblemente la pieza más fuerte del portfolio y no aparece. Además,
+sostiene buena parte de las skills propuestas: sin ella, *utility AI* y *HFSM*
+son afirmaciones sin proyecto que las respalde.
+
+**Decidido**: Nahuel añadirá *Between Shadows* (TFG) como proyecto, pero más
+adelante — está pendiente de preparar vídeo y material gráfico.
+
+Consecuencia para este change: *HFSM* y *utility AI* pueden figurar en la
+categoría *Gameplay Programming*, dado que el proyecto que las respalda va a
+existir. Si al cerrar el change el proyecto aún no se ha publicado, conviene
+revisar si conservarlas o esperar.
 
 Estructura objetivo:
 

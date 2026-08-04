@@ -3,20 +3,19 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/sections/es/es_Footer.astro';
 import Header from '../../components/sections/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
-
-// Logos
+import { asset, href } from '../../lib/href';
 
 const ctas = [
-  { text: "Sobre mí", href: "/portfolio/about", variant: "secondary" },
-  { text: "Skills", href: "/portfolio/Skills", variant: "secondary" },
-  { text: "Juegos", href: "/portfolio/blog", variant: "secondary" },
-  { text: "Proyectos", href: "/portfolio/portfolio", variant: "secondary" },
-  { text: "CV y contacto", href: "/portfolio/contact", variant: "secondary" },
+  { text: "Sobre mí", href: href("/about", "es"), variant: "secondary" },
+  { text: "Skills", href: href("/Skills", "es"), variant: "secondary" },
+  { text: "Juegos", href: href("/blog", "es"), variant: "secondary" },
+  { text: "Proyectos", href: href("/portfolio", "es"), variant: "secondary" },
+  { text: "CV y contacto", href: href("/contact", "es"), variant: "secondary" },
 ];
 ---
 
 <!doctype html>
-<html lang="en" data-theme="dark" class="dark">
+<html lang="es" data-theme="dark" class="dark">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
     <!-- JSON-LD: Organization -->
@@ -44,7 +43,7 @@ const ctas = [
           loop
           playsinline
           class="absolute inset-0 w-full h-full object-cover z-0 ">
-          <source src="/portfolio/videos/fondo.mp4" type="video/mp4" />
+          <source src={asset("/videos/fondo.mp4")} type="video/mp4" />
         </video>
 
         <!-- Overlay oscuro -->
