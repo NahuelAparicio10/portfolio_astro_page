@@ -45,10 +45,15 @@ const imageUrl = new URL(image.src, siteOrigin).toString();
 <!-- Scroll reveal. Re-runs after each client-side navigation, since the
      observer only ever saw the elements of the previous page. -->
 <script>
-  import { initReveal } from '../lib/motion';
+  import { initReveal, initTouchSpotlight } from '../lib/motion';
 
-  initReveal();
-  document.addEventListener('astro:page-load', () => initReveal());
+  function boot() {
+    initReveal();
+    initTouchSpotlight();
+  }
+
+  boot();
+  document.addEventListener('astro:page-load', boot);
 </script>
 
 <!-- Font preloads -->

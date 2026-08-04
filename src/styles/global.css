@@ -31,7 +31,12 @@
 	--font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
+html {
+	overflow-x: hidden;
+}
+
 body {
+	overflow-x: hidden;
 	font-family: var(--font-body);
 	margin: 0;
 	padding: 0;
@@ -82,17 +87,29 @@ strong,
 b {
 	font-weight: 700;
 }
-/* .btn-juicy must be excluded: this selector is more specific than the
-   component class, so it was forcing an underline and keeping the text accent
-   coloured on an accent background, making hovered buttons unreadable. */
-a:not(.sw-btn):not(.sw-btn-sm):not(.btn-juicy):not(.no-underline) {
+/* Links are styled inside prose only.
+   This used to be a blanket `a:not(.sw-btn):not(.sw-btn-sm)...` rule, which was
+   more specific than any component class and kept breaking site chrome: it
+   forced underlines on the hero buttons and on the mobile menu, and held the
+   text at accent colour on an accent background so hovered buttons became
+   unreadable. Every new component meant appending another `:not()`.
+   Scoping to prose inverts the default: chrome styles itself, content gets
+   underlines. */
+.prose a,
+.container-prose a {
     color: var(--accent);
     text-decoration: underline;
     text-underline-offset: 2px;
 }
-a:not(.sw-btn):not(.sw-btn-sm):not(.btn-juicy):not(.no-underline):hover {
-    color: var(--accent);
+.prose a:hover,
+.container-prose a:hover {
+    color: var(--accent-light);
     text-decoration-thickness: 2px;
+}
+.prose a.sw-tag,
+.prose a.sw-btn,
+.prose a.sw-btn-sm {
+    text-decoration: none;
 }
 p {
 	margin-bottom: 1em;

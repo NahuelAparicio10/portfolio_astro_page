@@ -16,11 +16,24 @@
   transition: box-shadow 250ms ease, transform 200ms ease, border-color 250ms ease;
 }
 
-.card-surface:hover {
+@media (hover: hover) {
+  .card-surface:hover {
+    border-color: rgba(var(--accent-rgb), 0.35);
+    box-shadow:
+      0 10px 28px rgba(0, 0, 0, 0.35),
+      var(--glow-accent);
+  }
+}
+
+/* Touch equivalent of hover: applied by initTouchSpotlight() to whichever card
+   is crossing the middle of the screen, so dragging produces continuous
+   feedback instead of nothing. */
+.card-surface.is-spotlit {
   border-color: rgba(var(--accent-rgb), 0.35);
   box-shadow:
     0 10px 28px rgba(0, 0, 0, 0.35),
     var(--glow-accent);
+  transform: translateY(-3px);
 }
 
 .elevate-lg { box-shadow: var(--shadow-lg); }
@@ -334,11 +347,17 @@ button,
   transform: translateY(0);
 }
 
-.card-surface:hover {
-  transform: translateY(-3px);
+@media (hover: hover) {
+  .card-surface:hover {
+    transform: translateY(-3px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .card-surface.is-spotlit {
+    transform: none;
+  }
+
   .card-surface:hover,
   :where(a.sw-btn, a.sw-btn-sm, button, [role="button"]):active {
     transform: none;
@@ -497,6 +516,15 @@ button,
     border-color 200ms var(--motion-ease),
     box-shadow 200ms var(--motion-ease),
     color 200ms var(--motion-ease);
+}
+
+@media (hover: none) {
+  /* Touch has no hover, so the pills at least answer the press. */
+  .pill-tech:active {
+    color: var(--background);
+    background: rgba(var(--accent-rgb), 0.95);
+    border-color: rgba(var(--accent-rgb), 1);
+  }
 }
 
 .pill-tech:hover,

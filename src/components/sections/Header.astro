@@ -90,19 +90,20 @@ const nav = [
     </div>
   </nav>
 
-  <!-- Menú móvil a pantalla completa -->
-  <div id="mobile-menu" class="mobile-menu md:hidden" hidden>
-    <nav class="mobile-menu-inner">
-      {nav.map((item, index) => (
-        <a
-          href={path(item.slug)}
-          class:list={['mobile-link', isSamePath(currentPath, path(item.slug)) && 'is-active']}
-          style={`--i:${index}`}
-        >{item.label}</a>
-      ))}
-    </nav>
-  </div>
 </header>
+
+<!-- Menú móvil a pantalla completa -->
+<div id="mobile-menu" class="mobile-menu md:hidden" hidden>
+  <nav class="mobile-menu-inner">
+    {nav.map((item, index) => (
+      <a
+        href={path(item.slug)}
+        class:list={['mobile-link', isSamePath(currentPath, path(item.slug)) && 'is-active']}
+        style={`--i:${index}`}
+      >{item.label}</a>
+    ))}
+  </nav>
+</div>
 
 <style>
   /* Full-screen overlay rather than a dropdown: on a phone the nav deserves the

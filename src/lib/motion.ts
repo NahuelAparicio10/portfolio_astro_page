@@ -71,3 +71,43 @@ export function initReveal(root: ParentNode = document): void {
     observer.observe(element);
   }
 }
+
+/**
+ * Touch spotlight.
+ *
+ * Touch devices have no hover, so dragging a finger across the page produces
+ * no feedback at all: the only state available is `:active`, and that fires
+ * on tap. Simulating hover from `touchmove` would fight scrolling and light up
+ * everything the finger sweeps past, which is exactly why browsers dropped it.
+ *
+ * The mobile-native equivalent is position-driven: whichever card sits in the
+ * middle of the viewport gets the emphasis. Dragging then feels alive, because
+ * the highlight moves with the scroll instead of with the finger.
+ */
+const SPOTLIGHT_SELECTOR = '.card-surface';
+const SPOTLIGHT_CLASS = 'is-spotlit';
+
+export function initTouchSpotlight(root: ParentNode = document): void {
+  // Pointer-capable devices already have hover; this would only double up.
+  if (window.matchMedia('(hover: hover)').matches) return;
+  if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
+
+  const cards = Array.from(root.querySelectorAll<HTMLElement>(SPOTLIGHT_SELECTOR));
+  if (cards.length === 0) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        entry.target.classList.toggle(SPOTLIGHT_CLASS, entry.isIntersecting);
+      }
+    },
+    {
+      // Negative margins collapse the root into a band across the middle of the
+      // screen, so only what the reader is actually looking at lights up.
+      rootMargin: '-42% 0px -42% 0px',
+      threshold: 0,
+    },
+  );
+
+  for (const card of cards) observer.observe(card);
+}
