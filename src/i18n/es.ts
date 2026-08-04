@@ -16,9 +16,9 @@ export const es: TranslationSchema = {
     switchLanguage: 'Switch to English',
   },
   home: {
-    role: 'Programador de Gameplay y',
-    roleAccent: 'Desarrollador de Videojuegos',
-    tagline: 'Programando el puente entre el diseño y la experiencia del jugador.',
+    role: 'Programador de Videojuegos',
+    specialties: ['Gameplay', 'Herramientas', 'Automatización con IA'],
+    tagline: 'Construyo los sistemas del juego y las herramientas que los hacen posibles.',
     ctaAbout: 'Sobre mí',
     ctaSkills: 'Skills',
     ctaGames: 'Juegos',
@@ -59,7 +59,7 @@ export const es: TranslationSchema = {
   },
   about: {
     fullName: 'Nahuel Aparicio Del Blanco',
-    role: 'Programador de Gameplay y Desarrollador de Videojuegos – Barcelona, España.',
+    role: 'Programador de Videojuegos · Gameplay, Herramientas e IA – Barcelona, España.',
     paragraphs: [
       'Desde que era pequeño me ha fascinado cómo los videojuegos crean mundos llenos de vida. Esa curiosidad se transformó en una pasión por el <b>desarrollo de videojuegos</b> y la <b>programación de gameplay</b>. Actualmente, me concentro en construir <b>sistemas eficientes, modulares y divertidos de jugar</b>.',
       'Me considero con gran capacidad de <b>resolución de problemas</b>, siempre buscando escribir código escalable y abierto a feedback constructivo que me ayude a mejorar tanto personal como profesionalmente.',

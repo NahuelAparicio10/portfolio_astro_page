@@ -1,0 +1,223 @@
+---
+import { useTranslations } from '../../i18n';
+import { asset, DEFAULT_LOCALE, href, type Locale } from '../../lib/href';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = DEFAULT_LOCALE } = Astro.props as Props;
+const t = useTranslations(locale);
+
+const ctas = [
+  { text: t.home.ctaAbout, href: href('/about', locale) },
+  { text: t.home.ctaSkills, href: href('/Skills', locale) },
+  { text: t.home.ctaGames, href: href('/blog', locale) },
+  { text: t.home.ctaProjects, href: href('/portfolio', locale) },
+  { text: t.home.ctaContact, href: href('/#contact', locale) },
+];
+---
+
+<section class="hero-section relative w-full overflow-hidden m-0">
+  <!-- The poster is not just a placeholder: iOS Safari in Low Power Mode
+       refuses to autoplay even muted + playsinline, and that is a system
+       decision we cannot override. Without a poster those visitors would get
+       a black rectangle. -->
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    poster={asset('/videos/fondo-poster.webp')}
+    aria-hidden="true"
+    class="hero-video absolute inset-0 w-full h-full object-cover z-0"
+    data-hero-video
+  >
+    <source src={asset('/videos/fondo.mp4')} type="video/mp4" />
+  </video>
+
+  <!-- Shown instead of the video when the visitor prefers reduced motion. -->
+  <div
+    class="hero-poster absolute inset-0 z-0 bg-cover bg-center"
+    style={`background-image: url('${asset('/videos/fondo-poster.webp')}')`}
+    aria-hidden="true"
+  ></div>
+
+  <div class="absolute inset-0 bg-black/86 z-10"></div>
+
+  <div class="hero-content relative z-20 px-6 text-center">
+    <h1 class="hero-name font-extrabold tracking-tight text-foreground mb-4">
+      <span>NAHUEL</span>
+      <span class="bg-gradient-to-r from-[var(--accent)] to-[var(--accent-dark)] bg-clip-text text-transparent">
+        APARICIO
+      </span>
+    </h1>
+
+    <h2 class="hero-role">
+      <span class="hero-role-label">{t.home.role}</span>
+      <span class="specialty-rotator" data-rotator>
+        {t.home.specialties.map((specialty, index) => (
+          <span
+            class:list={['specialty', index === 0 && 'is-active']}
+            data-specialty
+          >{specialty}</span>
+        ))}
+      </span>
+    </h2>
+
+    <p class="max-w-2xl text-base md:text-lg text-[color:var(--color-text-secondary)] mb-8">
+      {t.home.tagline}
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-3 sm:gap-4 mt-7">
+      {ctas.map((cta) => (
+        <a href={cta.href} class="btn-juicy px-6 py-3.5 text-base sm:text-lg">
+          {cta.text}
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Fills the viewport without 100vh, which on mobile browsers is taller than
+     the visible area and pushes the CTAs under the address bar. */
+  .hero-section {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* The wrapper pulls this section up under the sticky header, so the same
+       amount is added back as padding to keep the content optically centred
+       inside the area the visitor can actually see. */
+    padding-top: var(--header-h);
+  }
+
+  /* Centring lives on the section, not here: this element used `h-full`, and a
+     percentage height cannot resolve against a parent that only sets
+     `min-height`, so it collapsed to its content and rode up to the top. */
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 62rem;
+  }
+
+  /* Fluid instead of a fixed step: at text-5xl the name measured about 430px
+     and was being clipped on a 320px screen. */
+  .hero-name {
+    font-size: clamp(2rem, 9vw, 4.5rem);
+    line-height: 1.05;
+    white-space: nowrap;
+  }
+
+  .hero-role {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0 0 1.75rem;
+    max-width: 100%;
+  }
+
+  .hero-role-label {
+    font-size: clamp(1.35rem, 4.5vw, 2rem);
+    font-weight: 600;
+    color: var(--foreground);
+    line-height: 1.15;
+  }
+
+  /* Each specialty sits in the same grid cell, so the block is as wide as the
+     longest term and nothing shifts when it changes. Only one is ever shown,
+     which keeps the Spanish labels from running off a phone screen. */
+  .specialty-rotator {
+    display: inline-grid;
+    justify-items: center;
+    max-width: 100%;
+  }
+
+  .specialty {
+    grid-area: 1 / 1;
+    font-size: clamp(1.6rem, 6vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    background: linear-gradient(100deg, var(--accent-light), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    opacity: 0;
+    transform: translateY(0.3em) scale(0.97);
+    transition: opacity 320ms var(--motion-ease), transform 320ms var(--motion-ease);
+  }
+
+  /* The first term is active in the markup, so without JavaScript one
+     specialty is still shown instead of an empty gap. */
+  .specialty.is-active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  /* The still is only a fallback, so it stays out of the way by default. */
+  .hero-poster {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-video {
+      display: none;
+    }
+
+    .hero-poster {
+      display: block;
+    }
+
+    /* No rotation: show every specialty at once, separated by dots. */
+    .specialty-rotator {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.15rem 0.6rem;
+    }
+
+    .specialty {
+      grid-area: auto;
+      opacity: 1;
+      transform: none;
+      transition: none;
+      font-size: clamp(1.2rem, 4vw, 1.8rem);
+    }
+
+  }
+</style>
+
+<script>
+  const ROTATION_MS = 1500;
+
+  function startRotator(rotator: HTMLElement) {
+    const items = Array.from(rotator.querySelectorAll<HTMLElement>('[data-specialty]'));
+    if (items.length < 2) return;
+
+    let index = 0;
+    window.setInterval(() => {
+      items[index].classList.remove('is-active');
+      index = (index + 1) % items.length;
+      items[index].classList.add('is-active');
+    }, ROTATION_MS);
+  }
+
+  // Respect the OS setting: with reduced motion the CSS shows all specialties
+  // at once, so rotating them would fight that layout.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll<HTMLElement>('[data-rotator]').forEach(startRotator);
+  } else {
+    // CSS already hid the video, but a hidden <video> can still buffer.
+    // Dropping the source stops the download outright.
+    document.querySelectorAll<HTMLVideoElement>('[data-hero-video]').forEach((video) => {
+      video.removeAttribute('autoplay');
+      video.pause();
+    });
+  }
+</script>

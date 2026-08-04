@@ -20,8 +20,8 @@ const entries: StudyEntry[] = [
       es: 'Enti UB - Universidad de Barcelona',
     },
     description: {
-      en: 'Comprehensive program in software engineering and game development. Hands-on experience with Unity, Unreal Engine, Phaser, SFML, and OpenGL, as well as low-level programming, computer networks, and game design, among many other things.',
-      es: 'Programa completo en ingeniería de software y desarrollo de videojuegos. Experiencia práctica con Unity, Unreal Engine, Phaser, SFML y OpenGL, además de programación de bajo nivel, redes informáticas y diseño de videojuegos, entre muchas otras áreas.',
+      en: 'Comprehensive program in <strong>software engineering and game development</strong>. Hands-on experience with Unity, Unreal Engine, Phaser, SFML, and OpenGL, as well as low-level programming, computer networks, and game design, among many other things.',
+      es: 'Programa completo en <strong>ingeniería de software y desarrollo de videojuegos</strong>. Experiencia práctica con Unity, Unreal Engine, Phaser, SFML y OpenGL, además de programación de bajo nivel, redes informáticas y diseño de videojuegos, entre muchas otras áreas.',
     },
   },
   {
@@ -35,8 +35,8 @@ const entries: StudyEntry[] = [
       es: 'Fundación Obicex',
     },
     description: {
-      en: 'Specialized certification covering the complete game development pipeline - from 3D modeling and animation to AI programming and immersive VR/AR experiences. Built interactive environments using industry-standard tools and best practices.',
-      es: 'Titulación especializada que cubre todo el pipeline de desarrollo de videojuegos: desde modelado y animación 3D hasta programación de IA y experiencias inmersivas en VR/AR. Creación de entornos interactivos utilizando herramientas estándar de la industria y buenas prácticas.',
+      en: 'Specialized certification covering the <strong>complete game development pipeline</strong> - from 3D modeling and animation to AI programming and immersive VR/AR experiences. Built interactive environments using industry-standard tools and best practices.',
+      es: 'Titulación especializada que cubre <strong>todo el pipeline de desarrollo de videojuegos</strong>: desde modelado y animación 3D hasta programación de IA y experiencias inmersivas en VR/AR. Creación de entornos interactivos utilizando herramientas estándar de la industria y buenas prácticas.',
     },
   },
 ];

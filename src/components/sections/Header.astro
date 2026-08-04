@@ -39,7 +39,9 @@ const nav = [
 ];
 ---
 
-<header class="bg-background text-foreground border-b sw-header mb-0">
+<!-- Sticky and above the hero: the home page pulls the hero up with a negative
+     margin to sit the video behind the header, which was covering the nav. -->
+<header class="sticky top-0 z-50 text-foreground border-b border-[color:var(--color-border-light)] sw-header mb-0 bg-[color:var(--background)]/75 backdrop-blur-md supports-[backdrop-filter]:bg-[color:var(--background)]/60">
   <nav class="mx-auto max-w-6xl px-4 py-2 flex items-center justify-between">
     <!-- Logo + enlaces de escritorio -->
     <div class="flex items-center gap-3">
@@ -56,59 +58,23 @@ const nav = [
 
     <!-- Idioma + hamburguesa -->
     <div class="flex items-center gap-2">
-      <a
-        href={altUrl}
-        hreflang={isES ? 'en' : 'es'}
-        class="inline-flex items-center gap-2 rounded-md px-2 py-2 border border-[color:var(--color-text-muted)]/30 text-[color:var(--color-text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/10 transition-colors no-underline"
-        aria-label={t.nav.switchLanguage}
-        title={t.nav.switchLanguage}
-      >
-        <span
-          aria-hidden="true"
-          class:list={[
-            'relative inline-flex h-6 w-14 items-center rounded-full border border-[color:var(--color-text-muted)]/30 transition-colors',
-            isES
-              ? 'bg-[var(--accent)]/20 text-[var(--accent)]'
-              : 'bg-[color:var(--color-text-muted)]/20 text-[color:var(--color-text-secondary)]',
-          ]}
-        >
-          <span class="absolute left-1 text-[10px] opacity-60 select-none pointer-events-none">EN</span>
-          <span class="absolute right-1 text-[10px] opacity-60 select-none pointer-events-none">ES</span>
-
-          <span
-            class:list={[
-              'inline-flex items-center justify-center h-5 w-5 rounded-full bg-current shadow transform transition-transform',
-              isES ? 'translate-x-8' : 'translate-x-0',
-            ]}
-          >
-            {isES ? (
-              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" aria-hidden="true">
-                <rect width="24" height="24" fill="#AA151B"></rect>
-                <rect y="6" width="24" height="12" fill="#F1BF00"></rect>
-              </svg>
-            ) : (
-              <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" aria-hidden="true">
-                <defs>
-                  <clipPath id="flag-en-clip">
-                    <rect x="0" y="0" width="24" height="24" rx="2" ry="2"></rect>
-                  </clipPath>
-                </defs>
-                <g clip-path="url(#flag-en-clip)">
-                  <rect width="24" height="24" fill="#0A17A7"></rect>
-                  <path d="M0,0 L24,24 M24,0 L0,24" stroke="#FFF" stroke-width="4"></path>
-                  <path d="M0,0 L24,24 M24,0 L0,24" stroke="#C8102E" stroke-width="2"></path>
-                  <rect x="10" y="0" width="4" height="24" fill="#FFF"></rect>
-                  <rect x="0" y="10" width="24" height="4" fill="#FFF"></rect>
-                  <rect x="11" y="0" width="2" height="24" fill="#C8102E"></rect>
-                  <rect x="0" y="11" width="24" height="2" fill="#C8102E"></rect>
-                </g>
-              </svg>
-            )}
-          </span>
-        </span>
-
-        <span class="font-semibold w-7 text-center">{isES ? 'ES' : 'EN'}</span>
-      </a>
+      <!-- Segmented EN/ES control. The inactive half is a real link, so it
+           works without JavaScript and can be opened in a new tab. -->
+      <div class="lang-switch" role="group" aria-label="Language">
+        <span class="lang-pill" aria-hidden="true"></span>
+        {(['en', 'es'] as const).map((code) => (
+          code === locale ? (
+            <span class="lang-opt is-active" aria-current="true">{code.toUpperCase()}</span>
+          ) : (
+            <a
+              class="lang-opt"
+              href={altUrl}
+              hreflang={code}
+              aria-label={t.nav.switchLanguage}
+            >{code.toUpperCase()}</a>
+          )
+        ))}
+      </div>
 
       <button
         data-menu-btn
@@ -124,39 +90,196 @@ const nav = [
     </div>
   </nav>
 
-  <!-- Menú móvil -->
-  <div id="mobile-menu" class="md:hidden hidden border-t bg-background">
-    <div class="mx-auto max-w-6xl px-4 py-3 flex flex-col gap-2">
-      {nav.map((item) => (
-        <HeaderLink href={path(item.slug)} class={activeClass(path(item.slug))}>{item.label}</HeaderLink>
+  <!-- Menú móvil a pantalla completa -->
+  <div id="mobile-menu" class="mobile-menu md:hidden" hidden>
+    <nav class="mobile-menu-inner">
+      {nav.map((item, index) => (
+        <a
+          href={path(item.slug)}
+          class:list={['mobile-link', isSamePath(currentPath, path(item.slug)) && 'is-active']}
+          style={`--i:${index}`}
+        >{item.label}</a>
       ))}
-    </div>
+    </nav>
   </div>
 </header>
+
+<style>
+  /* Full-screen overlay rather than a dropdown: on a phone the nav deserves the
+     whole viewport, and it removes the risk of the panel overflowing. */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: color-mix(in oklab, var(--background) 92%, transparent);
+    backdrop-filter: blur(14px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 260ms var(--motion-ease, ease);
+  }
+
+  .mobile-menu[data-open] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-menu-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    height: 100%;
+    padding: 5rem 1.5rem 2rem;
+  }
+
+  .mobile-link {
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+    padding: 0 1rem;
+    border-radius: 14px;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 7vw, 2.2rem);
+    font-weight: 700;
+    color: var(--foreground);
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(1rem);
+    transition:
+      opacity 340ms var(--motion-ease, ease),
+      transform 340ms var(--motion-ease, ease),
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+
+  /* Staggered entrance, one step per item. */
+  .mobile-menu[data-open] .mobile-link {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(var(--i) * 45ms + 60ms);
+  }
+
+  .mobile-link:active {
+    background: rgba(var(--accent-rgb), 0.12);
+  }
+
+  .mobile-link.is-active {
+    color: var(--accent);
+    background: rgba(var(--accent-rgb), 0.1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu,
+    .mobile-link {
+      transition: none;
+    }
+
+    .mobile-menu[data-open] .mobile-link {
+      transition-delay: 0ms;
+    }
+  }
+
+  /* Segmented control: a sliding pill marks the active language instead of the
+     old flag toggle. Grid keeps both halves the same width so the pill can be
+     positioned with a plain translate. */
+  .lang-switch {
+    position: relative;
+    display: inline-grid;
+    grid-template-columns: repeat(2, 2.6rem);
+    align-items: center;
+    padding: 0.2rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border-light);
+    background: var(--surface-100);
+  }
+
+  .lang-pill {
+    position: absolute;
+    top: 0.2rem;
+    bottom: 0.2rem;
+    left: 0.2rem;
+    width: 2.6rem;
+    border-radius: 999px;
+    background: rgba(var(--accent-rgb), 0.18);
+    border: 1px solid rgba(var(--accent-rgb), 0.45);
+    transition: transform var(--motion-base, 400ms) var(--motion-ease, cubic-bezier(0.22, 1, 0.36, 1));
+  }
+
+  .lang-switch:has(.lang-opt:last-child.is-active) .lang-pill {
+    transform: translateX(2.6rem);
+  }
+
+  .lang-opt {
+    position: relative;
+    z-index: 1;
+    padding: 0.3rem 0;
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border-radius: 999px;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color var(--motion-fast, 180ms) ease, transform var(--motion-fast, 180ms) ease;
+  }
+
+  .lang-opt.is-active {
+    color: var(--accent);
+  }
+
+  a.lang-opt:hover {
+    color: var(--foreground);
+    transform: translateY(-1px);
+  }
+
+  a.lang-opt:active {
+    transform: translateY(0) scale(0.94);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lang-pill,
+    .lang-opt {
+      transition: none;
+    }
+
+    a.lang-opt:hover,
+    a.lang-opt:active {
+      transform: none;
+    }
+  }
+</style>
 
 <script>
   const btn = document.querySelector<HTMLButtonElement>('[data-menu-btn]');
   const panel = document.getElementById('mobile-menu');
 
-  function toggleMenu() {
+  function setMenu(open: boolean) {
     if (!panel || !btn) return;
-    const isOpen = !panel.classList.contains('hidden');
-    panel.classList.toggle('hidden');
-    btn.setAttribute('aria-expanded', String(!isOpen));
-    document.documentElement.classList.toggle('overflow-hidden', !isOpen);
+    if (open) {
+      // `hidden` has to come off before the class, or the transition has
+      // nothing to animate from.
+      panel.hidden = false;
+      requestAnimationFrame(() => panel.setAttribute('data-open', ''));
+    } else {
+      panel.removeAttribute('data-open');
+      // Wait for the fade before hiding, so it does not disappear abruptly.
+      window.setTimeout(() => { panel.hidden = true; }, 260);
+    }
+    btn.setAttribute('aria-expanded', String(open));
+    document.documentElement.classList.toggle('overflow-hidden', open);
   }
 
-  btn?.addEventListener('click', toggleMenu);
+  const isOpen = () => panel?.hasAttribute('data-open') ?? false;
+
+  btn?.addEventListener('click', () => setMenu(!isOpen()));
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && panel && !panel.classList.contains('hidden')) toggleMenu();
+    if (e.key === 'Escape' && isOpen()) setMenu(false);
   });
 
-  document.addEventListener('click', (e) => {
-    if (!panel || !btn) return;
-    const target = e.target as Node;
-    if (!panel.contains(target) && !btn.contains(target) && !panel.classList.contains('hidden')) {
-      toggleMenu();
-    }
+  // Closing on navigation matters here: with view transitions the panel would
+  // otherwise stay open over the next page.
+  panel?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setMenu(false));
   });
 </script>

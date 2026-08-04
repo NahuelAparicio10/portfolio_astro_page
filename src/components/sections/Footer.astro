@@ -23,19 +23,19 @@ function sanitizeToPureWhite(svg: string, size = 20) {
     .replace(/<circle[\s\S]*?\/>/gi, "")
     .replace(/<ellipse[\s\S]*?\/>/gi, "")
     // atributos fill: respeta none; el resto -> blanco
-    .replace(/\sfill="(?!none")[^"]*"/gi, ' fill="#06B6D4"')
+    .replace(/\sfill="(?!none")[^"]*"/gi, ' fill="currentColor"')
     // estilos embebidos
     .replace(/\sstyle="[^"]*"/gi, (m) =>
-      m.replace(/fill:\s*(?!none)[^;"]*;?/gi, "fill: #06B6D4;")
+      m.replace(/fill:\s*(?!none)[^;"]*;?/gi, "fill: currentColor;")
        .replace(/stroke:\s*[^;"]*;?/gi, "stroke: none;")
     )
     // stroke -> none
     .replace(/\sstroke="[^"]*"/gi, ' stroke="none"');
 
   // añade fill blanco cuando NO hay fill (paths negros por defecto)
-  s = s.replace(/<path(?![^>]*\sfill=)([^>]*)>/gi, '<path fill="#06B6D4"$1>');
-  s = s.replace(/<polygon(?![^>]*\sfill=)([^>]*)>/gi, '<polygon fill="#06B6D4"$1>');
-  s = s.replace(/<polyline(?![^>]*\sfill=)([^>]*)>/gi, '<polyline fill="#06B6D4"$1>');
+  s = s.replace(/<path(?![^>]*\sfill=)([^>]*)>/gi, '<path fill="currentColor"$1>');
+  s = s.replace(/<polygon(?![^>]*\sfill=)([^>]*)>/gi, '<polygon fill="currentColor"$1>');
+  s = s.replace(/<polyline(?![^>]*\sfill=)([^>]*)>/gi, '<polyline fill="currentColor"$1>');
 
   // asegura tamaño
   s = s.replace(/<svg([^>]*)>/i, (m, attrs) =>
@@ -72,14 +72,14 @@ const t = useTranslations(locale);
     <div class="mt-5 flex justify-center items-center gap-2 text-foreground">
       
     <span class="inline-flex" aria-hidden="true" set:html={mailIcon} />
-    <a href="https://mail.google.com/mail/?view=cm&to=nahuel.ap.code@gmail.com" class="no-underline text-foreground hover:opacity-80">nahuel.ap.code@gmail.com</a>
+    <a href="https://mail.google.com/mail/?view=cm&to=nahuel.ap.code@gmail.com" class="no-underline text-foreground hover:text-[var(--accent)] transition-colors">nahuel.ap.code@gmail.com</a>
   </div>
 
 
-  <div class="mt-5 flex justify-center items-center gap-4 text-foreground leading-none">
-    <a href="https://www.linkedin.com/in/nahuel-aparicio-del-blanco-193234327/" class="inline-flex align-middle hover:opacity-80" target="_blank" rel="noopener" set:html={sanitizeToPureWhite(linkdinIcon, 40)} />
-    <a href="https://github.com/NahuelAparicio10" class="inline-flex align-middle hover:opacity-80" target="_blank" rel="noopener" set:html={sanitizeToPureWhite(githubIconRaw, 40)} />
-    <a href="https://nahuelcode.itch.io/" class="inline-flex align-middle hover:opacity-80" target="_blank" rel="noopener" set:html={sanitizeToPureWhite(itchioIconRaw, 40)} />
-    <a href="https://x.com/naguuu10" class="inline-flex align-middle hover:opacity-80" target="_blank" rel="noopener" set:html={sanitizeToPureWhite(twitterIconRaw, 40)} />
+  <div class="mt-5 flex justify-center items-center gap-3 text-foreground leading-none">
+    <a href="https://www.linkedin.com/in/nahuel-aparicio-del-blanco-193234327/" class="social-link" target="_blank" rel="noopener" set:html={sanitizeToPureWhite(linkdinIcon, 40)} />
+    <a href="https://github.com/NahuelAparicio10" class="social-link" target="_blank" rel="noopener" set:html={sanitizeToPureWhite(githubIconRaw, 40)} />
+    <a href="https://nahuelcode.itch.io/" class="social-link" target="_blank" rel="noopener" set:html={sanitizeToPureWhite(itchioIconRaw, 40)} />
+    <a href="https://x.com/naguuu10" class="social-link" target="_blank" rel="noopener" set:html={sanitizeToPureWhite(twitterIconRaw, 40)} />
   </div>
 </footer>

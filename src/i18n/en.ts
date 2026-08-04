@@ -10,9 +10,10 @@ export const en = {
     switchLanguage: 'Cambiar a Español',
   },
   home: {
-    role: 'Gameplay Programmer &',
-    roleAccent: 'Game Developer',
-    tagline: 'Coding the bridge between design and player experience.',
+    role: 'Game Programmer',
+    /** Rotated in the hero. The first one is rendered server-side. */
+    specialties: ['Gameplay', 'Tools', 'AI Automation'],
+    tagline: 'Building the systems, and the tools that build them.',
     ctaAbout: 'About Me',
     ctaSkills: 'Skills',
     ctaGames: 'Game Projects',
@@ -53,7 +54,7 @@ export const en = {
   },
   about: {
     fullName: 'Nahuel Aparicio Del Blanco',
-    role: 'Gameplay Programmer & Game Developer – Barcelona, Spain.',
+    role: 'Game Programmer · Gameplay, Tools & AI – Barcelona, Spain.',
     /** Rendered with set:html because the copy contains inline emphasis. */
     paragraphs: [
       'Since I was a kid, I have been fascinated by how games create worlds that feel alive. That curiosity grew into a passion for <b>game development</b> and <b>gameplay programming</b>, where I now focus on building <b>efficient, modular, and fun-to-play systems</b>.',

@@ -1,5 +1,5 @@
 /**
- * Design tokens — single source of truth.
+ * Design tokens single source of truth.
  *
  * The site ships a single dark theme. There is no theme switcher, and every
  * page hardcodes `data-theme="dark"`, so the previous light theme was dead
@@ -12,11 +12,11 @@
  */
 :root {
   /* ------------------------------------------------------------------ *
-   * Brand — blue
+   * Brand blue
    * `--accent-rgb` is the source of truth so rgba(var(--accent-rgb), a)
    * always composes the same colour. `--accent` derives from it.
    * ------------------------------------------------------------------ */
-  --accent-rgb: 96, 165, 250;        /* #60A5FA — 7.73:1 on background */
+  --accent-rgb: 96, 165, 250;        /* #60A5FA 7.73:1 on background */
   --accent: rgb(var(--accent-rgb));
   --accent-light: #93C5FD;
   --accent-dark: #3B82F6;
@@ -68,7 +68,7 @@
     0 8px 24px rgba(0, 0, 0, 0.2),
     0 16px 32px rgba(0, 0, 0, 0.2);
 
-  /* Accent glow. Consumed by .card-surface:hover in utilities.css — it was
+  /* Accent glow. Consumed by .card-surface:hover in utilities.css it was
      referenced there but never defined, which invalidated the whole rule. */
   --glow-accent: 0 0 28px rgba(var(--accent-rgb), 0.35);
 

@@ -3,7 +3,7 @@
  *
  * Nothing in the project should write a path literal that includes the
  * deployment base (today `/portfolio`). Changing `base` in `astro.config.mjs`
- * — or moving to a custom domain — must be a one-line change, not a
+ * or moving to a custom domain must be a one-line change, not a
  * find-and-replace across the codebase.
  */
 

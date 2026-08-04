@@ -25,19 +25,16 @@ const carousels = [
 ] as const;
 
 const HEADING = 'text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground';
-const PILL = 'inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold';
-const PILL_ACCENT =
-  'background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);';
-const PILL_LANGUAGE =
-  'background: rgba(255,0,0,0.1); color: #ff0000; border: 2px solid rgba(255,0,0,0.4);';
+/** Larger pill used for soft skills and languages. */
+const PILL_LG = 'pill-tech pill-lg';
 ---
 
 <section class="w-full">
   <div class="mx-auto max-w-6xl px-4">
     <h3 class={HEADING}>{t.skills.expertiseTitle}</h3>
-    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6" data-reveal>
       {skills.map((skill) => (
-        <article class="card-surface p-6">
+        <article class="card-surface p-6" data-reveal-child>
           <div class="flex items-start gap-4">
             <span
               class="shrink-0 text-[var(--accent)] [&>svg]:w-7 [&>svg]:h-7"
@@ -46,10 +43,13 @@ const PILL_LANGUAGE =
             />
             <div class="min-w-0">
               <h4 class="text-xl font-semibold text-foreground m-0">{skill.title}</h4>
-              <p class="mt-2 mb-0 text-[color:var(--color-text-secondary)]">{skill.description}</p>
+              <p class="mt-1 mb-0 text-sm text-[color:var(--color-text-muted)]">{skill.description}</p>
+              <ul class="skill-points mt-3">
+                {skill.points.map((point) => <li set:html={point} />)}
+              </ul>
               <div class="mt-4 flex flex-wrap gap-2">
                 {skill.tags.map((tag) => (
-                  <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium" style={PILL_ACCENT}>
+                  <span class="pill-tech">
                     {tag}
                   </span>
                 ))}
@@ -71,9 +71,9 @@ const PILL_LANGUAGE =
     <GlowLineSeparator class="mb-8 mt-8" />
 
     <h3 class={HEADING}>{t.skills.softTitle}</h3>
-    <div class="mt-7 mb-15 flex flex-wrap justify-center gap-3">
+    <div class="mt-7 mb-15 flex flex-wrap justify-center gap-3" data-reveal>
       {t.skills.soft.map((skill) => (
-        <span class={PILL} style={PILL_ACCENT}>{skill}</span>
+        <span class={PILL_LG} data-reveal-child>{skill}</span>
       ))}
     </div>
 
@@ -82,8 +82,39 @@ const PILL_LANGUAGE =
     <h3 class={HEADING}>{t.skills.languagesTitle}</h3>
     <div class="mt-7 flex flex-wrap justify-center gap-3">
       {t.skills.languages.map((language) => (
-        <span class={PILL} style={PILL_LANGUAGE}>{language}</span>
+        <span class={`${PILL_LG} pill-lang`}>{language}</span>
       ))}
     </div>
   </div>
 </section>
+
+<style>
+  .skill-points {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .skill-points li {
+    position: relative;
+    padding-left: 1.25rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+  }
+
+  /* Accent chevron instead of a bullet: reads as a list without the dot noise. */
+  .skill-points li::before {
+    content: '';
+    position: absolute;
+    left: 0.1rem;
+    top: 0.5em;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-right: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    transform: rotate(-45deg);
+  }
+</style>

@@ -9,7 +9,7 @@ const dictionaries: Record<Locale, TranslationSchema> = { en, es };
 
 /**
  * Resolves the active locale from a URL. Pages are static, so this is the only
- * source of truth for language — never localStorage, never a client redirect.
+ * source of truth for language: never localStorage, never a client redirect.
  */
 export function getLocale(url: URL | string): Locale {
   const pathname = typeof url === 'string' ? url : url.pathname;

@@ -205,3 +205,468 @@
 }
 .sw-header .internal-links a:hover { color: var(--accent); }
 .sw-header .internal-links a.active { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ------------------------------------------------------------------ *
+ * Motion
+ *
+ * Duration and easing live here so every animation on the site shares
+ * the same rhythm. Only transform and opacity are animated.
+ * ------------------------------------------------------------------ */
+:root {
+  --motion-fast: 180ms;
+  --motion-base: 500ms;
+  --motion-slow: 700ms;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-rise: 1.5rem;
+}
+
+/* Elements are visible by default. src/lib/motion.ts adds data-motion-ready
+   only once it has taken ownership, so a page without JavaScript shows
+   everything instead of a blank column. */
+[data-reveal][data-motion-ready] {
+  opacity: 0;
+  transform: translateY(var(--motion-rise));
+  transition:
+    opacity var(--motion-base) var(--motion-ease),
+    transform var(--motion-base) var(--motion-ease);
+  will-change: opacity, transform;
+}
+
+[data-reveal][data-motion-ready] [data-reveal-child] {
+  opacity: 0;
+  transform: translateY(var(--motion-rise));
+  transition:
+    opacity var(--motion-base) var(--motion-ease),
+    transform var(--motion-base) var(--motion-ease);
+}
+
+[data-reveal][data-motion-ready].is-revealed,
+[data-reveal][data-motion-ready].is-revealed [data-reveal-child] {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Belt and braces: motion.ts already skips the observer, but if any element
+     was marked before the check, neutralise it here too. */
+  [data-reveal][data-motion-ready],
+  [data-reveal][data-motion-ready] [data-reveal-child] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Micro-interactions
+ * ------------------------------------------------------------------ */
+
+/* Keyboard focus must always be obvious. :focus-visible keeps it off mouse
+   clicks, so it never looks like a stray outline. */
+:where(a, button, [role="button"], input, textarea, select, summary):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Press feedback. Touch devices have no hover, so this is the only physical
+   response they get. */
+:where(a.sw-btn, a.sw-btn-sm, button, [role="button"]):active {
+  transform: translateY(1px) scale(0.985);
+}
+
+.sw-btn,
+.sw-btn-sm,
+button {
+  transition:
+    transform var(--motion-fast) var(--motion-ease),
+    color var(--motion-fast) var(--motion-ease),
+    border-color var(--motion-fast) var(--motion-ease),
+    background-color var(--motion-fast) var(--motion-ease);
+}
+
+/* Removes the grey tap flash on iOS in favour of the transform above. */
+a,
+button,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Animated underline on nav links, drawn from the centre outwards. */
+.sw-header .internal-links a {
+  position: relative;
+}
+
+.sw-header .internal-links a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0.35rem;
+  width: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform: translateX(-50%);
+  transition: width var(--motion-fast) var(--motion-ease);
+}
+
+.sw-header .internal-links a:hover::after,
+.sw-header .internal-links a:focus-visible::after {
+  width: calc(100% - 1.5rem);
+}
+
+/* The active link already carries an underline of its own. */
+.sw-header .internal-links a.active::after {
+  width: 0;
+}
+
+.card-surface {
+  transform: translateY(0);
+}
+
+.card-surface:hover {
+  transform: translateY(-3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-surface:hover,
+  :where(a.sw-btn, a.sw-btn-sm, button, [role="button"]):active {
+    transform: none;
+  }
+
+  .sw-header .internal-links a::after {
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Juicy buttons
+ *
+ * Three layers of response, so the control reacts before, during and
+ * after the click: lift + glow on hover, a sheen that sweeps across,
+ * and a squash on press.
+ * ------------------------------------------------------------------ */
+.btn-juicy {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(var(--accent-rgb), 0.55);
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.06);
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    transform 220ms var(--motion-ease),
+    box-shadow 220ms var(--motion-ease),
+    background-color 220ms var(--motion-ease),
+    border-color 220ms var(--motion-ease),
+    color 220ms var(--motion-ease);
+}
+
+/* Sheen. Sits above the background but below the label. */
+.btn-juicy::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    115deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 75%
+  );
+  transform: translateX(-120%);
+  transition: transform 620ms var(--motion-ease);
+}
+
+.btn-juicy:hover {
+  transform: translateY(-3px) scale(1.035);
+  color: var(--background);
+  background: rgba(var(--accent-rgb), 1);
+  border-color: rgba(var(--accent-rgb), 1);
+  box-shadow:
+    0 10px 26px rgba(var(--accent-rgb), 0.35),
+    0 0 0 1px rgba(var(--accent-rgb), 0.4);
+}
+
+.btn-juicy:hover::before {
+  transform: translateX(120%);
+}
+
+.btn-juicy:active {
+  transform: translateY(-1px) scale(0.97);
+  box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.28);
+  transition-duration: 90ms;
+}
+
+.btn-juicy:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Filled variant for the primary action. */
+.btn-juicy.is-solid {
+  background: linear-gradient(120deg, var(--accent), var(--accent-dark));
+  color: var(--background);
+  border-color: transparent;
+}
+
+/* The existing small buttons get the same lift and press response. */
+.sw-btn,
+.sw-btn-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 200ms var(--motion-ease),
+    box-shadow 200ms var(--motion-ease),
+    color 200ms var(--motion-ease),
+    border-color 200ms var(--motion-ease);
+}
+
+.sw-btn:hover,
+.sw-btn-sm:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 8px 20px rgba(var(--accent-rgb), 0.22);
+}
+
+.sw-btn:active,
+.sw-btn-sm:active {
+  transform: translateY(0) scale(0.97);
+  transition-duration: 90ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-juicy,
+  .btn-juicy::before,
+  .sw-btn,
+  .sw-btn-sm {
+    transition: none;
+  }
+
+  .btn-juicy:hover,
+  .btn-juicy:active,
+  .sw-btn:hover,
+  .sw-btn:active,
+  .sw-btn-sm:hover,
+  .sw-btn-sm:active {
+    transform: none;
+  }
+
+  .btn-juicy:hover::before {
+    transform: translateX(-120%);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Tech pills
+ *
+ * One class for every technology tag, so hover and touch feedback is
+ * identical wherever they appear.
+ * ------------------------------------------------------------------ */
+.pill-tech {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: default;
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.1);
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  transition:
+    transform 200ms var(--motion-ease),
+    background-color 200ms var(--motion-ease),
+    border-color 200ms var(--motion-ease),
+    box-shadow 200ms var(--motion-ease),
+    color 200ms var(--motion-ease);
+}
+
+.pill-tech:hover,
+.pill-tech:focus-visible {
+  transform: translateY(-2px) scale(1.06);
+  color: var(--background);
+  background: rgba(var(--accent-rgb), 0.95);
+  border-color: rgba(var(--accent-rgb), 1);
+  box-shadow: 0 6px 16px rgba(var(--accent-rgb), 0.32);
+}
+
+/* Touch has no hover, so the press itself is the feedback. */
+.pill-tech:active {
+  transform: translateY(0) scale(0.95);
+  transition-duration: 90ms;
+}
+
+.pill-lang {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+  border-color: rgba(255, 107, 107, 0.35);
+}
+
+.pill-lang:hover,
+.pill-lang:focus-visible {
+  color: var(--background);
+  background: rgba(255, 107, 107, 0.95);
+  border-color: rgba(255, 107, 107, 1);
+  box-shadow: 0 6px 16px rgba(255, 107, 107, 0.3);
+}
+
+/* Social icons in the footer: lift, tint and a small rotation. */
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  padding: 0.35rem;
+  color: var(--accent);
+  transition:
+    transform 240ms var(--motion-ease),
+    color 240ms var(--motion-ease),
+    background-color 240ms var(--motion-ease),
+    box-shadow 240ms var(--motion-ease);
+}
+
+.social-link:hover,
+.social-link:focus-visible {
+  transform: translateY(-4px) scale(1.12) rotate(-4deg);
+  color: var(--accent-light);
+  background: rgba(var(--accent-rgb), 0.12);
+  box-shadow: 0 10px 22px rgba(var(--accent-rgb), 0.28);
+}
+
+/* Safety net: some source logos ship paths with no fill at all, which the
+   browser then renders black. Forcing currentColor here means every icon
+   follows the link colour regardless of how its SVG was authored. */
+.social-link svg,
+.social-link svg path,
+.social-link svg polygon,
+.social-link svg polyline,
+.social-link svg g {
+  fill: currentColor;
+}
+
+.social-link:active {
+  transform: translateY(-1px) scale(0.96);
+  transition-duration: 90ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill-tech,
+  .social-link {
+    transition: none;
+  }
+
+  .pill-tech:hover,
+  .pill-tech:active,
+  .social-link:hover,
+  .social-link:active {
+    transform: none;
+  }
+}
+
+/* Emphasis inside card copy: bright enough to catch a skimming eye, without
+   turning every list item into a headline. */
+.timeline-points strong,
+.skill-points strong,
+.card-surface p strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------------ *
+ * Layout
+ * ------------------------------------------------------------------ */
+
+/* Height of the sticky header, so the hero can slide underneath it
+   without guessing a magic number. */
+:root {
+  --header-h: 3.8rem;
+}
+
+/* Full-bleed section.
+   Replaces the `w-screen left-1/2 -ml-[50vw]` trick, which depended on
+   `overflow-x: hidden` on the body and broke as soon as a scrollbar was
+   present: 100vw includes the scrollbar width, so it overflowed by ~15px
+   on desktop. This version uses the grid escape hatch instead. */
+.full-bleed {
+  position: relative;
+  width: 100%;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  max-width: 100vw;
+}
+
+@supports (width: 100dvw) {
+  .full-bleed {
+    margin-left: calc(50% - 50dvw);
+    margin-right: calc(50% - 50dvw);
+    max-width: 100dvw;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Touch targets
+ *
+ * WCAG 2.5.8 asks for 24x24 minimum; 44x44 is the comfortable size
+ * both Apple and Google recommend.
+ * ------------------------------------------------------------------ */
+@media (pointer: coarse) {
+  .sw-header .internal-links a,
+  #mobile-menu a,
+  .lang-opt,
+  [data-menu-btn],
+  .social-link,
+  .sw-btn,
+  .sw-btn-sm,
+  .btn-juicy {
+    min-height: 44px;
+  }
+
+  #mobile-menu a {
+    display: flex;
+    align-items: center;
+  }
+
+  .social-link {
+    min-width: 44px;
+  }
+
+  .lang-opt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Soft skills and languages: larger than the technology tags, because they
+   are the only content of their sections rather than a footnote to a card. */
+.pill-lg {
+  padding: 0.55rem 1.15rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-width: 2px;
+}
+
+@media (min-width: 768px) {
+  .pill-lg {
+    padding: 0.65rem 1.4rem;
+    font-size: 1.05rem;
+  }
+}

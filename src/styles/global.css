@@ -82,12 +82,15 @@ strong,
 b {
 	font-weight: 700;
 }
-a:not(.sw-btn):not(.sw-btn-sm):not(.no-underline) {
+/* .btn-juicy must be excluded: this selector is more specific than the
+   component class, so it was forcing an underline and keeping the text accent
+   coloured on an accent background, making hovered buttons unreadable. */
+a:not(.sw-btn):not(.sw-btn-sm):not(.btn-juicy):not(.no-underline) {
     color: var(--accent);
     text-decoration: underline;
     text-underline-offset: 2px;
 }
-a:not(.sw-btn):not(.sw-btn-sm):not(.no-underline):hover {
+a:not(.sw-btn):not(.sw-btn-sm):not(.btn-juicy):not(.no-underline):hover {
     color: var(--accent);
     text-decoration-thickness: 2px;
 }

@@ -18,9 +18,9 @@ const heading = title ?? t.blog.title;
 <section class="space-y-6">
   <h2 class="text-3xl font-bold">{heading}</h2>
   <br/>
-  <div class="blog-grid">
+  <div class="blog-grid" data-reveal>
     {posts.map((post) => (
-      <PostCard post={post} locale={locale} />
+      <div data-reveal-child><PostCard post={post} locale={locale} /></div>
     ))}
   </div>
 </section>
