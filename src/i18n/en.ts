@@ -30,6 +30,7 @@ export const en = {
     share: 'Share',
   },
   skills: {
+    expertiseTitle: 'CORE EXPERTISE',
     programming: 'PROGRAMMING LANGUAGES',
     engines: 'ENGINES & FRAMEWORKS',
     ides: 'IDEs & CODE EDITORS',

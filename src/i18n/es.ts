@@ -36,6 +36,7 @@ export const es: TranslationSchema = {
     share: 'Compartir',
   },
   skills: {
+    expertiseTitle: 'ÁREAS DE ESPECIALIDAD',
     programming: 'LENGUAJES DE PROGRAMACIÓN',
     engines: 'MOTORES Y FRAMEWORKS',
     ides: 'IDEs Y EDITORES DE CÓDIGO',

@@ -1,36 +1,113 @@
-export const skills = [
+import aiIcon from '../assets/icons/skills/ai.svg?raw';
+import gameFeelIcon from '../assets/icons/skills/game-feel.svg?raw';
+import gameplayIcon from '../assets/icons/skills/gameplay.svg?raw';
+import graphicsIcon from '../assets/icons/skills/graphics.svg?raw';
+import networkingIcon from '../assets/icons/skills/networking.svg?raw';
+import toolsIcon from '../assets/icons/skills/tools.svg?raw';
+import { pick, type Localized } from '../i18n/localized';
+import type { Locale } from '../lib/href';
+
+interface SkillEntry {
+  icon: string;
+  /** Concrete technologies, shown as tags. Not translated. */
+  tags: string[];
+  title: Localized<string>;
+  description: Localized<string>;
+}
+
+/**
+ * Every category is backed by real work — a job or a shipped project. The file
+ * this replaced was the starter template's placeholder content and advertised
+ * React, Next.js, Postgres, Redis, AWS and Terraform, none of which reflected
+ * the profile.
+ */
+const entries: SkillEntry[] = [
   {
-    
-    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>`,
-    title: "System Design & Architecture",
-    description: "Designing scalable, resilient services, clear boundaries, and data models; pragmatic trade‑offs documented via ADRs/RFCs.",
+    icon: gameplayIcon,
+    tags: ['Unity', 'C#', 'FSM / HFSM', 'Utility AI', 'ScriptableObjects', 'Physics'],
+    title: {
+      en: 'Gameplay Programming',
+      es: 'Programación de Gameplay',
+    },
+    description: {
+      en: 'Combat, movement, physics and state machines. Enemy AI built on hierarchical state machines and utility-based decision making, with data-driven combos and abilities authored from the editor rather than hardcoded.',
+      es: 'Combate, movimiento, físicas y máquinas de estado. IA de enemigos sobre máquinas de estado jerárquicas y decisión por utilidad, con combos y habilidades definidos desde el editor en lugar de escritos en código.',
+    },
   },
   {
-    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 17l-5-5 5-5v3l-2 2 2 2v3zm8-10l5 5-5 5v-3l2-2-2-2V7z"/></svg>`,
-    title: "Full‑Stack Development",
-    description: "End‑to‑end features with React/Next.js, Node.js, and TypeScript, with strong UX, accessibility, and performance.",
+    icon: gameFeelIcon,
+    tags: ['Animation', 'VFX', 'Audio', 'Camera Shake', 'Sequencing'],
+    title: {
+      en: 'Game Feel & Feedback',
+      es: 'Game Feel y Feedback',
+    },
+    description: {
+      en: 'The layer that makes an action feel like it landed: animation, visual effects, gameplay audio and round sequencing. Impact response tuned against mass and velocity so feedback matches what the systems actually did.',
+      es: 'La capa que hace que una acción se sienta: animación, efectos visuales, audio de gameplay y secuenciación de rondas. Respuesta al impacto ajustada según masa y velocidad, para que el feedback corresponda a lo que ha ocurrido de verdad.',
+    },
   },
   {
-    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a3 3 0 110 6 3 3 0 010-6zm0 6v6m0 0a3 3 0 100 6 3 3 0 000-6zm0 0a3 3 0 10-6 0 3 3 0 006 0zm6 0a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
-    title: "APIs & Distributed Systems",
-    description: "Designing REST/GraphQL APIs, background jobs, queues, idempotency, retries, and observability for reliability.",
+    icon: graphicsIcon,
+    tags: ['URP', 'Shader Graph', 'HLSL', 'OpenGL', 'Post-processing'],
+    title: {
+      en: 'Graphics & Shaders',
+      es: 'Gráficos y Shaders',
+    },
+    description: {
+      en: 'Shaders and visual effects in Unity URP, including full-screen effects and a generic manager to orchestrate them. Real-time lighting from the other side too: a small C++/OpenGL engine with dynamic lights and procedural scenes.',
+      es: 'Shaders y efectos visuales en URP de Unity, incluidos efectos de pantalla completa y un gestor genérico para orquestarlos. También iluminación en tiempo real desde el otro lado: un pequeño motor en C++/OpenGL con luces dinámicas y escenas procedurales.',
+    },
   },
   {
-    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C7 3 4 4.79 4 7v10c0 2.21 3 4 8 4s8-1.79 8-4V7c0-2.21-3-4-8-4zm0 2c3.87 0 6 .93 6 2s-2.13 2-6 2-6-.93-6-2 2.13-2 6-2zm0 6c3.87 0 6 .93 6 2s-2.13 2-6 2-6-.93-6-2 2.13-2 6-2z"/></svg>`,
-    title: "Databases & Caching",
-    description: "Schema design, migrations, and performance tuning with Postgres; caching and rate‑limiting with Redis.",
+    icon: toolsIcon,
+    tags: ['Unity Editor', 'Figma API', 'Next.js', 'React', 'TypeScript', 'Addressables'],
+    title: {
+      en: 'Engine & Tools',
+      es: 'Motores y Herramientas',
+    },
+    description: {
+      en: 'Internal tooling that removes manual work for a whole team: a Figma-to-Unity interface importer with incremental reimport, a visual entity editor, and a full-stack authoring web app with role-based access and an audit trail.',
+      es: 'Herramientas internas que eliminan trabajo manual a todo un equipo: un importador de interfaz de Figma a Unity con reimportación incremental, un editor visual de entidades y una aplicación web de autoría con control de acceso por roles y registro de auditoría.',
+    },
   },
   {
-    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm-1 15l-4-4 1.41-1.41L11 14.17l6.59-6.59L19 9l-8 8z"/></svg>`,
-    title: "Testing & CI/CD",
-    description: "Unit, integration, and E2E tests (Jest, Playwright) with GitHub Actions pipelines, preview envs, and quality gates.",
+    icon: aiIcon,
+    tags: ['Claude Code', 'Codex', 'OpenSpec', 'MCP', 'Code Review Agents'],
+    title: {
+      en: 'AI & Automation',
+      es: 'IA y Automatización',
+    },
+    description: {
+      en: 'Building the AI-assisted development workflow itself, not just using it: custom agents and skills, an MCP server, an automated code reviewer, and spec-driven pipelines that keep intent and implementation in sync.',
+      es: 'Construir el propio flujo de desarrollo asistido por IA, no solo usarlo: agentes y skills a medida, un servidor MCP, un revisor de código automático y flujos dirigidos por especificaciones que mantienen alineadas intención e implementación.',
+    },
   },
   {
-    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 18H6a4 4 0 010-8 5 5 0 019.9-1.5A4.5 4.5 0 1119 18z"/></svg>`,
-    title: "Cloud & DevOps",
-    description: "AWS, Docker, and Terraform; secure deployments, monitoring/alerts, and cost‑aware operations.",
+    icon: networkingIcon,
+    tags: ['C++', 'UDP / TCP', 'ECS', 'SOLID', 'Authoritative Server'],
+    title: {
+      en: 'Networking & Architecture',
+      es: 'Redes y Arquitectura',
+    },
+    description: {
+      en: 'Multiplayer from sockets up: authoritative game servers in C++ with matchmaking and ranking, over UDP and TCP. Architecture kept honest with an automated gate that measures coupling and blocks forbidden dependencies between layers.',
+      es: 'Multijugador desde los sockets: servidores de juego autoritativos en C++ con matchmaking y ranking, sobre UDP y TCP. La arquitectura se mantiene sana con un gate automático que mide acoplamiento y bloquea dependencias prohibidas entre capas.',
+    },
   },
 ];
 
-export type Skill = (typeof skills)[number];
+export interface Skill {
+  icon: string;
+  title: string;
+  description: string;
+  tags: string[];
+}
 
+export function getSkills(locale: Locale): Skill[] {
+  return entries.map((entry) => ({
+    icon: entry.icon,
+    tags: entry.tags,
+    title: pick(entry.title, locale),
+    description: pick(entry.description, locale),
+  }));
+}

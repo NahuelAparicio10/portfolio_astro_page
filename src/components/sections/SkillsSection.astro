@@ -1,25 +1,20 @@
 ---
 import GlowLineSeparator from '@/components/ui/separator/GlowLineSeparator.astro';
 import { loadLogosFrom } from '../../data/logos';
+import { getSkills } from '../../data/skills';
 import { useTranslations } from '../../i18n';
 import { getLocaleFromPath } from '../../lib/href';
 import Carousel from '../ui/carousel/Carousel.astro';
 
-interface SkillItem {
-  icon: string;
-  title: string;
-  description: string;
-}
-
 interface Props {
   title?: string;
-  skills: SkillItem[];
 }
 
-const { title, skills } = Astro.props as Props;
+const { title } = Astro.props as Props;
 
 const locale = getLocaleFromPath(Astro.url.pathname);
 const t = useTranslations(locale);
+const skills = getSkills(locale);
 
 const carousels = [
   { heading: t.skills.programming, group: 'programming' },
@@ -39,6 +34,32 @@ const PILL_LANGUAGE =
 
 <section class="w-full">
   <div class="mx-auto max-w-6xl px-4">
+    <h3 class={HEADING}>{t.skills.expertiseTitle}</h3>
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+      {skills.map((skill) => (
+        <article class="card-surface p-6">
+          <div class="flex items-start gap-4">
+            <span
+              class="shrink-0 text-[var(--accent)] [&>svg]:w-7 [&>svg]:h-7"
+              aria-hidden="true"
+              set:html={skill.icon}
+            />
+            <div class="min-w-0">
+              <h4 class="text-xl font-semibold text-foreground m-0">{skill.title}</h4>
+              <p class="mt-2 mb-0 text-[color:var(--color-text-secondary)]">{skill.description}</p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                {skill.tags.map((tag) => (
+                  <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium" style={PILL_ACCENT}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
     {carousels.map((item) => (
       <>
         <GlowLineSeparator class="mb-8 mt-8" />

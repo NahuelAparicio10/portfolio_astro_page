@@ -2,6 +2,8 @@
 interface Item {
   title: string;
   company: string;
+  /** Date range, shown as its own metadata line rather than buried in the copy. */
+  period?: string;
   region: string;
   description: string;
   technologies?: string[];
@@ -36,6 +38,8 @@ function normalizeIcon(raw: string): string {
 }
 
 const props = Astro.props as Props;
+const calendarIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>`;
+
 const jobIcon = (props.icons?.job ?? normalizeIcon(jobIconRaw));
 const companyIcon = (props.icons?.company ?? normalizeIcon(companyIconRaw));
 const locationIcon = (props.icons?.location ?? normalizeIcon(locationIconRaw));
@@ -64,7 +68,7 @@ const { items, centered = true } = props;
             ]}>
               <div class="card-surface p-6">
                 <div class="mb-2 space-y-1">
-                  <h3 class="text-xs leading-snug font-semibold m-0 flex items-center gap-2">
+                  <h3 class="text-lg leading-snug font-semibold text-foreground m-0 flex items-center gap-2">
                     <span class="inline-flex" aria-hidden="true" set:html={jobIcon} />
                     {item.title}
                   </h3>
@@ -76,6 +80,12 @@ const { items, centered = true } = props;
                     <span class="inline-flex" aria-hidden="true" set:html={locationIcon} />
                     {item.region}
                   </p>
+                  {item.period && (
+                    <p class="text-sm text-[color:var(--color-text-muted)] m-0 flex items-center gap-2">
+                      <span class="inline-flex" aria-hidden="true" set:html={calendarIcon} />
+                      {item.period}
+                    </p>
+                  )}
                 </div>
                 <p class="text-[color:var(--color-text-secondary)] m-0">{item.description}</p>
                 {item.technologies && item.technologies.length > 0 && (
@@ -104,7 +114,7 @@ const { items, centered = true } = props;
           <div class="absolute left-0 md:left-5 top-3 md:top-4 size-2 md:size-3 rounded-full bg-[var(--accent)] ring-2 md:ring-4 ring-[color:var(--background)]"></div>
           <div class="card-surface p-4 md:p-6 w-full min-w-0">
             <div class="mb-2 space-y-1">
-              <h3 class="text-xs leading-snug font-semibold m-0 flex items-center gap-2">
+              <h3 class="text-lg leading-snug font-semibold text-foreground m-0 flex items-center gap-2">
                 <span class="inline-flex" aria-hidden="true" set:html={jobIcon} />
                 {item.title}
               </h3>
@@ -116,6 +126,12 @@ const { items, centered = true } = props;
                 <span class="inline-flex" aria-hidden="true" set:html={locationIcon} />
                 {item.region}
               </p>
+              {item.period && (
+                <p class="text-sm text-[color:var(--color-text-muted)] m-0 flex items-center gap-2">
+                  <span class="inline-flex" aria-hidden="true" set:html={calendarIcon} />
+                  {item.period}
+                </p>
+              )}
             </div>
             <p class="text-[color:var(--color-text-secondary)] m-0">{item.description}</p>
             {item.technologies && item.technologies.length > 0 && (
