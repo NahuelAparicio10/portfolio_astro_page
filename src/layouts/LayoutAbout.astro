@@ -1,14 +1,15 @@
 ---
-import { asset } from "../lib/href";
+import { asset, getLocaleFromPath } from "../lib/href";
+import { useTranslations } from '../i18n';
 import { Image } from 'astro:assets';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/sections/Footer.astro';
 import Header from '../components/sections/Header.astro';
-import { work } from '../data/work';
+import { getWork } from '../data/work';
 import WorkExperience from '@/components/sections/WorkExperience.astro';
 
 import Studies from '@/components/sections/Studies.astro';
-import { studies } from '../data/studies'
+import { getStudies } from '../data/studies'
 
 import GlowLineSeparator from '@/components/ui/separator/GlowLineSeparator.astro';
 import ArrowSeparator from '../components/ui/separator/ArrowSeparator.astro'
@@ -22,9 +23,13 @@ type Props = {
 
 const { title, description, showHeader = true, heroImage } = Astro.props as Props;
 
+const locale = getLocaleFromPath(Astro.url.pathname);
+const t = useTranslations(locale);
+const work = getWork(locale);
+const studies = getStudies(locale);
 ---
 
-<html lang="en" data-theme="dark" class="dark">
+<html lang={locale} data-theme="dark" class="dark">
 	<head>
 		<BaseHead title={title} description={description} image={heroImage} />
 		<meta property="og:type" content="article" />
@@ -106,38 +111,22 @@ const { title, description, showHeader = true, heroImage } = Astro.props as Prop
 					</span>
 					</h1>
 					<p class="mt-2 text-lg md:text-xl text-[color:var(--color-text-secondary)]">
-					Gameplay Programmer & Game Developer – Barcelona, Spain.
+					{t.about.role}
 					</p>
 				</div>
 
 				</div>
 			</div>
 		</section>
-			<p>
-				Since I was a kid, I have been fascinated by how games create worlds that feel alive. 
-				That curiosity grew into a passion for <b>game development</b> and <b>gameplay programming</b>, 
-				where I now focus on building <b>efficient, modular, and fun-to-play systems</b>.
-			</p>
-			<p>
-				I see myself as a <b>problem solver</b>, always striving to write maintainable code and open to constructive 
-  				feedback that helps me improve both personally and professionally.
-			</p>
-			<p>
-				I started programming in <b>2017</b>, focusing mostly on <b>Unity (C#)</b>, while also gaining experience 
-				with <b>C++</b> and engines/frameworks such as Unreal, OpenGL, SFML and Phaser.  
-			</p>
-			<p>
-				My ultimate goal is to craft <b>game systems</b> that bring ideas and designs to life, 
-				combining technical precision with the magic of play.
-			</p>
+			{t.about.paragraphs.map((paragraph) => <p set:html={paragraph} />)}
 
 			<ArrowSeparator/>
 			</article>
 		</main>
 		<GlowLineSeparator/>
-		<Studies items={studies} title="Studies"/>
+		<Studies items={studies} title={t.studies.title}/>
 		<GlowLineSeparator/>
-		<WorkExperience items={work} title="Work Experience" />
+		<WorkExperience items={work} title={t.work.title} />
 		<Footer />
 	</body>
 </html>

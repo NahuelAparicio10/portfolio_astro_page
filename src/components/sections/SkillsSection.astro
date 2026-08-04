@@ -1,9 +1,12 @@
 ---
-import Carousel from '../ui/carousel/Carousel.astro';
-import { loadLogosFrom } from '../../data/logos';
 import GlowLineSeparator from '@/components/ui/separator/GlowLineSeparator.astro';
+import { loadLogosFrom } from '../../data/logos';
+import { useTranslations } from '../../i18n';
+import { getLocaleFromPath } from '../../lib/href';
+import Carousel from '../ui/carousel/Carousel.astro';
+
 interface SkillItem {
-  icon: string; 
+  icon: string;
   title: string;
   description: string;
 }
@@ -14,96 +17,52 @@ interface Props {
 }
 
 const { title, skills } = Astro.props as Props;
+
+const locale = getLocaleFromPath(Astro.url.pathname);
+const t = useTranslations(locale);
+
+const carousels = [
+  { heading: t.skills.programming, group: 'programming' },
+  { heading: t.skills.engines, group: 'engines' },
+  { heading: t.skills.ides, group: 'ides' },
+  { heading: t.skills.sourceControl, group: 'source_control' },
+  { heading: t.skills.design, group: 'design' },
+] as const;
+
+const HEADING = 'text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground';
+const PILL = 'inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold';
+const PILL_ACCENT =
+  'background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);';
+const PILL_LANGUAGE =
+  'background: rgba(255,0,0,0.1); color: #ff0000; border: 2px solid rgba(255,0,0,0.4);';
 ---
 
-<section class="w-full ">
+<section class="w-full">
   <div class="mx-auto max-w-6xl px-4">
-  <GlowLineSeparator class="mb-8 mt-8" />
+    {carousels.map((item) => (
+      <>
+        <GlowLineSeparator class="mb-8 mt-8" />
+        <h3 class={HEADING}>{item.heading}</h3>
+        <Carousel tools={loadLogosFrom(item.group)} />
+      </>
+    ))}
 
-  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">PROGRAMMING LANGUAGES</h3>
-  
-  <Carousel tools={loadLogosFrom('programming')} />
-  <GlowLineSeparator class="mb-8 mt-8" />
-    
-  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">ENGINES & FRAMEWORKS</h3>
-  
-  <Carousel tools={loadLogosFrom('engines')} />
-  <GlowLineSeparator class="mb-8 mt-8" />
+    <GlowLineSeparator class="mb-8 mt-8" />
 
-  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">IDEs & CODE EDITORS</h3>  
-  
-  <Carousel tools={loadLogosFrom('ides')} />
-  <GlowLineSeparator class="mb-8 mt-8" />
-
-  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">SOURCE CONTROL & PROJECT MANAGEMENT</h3>
-
-  <Carousel tools={loadLogosFrom('source_control')} />
-  <GlowLineSeparator class="mb-8 mt-8" />
-
-  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">DESIGN, MEDIA & 3D TOOLS</h3>
-
-  <Carousel tools={loadLogosFrom('design')} />
-  <GlowLineSeparator class="mb-8 mt-8" />
-
-  <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">SOFT SKILLS</h3>
+    <h3 class={HEADING}>{t.skills.softTitle}</h3>
     <div class="mt-7 mb-15 flex flex-wrap justify-center gap-3">
-      <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
-            style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Teamwork & Collaboration
-      </span>
-      <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
-            style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Problem-Solving
-      </span>
-      <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
-            style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Adaptability
-      </span>
-      <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
-            style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Communication
-      </span>
-      <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
-            style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Critical Thinking
-      </span>
-      <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
-            style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Creativity
-      </span>
-      <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
-            style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Attention to Detail
-      </span>
-      <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
-            style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Self-Learning
-      </span>
-            <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
-            style="background: rgba(var(--accent-rgb),0.1); color: var(--accent); border: 2px solid rgba(var(--accent-rgb),0.4);">
-        Resilience
-      </span>
+      {t.skills.soft.map((skill) => (
+        <span class={PILL} style={PILL_ACCENT}>{skill}</span>
+      ))}
     </div>
 
     <GlowLineSeparator class="mb-8 mt-8" />
 
-    <h3 class="text-3xl md:text-4xl font-semibold text-center mb-6 text-foreground ">LANGUAGES</h3>
+    <h3 class={HEADING}>{t.skills.languagesTitle}</h3>
     <div class="mt-7 flex flex-wrap justify-center gap-3">
-      <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
-            style="background: rgba(255,0,0,0.1); color: #ff0000; border: 2px solid rgba(255,0,0,0.4);">
-        Spanish (Native)
-      </span>
-      <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
-            style="background: rgba(255,0,0,0.1); color: #ff0000; border: 2px solid rgba(255,0,0,0.4);">
-        Catalan (Native)
-      </span>
-      <span class="inline-flex items-center rounded-full px-5 py-2 text-sm md:text-base font-semibold"
-            style="background: rgba(255,0,0,0.1); color: #ff0000; border: 2px solid rgba(255,0,0,0.4);">
-        English (B2)
-      </span>
+      {t.skills.languages.map((language) => (
+        <span class={PILL} style={PILL_LANGUAGE}>{language}</span>
+      ))}
     </div>
-
   </div>
 </section>
-
-

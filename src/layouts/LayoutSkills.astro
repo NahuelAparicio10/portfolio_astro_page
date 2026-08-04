@@ -7,6 +7,8 @@ import GlowLineSeparator from '@/components/ui/separator/GlowLineSeparator.astro
 import SkillsSection from '../components/sections/SkillsSection.astro';
 
 import { skills } from '../data/skills';
+import { useTranslations } from '../i18n';
+import { getLocaleFromPath } from '../lib/href';
 
 
 type Props = {
@@ -18,9 +20,12 @@ type Props = {
 
 const { title, description, showHeader = true, heroImage } = Astro.props as Props;
 
+const locale = getLocaleFromPath(Astro.url.pathname);
+const t = useTranslations(locale);
+
 ---
 
-<html lang="en" data-theme="dark" class="dark">
+<html lang={locale} data-theme="dark" class="dark">
 	<head>
 		<BaseHead title={title} description={description} image={heroImage} />
 		<meta property="og:type" content="article" />
@@ -76,11 +81,11 @@ const { title, description, showHeader = true, heroImage } = Astro.props as Prop
 				<div class="mx-auto max-w-5xl px-4 text-center">
 					<h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground">
 					<span class="bg-gradient-to-r from-[var(--accent)] to-[var(--accent-dark)] bg-clip-text text-transparent">
-						SKILLS & TOOLS
+						{t.skillsPage.title}
 					</span>
 					</h1>
 					<p class="mt-4 text-lg md:text-xl text-[color:var(--color-text-secondary)] max-w-2xl mx-auto">
-						My technical stack for game development and programming.
+						{t.skillsPage.subtitle}
 					</p>
 				</div>
 			<SkillsSection title="" skills={skills} />

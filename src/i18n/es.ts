@@ -35,17 +35,55 @@ export const es: TranslationSchema = {
     allArticles: 'Todos los artículos',
     share: 'Compartir',
   },
+  skills: {
+    programming: 'LENGUAJES DE PROGRAMACIÓN',
+    engines: 'MOTORES Y FRAMEWORKS',
+    ides: 'IDEs Y EDITORES DE CÓDIGO',
+    sourceControl: 'CONTROL DE VERSIONES Y GESTIÓN DE PROYECTOS',
+    design: 'DISEÑO, MEDIA Y HERRAMIENTAS 3D',
+    softTitle: 'SOFT SKILLS',
+    soft: [
+      'Trabajo en equipo',
+      'Resolución de problemas',
+      'Adaptabilidad',
+      'Comunicación',
+      'Pensamiento crítico',
+      'Creatividad',
+      'Atención al detalle',
+      'Autodidacta',
+      'Resiliencia',
+    ],
+    languagesTitle: 'IDIOMAS',
+    languages: ['Español (Nativo)', 'Catalán (Nativo)', 'Inglés (Nivel B2)'],
+  },
+  about: {
+    fullName: 'Nahuel Aparicio Del Blanco',
+    role: 'Programador de Gameplay y Desarrollador de Videojuegos – Barcelona, España.',
+    paragraphs: [
+      'Desde que era pequeño me ha fascinado cómo los videojuegos crean mundos llenos de vida. Esa curiosidad se transformó en una pasión por el <b>desarrollo de videojuegos</b> y la <b>programación de gameplay</b>. Actualmente, me concentro en construir <b>sistemas eficientes, modulares y divertidos de jugar</b>.',
+      'Me considero con gran capacidad de <b>resolución de problemas</b>, siempre buscando escribir código escalable y abierto a feedback constructivo que me ayude a mejorar tanto personal como profesionalmente.',
+      'Comencé a programar en <b>2017</b>, enfocándome principalmente en <b>Unity (C#)</b>, mientras adquiría experiencia con <b>C++</b> y motores/frameworks como Unreal, OpenGL, SFML y Phaser.',
+      'Mi objetivo final es programar <b>sistemas de juego</b> que den vida a ideas y diseños, combinando precisión técnica con la magia y diversión del juego.',
+    ],
+  },
+  skillsPage: {
+    title: 'SKILLS Y HERRAMIENTAS',
+    subtitle: 'Mi stack técnico para desarrollo de videojuegos y programación.',
+  },
   work: {
-    title: 'Experiencia laboral',
+    title: 'Experiencia Laboral',
   },
   studies: {
-    title: 'Formación',
+    title: 'Estudios',
   },
   projects: {
     title: 'Proyectos',
   },
   footer: {
+    title: 'CONTACTO Y CV',
+    subtitle: '¿Quieres saber más sobre mi trayectoria? Aquí tienes mi CV.',
     downloadCv: 'Descargar CV',
+    cvFile: '/CV_Nahuel_ESP.pdf',
     rights: 'Todos los derechos reservados.',
   },
 };

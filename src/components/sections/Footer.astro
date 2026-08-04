@@ -1,5 +1,6 @@
 ---
-import { asset } from "../../lib/href";
+import { asset, getLocaleFromPath } from "../../lib/href";
+import { useTranslations } from "../../i18n";
 const today = new Date();
 import contactIconRaw from "../../assets/icons/resume-icon.svg?raw";
 import Button from "../ui/button/Button.astro";
@@ -50,18 +51,21 @@ const githubIcon = sanitizeToPureWhite(githubIconRaw);
 const linkdinIcon = sanitizeToPureWhite(linkdinIconRaw);
 
 const feedUrl = new URL('rss.xml', Astro.site).toString();
+
+const locale = getLocaleFromPath(Astro.url.pathname);
+const t = useTranslations(locale);
 ---
 
 <GlowLineSeparator></GlowLineSeparator>
 
 <footer id="contact" class="py-12 px-4 text-center">
-  <h2 class="text-2xl md:text-3xl font-semibold text-foreground">CONTACT & CV</h2>
-  <p class="mt-2 text-[color:var(--color-text-muted)]">Want to know more about my journey? Here’s my CV.</p>
+  <h2 class="text-2xl md:text-3xl font-semibold text-foreground">{t.footer.title}</h2>
+  <p class="mt-2 text-[color:var(--color-text-muted)]">{t.footer.subtitle}</p>
 
   <div class="mt-8 flex justify-center">
-    <Button href={asset("/CV_Nahuel_ENG.pdf")} variant="secondary" size="md">
+    <Button href={asset(t.footer.cvFile)} variant="secondary" size="md">
       <span class="inline-flex mr-2" aria-hidden="true" set:html={contactIcon} />
-      Download CV
+      {t.footer.downloadCv}
     </Button>
   </div>
 

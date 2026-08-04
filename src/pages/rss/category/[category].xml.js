@@ -1,6 +1,7 @@
 import { getCollection } from 'astro:content';
 import rss from '@astrojs/rss';
-import { slugifyCategory } from '../../../../src/data/categories';
+import { slugifyCategory } from '../../../data/categories';
+import { href } from '../../../lib/href';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -17,7 +18,7 @@ export async function GET(context) {
     site: context.site,
     items: posts.map((post) => ({
       ...post.data,
-      link: `/blog/${post.id}/`,
+      link: href(`/blog/${post.id}/`),
     })),
   });
 }

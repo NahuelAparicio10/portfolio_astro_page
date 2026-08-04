@@ -1,11 +1,15 @@
 ---
 import Button from "../ui/button/Button.astro";
-import { projects } from "../../data/projects";
+import { getProjects } from "../../data/projects";
+import { DEFAULT_LOCALE, type Locale } from "../../lib/href";
+
 interface Props {
   title?: string;
+  locale?: Locale;
 }
 
-const { title } = Astro.props as Props;
+const { title, locale = DEFAULT_LOCALE } = Astro.props as Props;
+const projects = getProjects(locale);
 ---
 
 <section class="w-full py-10">

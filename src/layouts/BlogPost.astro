@@ -1,13 +1,14 @@
 ---
 import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/sections/Footer.astro';
 import Header from '../components/sections/Header.astro';
 import PostNav from '../components/ui/nav/PostNav.astro';
+import { getLocaleFromPath } from '../lib/href';
+import type { Post } from '../lib/post';
 import { YouTube } from "astro-embed";
 
-type BlogData = CollectionEntry<'blog'>['data'];
+type BlogData = Post['data'];
 type Props = BlogData & {
   showHeader?: boolean;
   prevPost?: { id: string; title: string } | null;
@@ -25,9 +26,11 @@ const {
   prevPost = null,
   nextPost = null,
 } = Astro.props as Props;
+
+const locale = getLocaleFromPath(Astro.url.pathname);
 ---
 
-<html lang="en" data-theme="dark" class="dark">
+<html lang={locale} data-theme="dark" class="dark">
   <head>
     <BaseHead title={title} description={description} image={heroImage} />
     <meta property="og:type" content="article" />
@@ -128,7 +131,7 @@ const {
           )}
 
           <slot />
-          <PostNav prev={prevPost} next={nextPost} />
+          <PostNav prev={prevPost} next={nextPost} locale={locale} />
         </div>
       </article>
     </main>

@@ -2,12 +2,12 @@
 import { href } from "../../../lib/href";
 import { getCollection, render } from 'astro:content';
 import BaseHead from '../../../components/BaseHead.astro';
-import Footer from '../../../components/sections/es/es_Footer.astro';
+import Footer from '../../../components/sections/Footer.astro';
 import Header from '../../../components/sections/Header.astro';
-import BlogAllArticles from '../../../components/sections/es/BlogAllArticles.astro';
+import BlogAllArticles from '../../../components/sections/BlogAllArticles.astro';
 import BlogPagination from '../../../components/ui/nav/BlogPagination.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../../consts';
-import FeaturedPost from '../../../components/ui/card/ES_FeaturedPost.astro';
+import FeaturedPost from '../../../components/ui/card/FeaturedPost.astro';
 import GlowLineSeparator from '@/components/ui/separator/GlowLineSeparator.astro';
 
 const PAGE_SIZE = 6;
@@ -29,7 +29,7 @@ const totalPages = Math.max(1, Math.ceil(rest.length / PAGE_SIZE));
 ---
 
 <!doctype html>
-<html lang="en" data-theme="dark" class="dark">
+<html lang="es" data-theme="dark" class="dark">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
     {totalPages > 1 && <link rel="next" href={href("/blog/page/2/", "es")} />}
@@ -54,13 +54,13 @@ Una selección de los juegos que he desarrollado y en los que he contribuido. Ha
         <section class="grid grid-cols-1 gap-6">
           {featuredPosts.map((p) => (
             <article class="card-surface p-4 md:p-5 hover-lift sw-featured-card">
-              <FeaturedPost post={p} />
+              <FeaturedPost post={p} locale="es" />
             </article>
           ))}
         </section>
       )}
       <br/>
-      <BlogAllArticles posts={firstPagePosts} />
+      <BlogAllArticles posts={firstPagePosts} locale="es" />
       <BlogPagination currentPage={1} totalPages={totalPages} locale="es" />
       <br/>
     </main>

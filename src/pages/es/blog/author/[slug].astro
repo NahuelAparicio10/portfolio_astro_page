@@ -2,12 +2,12 @@
 import { getCollection } from 'astro:content';
 import BaseHead from '../../../../components/BaseHead.astro';
 import Header from '../../../../components/sections/Header.astro';
-import Footer from '../../../../components/sections/es/es_Footer.astro';
+import Footer from '../../../../components/sections/Footer.astro';
 import PostCard from '../../../../components/ui/card/PostCard.astro';
 import { slugifyTag as slugify } from '../../../../lib/slug';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getCollection('es');
   const authorSlugs = [
     ...new Set(
       posts.map((p) => slugify(p.data.author || 'Nahuel Aparicio'))
@@ -17,10 +17,10 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-const posts = (await getCollection('blog')).filter((p) => slugify(p.data.author || 'Nahuel Aparicio') === slug);
+const posts = (await getCollection('es')).filter((p) => slugify(p.data.author || 'Nahuel Aparicio') === slug);
 const authorName = posts[0]?.data.author || 'Nahuel Aparicio';
 ---
-<html lang="en" data-theme="dark" class="dark">
+<html lang="es" data-theme="dark" class="dark">
   <head>
     <BaseHead title={`Articles by ${authorName}`} description={`Posts written by ${authorName}`} />
   </head>
@@ -30,7 +30,7 @@ const authorName = posts[0]?.data.author || 'Nahuel Aparicio';
       <h1 class="text-3xl font-bold">Articles by {authorName}</h1>
       <div class="blog-grid">
         {posts.map((p) => (
-          <PostCard post={p} />
+          <PostCard post={p} locale="es" />
         ))}
       </div>
     </main>

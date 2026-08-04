@@ -2,12 +2,12 @@
 import { getCollection } from 'astro:content';
 import BaseHead from '../../../../components/BaseHead.astro';
 import Header from '../../../../components/sections/Header.astro';
-import Footer from '../../../../components/sections/es/es_Footer.astro';
+import Footer from '../../../../components/sections/Footer.astro';
 import PostCard from '../../../../components/ui/card/PostCard.astro';
 import { getCategoryMeta, slugifyCategory } from '../../../../data/categories';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getCollection('es');
   const categories = [
     ...new Set(
       posts
@@ -20,10 +20,10 @@ export async function getStaticPaths() {
 }
 
 const { category } = Astro.params;
-const posts = (await getCollection('blog')).filter((p) => slugifyCategory(p.data.category || '') === category);
+const posts = (await getCollection('es')).filter((p) => slugifyCategory(p.data.category || '') === category);
 const meta = getCategoryMeta(category);
 ---
-<html lang="en" data-theme="dark" class="dark">
+<html lang="es" data-theme="dark" class="dark">
   <head>
     <BaseHead title={`${meta.title} - Category`} description={meta.description} />
     <link rel="alternate" type="application/rss+xml" title={`Category: ${category} feed`} href={`/rss/category/${category}.xml`} />
@@ -38,7 +38,7 @@ const meta = getCategoryMeta(category);
       <p class="text-[color:var(--color-text-muted)]">{meta.description}</p>
       <div class="blog-grid">
         {posts.map((p) => (
-          <PostCard post={p} />
+          <PostCard post={p} locale="es" />
         ))}
       </div>
     </main>

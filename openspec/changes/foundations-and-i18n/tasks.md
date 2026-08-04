@@ -114,27 +114,34 @@ Tres piezas muertas manteniéndose en paralelo.
 
 ## 5. Unificar datos
 
-- [ ] `data/work.ts`: campos `{ en, es }`; borrar `data/es/es_work.ts`
-- [ ] `data/projects.ts`: ídem; borrar `data/es/es_projects.ts`
-- [ ] `data/studies.ts`: ídem; borrar `data/es/es_studies.ts`
-- [ ] Verificar que ambos idiomas muestran el mismo número de entradas
-      (hoy `work` tiene 2 puestos en EN y 1 en ES)
+- [x] Crear `src/i18n/localized.ts` con `Localized<T>` y `pick()`
+- [x] `data/work.ts`: campos `{ en, es }` y `getWork(locale)`
+- [x] `data/projects.ts`: ídem con `getProjects(locale)`
+- [x] `data/studies.ts`: ídem con `getStudies(locale)`
+- [x] Borrar `src/data/es/`
+- [x] Verificado: ambos idiomas muestran los mismos dos puestos. `Localized<T>`
+      es un tipo mapeado sobre `Locale`, así que una entrada incompleta es un
+      error de compilación y la desincronización deja de ser posible
 
 ## 6. Unificar componentes
 
-- [ ] `Footer.astro` ← fusionar `es/es_Footer.astro`
-- [ ] `Projects.astro` ← fusionar `es/es_Projects.astro` (52 líneas por 3 de texto)
-- [ ] `SkillsSection.astro` ← fusionar `es/SkillsSection.astro`
-- [ ] `BlogAllArticles.astro` ← fusionar `es/BlogAllArticles.astro`
-- [ ] `PostCard` / `FeaturedPost` ← fusionar las variantes `ES_`
-- [ ] Borrar `src/components/sections/es/` y `src/components/ui/card/ES_*`
+- [x] `Footer.astro` ← fusionado `es/es_Footer.astro` (80 líneas por 4 diferencias)
+- [x] `Projects.astro` ← fusionado `es/es_Projects.astro`
+- [x] `SkillsSection.astro` ← fusionado `es/SkillsSection.astro` (109 → 68 líneas,
+      los cinco encabezados y los pills pasan a bucles sobre el diccionario)
+- [x] `BlogAllArticles.astro` ← fusionado `es/BlogAllArticles.astro`
+- [x] `PostCard` / `FeaturedPost` ← fusionadas las variantes `ES_`
+- [x] Crear `src/lib/post.ts` con el tipo `Post`, que acepta ambas colecciones.
+      Era la única razón por la que existían las copias `ES_`
+- [x] `content.config.ts`: esquema de post definido una vez en lugar de dos
+- [x] Borrar `src/components/sections/es/` y `src/components/ui/card/ES_*`
 
 ## 7. Unificar layouts
 
-- [ ] `LayoutAbout.astro` ← fusionar `es/LayoutAbout.astro`
-- [ ] `LayoutSkills.astro` ← fusionar `es/LayoutSkills.astro`
-- [ ] `BlogPost.astro` ← fusionar `es/BlogPost.astro`
-- [ ] Borrar `src/layouts/es/`
+- [x] `LayoutAbout.astro` ← fusionado `es/LayoutAbout.astro`
+- [x] `LayoutSkills.astro` ← fusionado `es/LayoutSkills.astro`
+- [x] `BlogPost.astro` ← fusionado `es/ES_BlogPost.astro`
+- [x] Borrar `src/layouts/es/`
 
 ## 8. Header y selector de idioma
 
@@ -158,16 +165,25 @@ Tres piezas muertas manteniéndose en paralelo.
       paginación inglesa. Corregido
 - [x] **Extra**: `PostNav` y `BlogPagination` estaban fijados al inglés pese a
       usarse en ambos idiomas. Ahora reciben `locale` y traducen sus etiquetas
-- [ ] Rutas dinámicas de blog: verificar `getStaticPaths` en ambos idiomas
-- [ ] Feeds RSS: verificar que ambos idiomas generan correctamente
+- [x] **Extra grave**: once puntos del sitio español leían `getCollection('blog')`
+      en lugar de `'es'` — páginas de autor, categoría y paginación, más los tres
+      feeds RSS. El blog español servía posts en inglés. Corregidos todos
+- [x] **Extra**: seis feeds RSS construían `link` sin el base y sin el prefijo
+      de idioma. Ahora pasan por `href()`
+- [x] `<html lang>` corregido en las ocho páginas españolas que decían `en`
+- [x] `locale` propagado a `PostCard`, `FeaturedPost`, `BlogAllArticles` y
+      `Projects` en las páginas españolas
 
 ## 10. Verificación
 
-- [ ] `npm run build` sin errores ni warnings
-- [ ] Recorrer las 12 rutas en ambos idiomas y confirmar que resuelven
-- [ ] Confirmar `<html lang>` correcto en cada una
-- [ ] Confirmar que el sitemap no contiene el prefijo antiguo
-- [ ] Probar el selector de idioma en cada tipo de página
-- [ ] Comprobar que el botón atrás funciona tras cambiar de idioma
+- [x] `npm run build` sin errores ni warnings (46 páginas)
+- [x] Recorridas las rutas en ambos idiomas: todas resuelven
+- [x] `<html lang>` correcto en todas: `en` en la raíz, `es` bajo `/es/`
+- [x] Sitemap: 44 URLs con 88 alternates `hreflang`, sin el prefijo antiguo
+- [x] Selector de idioma verificado en home, about, skills, portfolio y posts
+      de blog; devuelve siempre la URL equivalente del otro idioma
+- [x] Los seis feeds RSS generan enlaces con base y prefijo de idioma correctos
+- [x] Contenido verificado: `/es/portfolio` muestra proyectos en español,
+      `/es/about` la biografía en español, `/es/Skills` los encabezados en español
 - [ ] Revisar en móvil real que no hay regresiones
-- [ ] Desplegar y verificar la URL nueva en producción
+- [ ] Desplegar y verificar en producción

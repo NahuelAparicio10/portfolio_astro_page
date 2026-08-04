@@ -1,23 +1,26 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import { useTranslations } from '../../i18n';
+import { DEFAULT_LOCALE, type Locale } from '../../lib/href';
+import type { Post } from '../../lib/post';
 import PostCard from '../ui/card/PostCard.astro';
 
 interface Props {
-  posts: CollectionEntry<'blog'>[];
+  posts: Post[];
   title?: string;
+  locale?: Locale;
 }
 
-const { posts = [], title = 'Games' } = Astro.props as Props;
+const { posts = [], title, locale = DEFAULT_LOCALE } = Astro.props as Props;
+const t = useTranslations(locale);
+const heading = title ?? t.blog.title;
 ---
 
 <section class="space-y-6">
-  <h2 class="text-3xl font-bold">{title}</h2>
+  <h2 class="text-3xl font-bold">{heading}</h2>
   <br/>
   <div class="blog-grid">
     {posts.map((post) => (
-      <PostCard post={post} />
+      <PostCard post={post} locale={locale} />
     ))}
   </div>
 </section>
-
-
