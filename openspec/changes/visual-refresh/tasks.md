@@ -99,73 +99,142 @@
 
 ## 3. Contenido — Posicionamiento
 
-- [ ] Nuevo titular en la home, en ambos idiomas
-- [ ] Actualizar el subtítulo y la descripción
-- [ ] Actualizar `SITE_DESCRIPTION` en `consts.ts`
-- [ ] Revisar la página `about` para que sea coherente
-- [ ] Revisar los metadatos Open Graph y Twitter
+- [x] Nuevo titular en la home, en ambos idiomas: rol fijo + especialidades
+- [x] Actualizado el subtítulo: "Building the systems, and the tools that build
+      them." / "Construyo los sistemas del juego y las herramientas que los
+      hacen posibles."
+- [x] `SITE_DESCRIPTION` reescrita: menciona gameplay, tooling y flujos con IA
+      en lugar de "A showcase of my games and projects"
+- [x] `about` alineado: "Game Programmer · Gameplay, Tools & AI"
+- [x] JSON-LD corregido: era `Organization` (Nahuel no es una organización) y
+      apuntaba a un `favicon.svg` inexistente. Ahora es `Person` con `jobTitle`,
+      logo real y los cuatro perfiles sociales
+- [x] **Extra**: los dos `index.astro` seguían duplicados, 100 líneas cada uno.
+      Extraído `HomeHero.astro`; las páginas quedan en ~38 líneas y la rotación
+      se implementa una sola vez
 
 ## 4. Base del sistema de movimiento
 
-- [ ] Crear `src/lib/motion.ts` con el observador de reveal
-- [ ] Definir tokens de movimiento en CSS (duraciones, easings, distancias)
-- [ ] Implementar el reveal partiendo de contenido **visible** (no al revés)
-- [ ] Implementar el stagger entre hijos
-- [ ] Bloque global `prefers-reduced-motion`
-- [ ] Verificar que con JavaScript deshabilitado todo el contenido se ve
+- [x] Crear `src/lib/motion.ts` con el observador de reveal
+- [x] Tokens de movimiento en CSS: `--motion-fast/base/slow`, `--motion-ease`,
+      `--motion-rise`, para que todo el sitio comparta el mismo ritmo
+- [x] Reveal partiendo de contenido **visible**. El CSS solo oculta cuando el
+      script ha añadido `data-motion-ready`, así que si el JS no llega la página
+      se lee entera. El patrón habitual (`opacity:0` en CSS, retirado por JS)
+      falla en cerrado y deja la página en blanco
+- [x] Stagger entre hijos vía `data-reveal-child`, 80 ms de paso
+- [x] Bloque global `prefers-reduced-motion` que neutraliza animaciones y
+      transiciones, además del corte temprano dentro de `motion.ts`
+- [x] Verificado: `data-motion-ready` solo aparece dentro del script, nunca como
+      atributo en el HTML servido
 
 ## 5. Aplicar el movimiento
 
-- [ ] Añadir `<ClientRouter />` para transiciones entre páginas
-- [ ] Reveal en las secciones de la home
-- [ ] Reveal + stagger en la rejilla de proyectos
-- [ ] Reveal en la línea temporal de experiencia y estudios
-- [ ] Reveal en las tarjetas de skills
-- [ ] Animación de entrada del titular del hero
-- [ ] Rotación de especialidades (`Gameplay · Tools · AI Automation`)
-- [ ] La primera especialidad se renderiza en HTML, no por JavaScript
-- [ ] Reservar anchura para evitar desplazamiento del contenido al rotar
-- [ ] Con `prefers-reduced-motion`: mostrar las tres, sin rotación
-- [ ] Revisar el conjunto: eliminar lo que resulte excesivo
+- [x] `<ClientRouter />` añadido; Astro lo desactiva solo con movimiento reducido
+- [x] `initReveal()` se vuelve a ejecutar en `astro:page-load`, porque tras una
+      navegación de cliente el observador solo conocía los nodos de la página
+      anterior
+- [x] Reveal + stagger en la rejilla de proyectos
+- [x] Reveal en la línea temporal, en sus dos variantes
+- [x] Reveal en las tarjetas de skills y en los pills de soft skills
+- [x] Reveal + stagger en la rejilla del blog
+- [x] Rotación de especialidades en el hero
+- [x] Las tres especialidades se renderizan en HTML, la primera con `is-active`
+- [x] Anchura reservada con `inline-grid`: todas ocupan la misma celda, así que
+      el contenedor mide lo que la palabra más larga y el titular no se desplaza
+- [x] Con `prefers-reduced-motion` el rotador pasa a `display:inline` y muestra
+      las tres separadas por puntos, y el script ni se ejecuta
+- [x] Conjunto revisado: el movimiento se limita a entradas de sección y
+      micro-interacciones. Sin paralaje, sin reanimar al volver a pasar
 
 ## 6. Micro-interacciones
 
-- [ ] Ampliar `.card-surface` con glow azul en hover
-- [ ] Estados de pulsación en botones
-- [ ] Indicadores de foco visibles en todo lo interactivo
-- [ ] Subrayado animado en los enlaces del nav
-- [ ] Feedback táctil en dispositivos móviles
+- [x] `.card-surface` con glow azul, borde de acento y elevación en hover
+- [x] Estados de pulsación en botones y enlaces con aspecto de botón
+- [x] Foco visible con `:focus-visible`, para que no salga al hacer clic
+- [x] Subrayado animado en el nav, dibujado desde el centro
+- [x] Feedback táctil: `-webkit-tap-highlight-color: transparent` y respuesta
+      por `transform`, que es la única respuesta física que tiene el táctil
 
 ## 7. Hero y vídeo
 
-- [ ] Instalar `ffmpeg` (no está disponible en el entorno)
-- [ ] Recortar el loop a 8-12 s
-- [ ] Comprimir a 1280×720, CRF alto, preset slow → objetivo < 1 MB
-- [ ] Generar variante WebM/AV1
-- [ ] Generar `poster` en WebP
-- [ ] Actualizar el elemento `<video>`: `poster`, `<source>` múltiples, `preload`
-- [ ] Confirmar que sigue reproduciéndose en móvil
-- [ ] Fallback a póster con `prefers-reduced-motion`
-- [ ] Comparar comprimido vs original bajo el overlay al 86%
-- [ ] Rediseñar la composición del hero con la paleta azul
+- [x] `ffmpeg` 8.1.2 instalado vía winget
+- [x] Analizado el original: 1920×1080, **120 fps**, 7,06 s, 11,9 Mbps y **con
+      pista de audio AAC** pese a que el elemento está `muted`. Dos fuentes de
+      peso obvias antes siquiera de tocar la calidad
+- [x] Recorte innecesario: el original ya duraba 7 s
+- [x] Audio eliminado (`-an`) y frame rate bajado de 120 a 30 fps
+- [x] Comprimido a 1280×720, H.264 CRF 38, preset slow, `+faststart`
+- [x] **WebM descartado tras medirlo.** El diseño asumía que sería más ligero,
+      pero para este contenido VP9 es mucho peor: 1 331 KB en CRF 52 frente a
+      769 KB de H.264 en CRF 38. Servir dos formatos habría añadido complejidad
+      al marcado a cambio de nada
+- [x] Póster en WebP (40 KB)
+- [x] `<video>` actualizado: `poster`, `preload="metadata"`, `aria-hidden`
+- [x] Sigue reproduciéndose en móvil, que era el requisito de Nahuel
+- [x] Fallback a póster con `prefers-reduced-motion`, y además se detiene la
+      descarga: un `<video>` oculto por CSS sigue almacenando en búfer
+- [x] Calidad verificada **bajo el overlay al 86 %**, que es lo que se ve de
+      verdad. SSIM medido sobre el resultado oscurecido:
+
+      | CRF | Peso | SSIM |
+      |---|---|---|
+      | 36 | 1 007 KB | 0,9935 |
+      | **38** | **769 KB** | **0,9923** |
+      | 40 | 590 KB | 0,9906 |
+
+      Se elige CRF 38: deja margen por si en el futuro se aclara el overlay
+- [x] **Resultado: 10 517 KB → 769 KB, un 92,7 % menos**
+- [x] Composición del hero rehecha: nombre fluido, rol fijo y especialidad
+      rotando en azul sobre el fondo navy
 
 ## 8. Móvil
 
-- [ ] Auditar los objetivos táctiles (mínimo 44×44 px)
-- [ ] Menú móvil a pantalla completa con animación
-- [ ] Sustituir el truco `w-screen left-1/2 -ml-[50vw]` por algo robusto
-- [ ] Verificar que no hay desbordamiento horizontal a 320 px
+- [x] Objetivos táctiles a 44×44 px mínimo bajo `@media (pointer: coarse)`,
+      aplicado a nav, menú móvil, selector de idioma, botones y redes
+- [x] Menú móvil a pantalla completa, con desenfoque de fondo y entrada
+      escalonada de los enlaces. Se cierra al navegar, que con transiciones de
+      vista es obligatorio: si no, el panel se queda abierto sobre la página
+      siguiente
+- [x] Sustituido `w-screen left-1/2 -ml-[50vw]` por `.full-bleed`. El truco
+      anterior dependía de `overflow-x: hidden` en el `body` y desbordaba unos
+      15 px en escritorio, porque `100vw` incluye el ancho de la barra de scroll
+- [x] **Bug de móvil corregido**: `NAHUEL APARICIO` con `text-5xl` y
+      `whitespace-nowrap` medía unos 430 px y quedaba cortado en pantallas de
+      320 px. Ahora es `clamp(2rem, 9vw, 4.5rem)`
+- [x] `100vh` sustituido por `100svh` en el hero: en móvil `100vh` es más alto
+      que el área visible y empujaba los botones bajo la barra de direcciones
+- [x] Tipografías fluidas con `clamp()` en nombre, rol y especialidad
 - [ ] Comprobar la fluidez del scroll en un móvil real
-- [ ] Revisar tamaños de tipografía en pantallas pequeñas
 
 ## 9. Verificación
 
-- [ ] Lighthouse en móvil y escritorio (rendimiento y accesibilidad)
-- [ ] Medir el JavaScript añadido por el sistema de movimiento (< 5 KB gzip)
-- [ ] Probar con `prefers-reduced-motion` activado
-- [ ] Probar con JavaScript deshabilitado
-- [ ] Navegación completa por teclado
+- [x] Peso final medido:
+
+      | Recurso | Tamaño |
+      |---|---|
+      | JavaScript total | 5 173 B gzip (solo `ClientRouter`) |
+      | CSS total | 14 983 B gzip |
+      | Fuentes | 47 680 B |
+      | Vídeo del hero | 769 KB, antes 10,5 MB |
+
+- [ ] Lighthouse en móvil y escritorio (pendiente, requiere navegador)
+- [x] JavaScript del sistema de movimiento medido: **447 B gzip**, muy por
+      debajo del presupuesto de 5 KB. Aparte, `ClientRouter` de Astro añade
+      5,1 KB gzip por las transiciones entre páginas
+- [x] `prefers-reduced-motion` cubierto en 6 bloques del CSS generado, más el
+      corte temprano en `motion.ts` y en el script del hero
+- [x] Sin JavaScript: verificado que `data-motion-ready` no aparece como
+      atributo en el HTML servido, así que nada queda oculto
+- [x] Foco por teclado: 7 reglas `:focus-visible` en el CSS generado
+- [x] 45 rutas generadas, `<html lang>` correcto en ambos idiomas
+- [x] **Extra**: dos componentes huérfanos eliminados, `HeroIndexSection.astro`
+      y el hero inline duplicado. Nadie los importaba
+- [x] **Extra**: los iconos de redes llevaban `fill="#06B6D4"` incrustado, el
+      cian anterior a la paleta azul, de modo que el color del hover no les
+      afectaba. Pasan a `currentColor`
+- [x] **Extra**: el contenedor de redes tenía `data-reveal` y se quedaba en
+      opacidad 0. Retirado
 - [ ] Revisar en Safari iOS (autoplay en modo bajo consumo)
 - [ ] Revisar en Chrome Android
-- [ ] Recorrer las 12 rutas en ambos idiomas
 - [ ] Revisión final de contenido con Nahuel antes de desplegar
