@@ -47,7 +47,7 @@
       (`favicon-32x32.png`, `favicon-16x16.png`, `apple-touch-icon.png`,
       `favicon.ico`) y además sin prefijo de base. Todos devolvían 404.
       Sustituidos por el logo real, con el tipo MIME corregido a `image/jpeg`
-- [ ] Regenerar los dos PDF del CV: contienen la URL antigua incrustada
+- [x] Regenerar los dos PDF del CV: contienen la URL antigua incrustada
 
 ## 3. Tokens de color
 
@@ -185,5 +185,5 @@ Tres piezas muertas manteniéndose en paralelo.
 - [x] Los seis feeds RSS generan enlaces con base y prefijo de idioma correctos
 - [x] Contenido verificado: `/es/portfolio` muestra proyectos en español,
       `/es/about` la biografía en español, `/es/Skills` los encabezados en español
-- [ ] Revisar en móvil real que no hay regresiones
-- [ ] Desplegar y verificar en producción
+- [x] Revisar en móvil real que no hay regresiones
+- [x] Desplegar y verificar en producción
