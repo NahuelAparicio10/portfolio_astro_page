@@ -251,36 +251,54 @@ const nav = [
 </style>
 
 <script>
-  const btn = document.querySelector<HTMLButtonElement>('[data-menu-btn]');
-  const panel = document.getElementById('mobile-menu');
+  /**
+   * Re-bound on every navigation.
+   *
+   * With <ClientRouter /> the document is swapped without re-running this
+   * script, so anything captured once ends up pointing at detached nodes from
+   * the first page that loaded. The menu button worked on a cold load and did
+   * nothing afterwards.
+   */
+  function initMenu() {
+    const btn = document.querySelector<HTMLButtonElement>('[data-menu-btn]');
+    const panel = document.getElementById('mobile-menu');
+    if (!btn || !panel) return;
 
-  function setMenu(open: boolean) {
-    if (!panel || !btn) return;
-    if (open) {
-      // `hidden` has to come off before the class, or the transition has
-      // nothing to animate from.
-      panel.hidden = false;
-      requestAnimationFrame(() => panel.setAttribute('data-open', ''));
-    } else {
-      panel.removeAttribute('data-open');
-      // Wait for the fade before hiding, so it does not disappear abruptly.
-      window.setTimeout(() => { panel.hidden = true; }, 260);
+    let closeTimer = 0;
+
+    const isOpen = () => panel.hasAttribute('data-open');
+
+    function setMenu(open: boolean) {
+      window.clearTimeout(closeTimer);
+      if (open) {
+        // `hidden` has to come off first, or the transition has nothing to
+        // animate from.
+        panel.hidden = false;
+        requestAnimationFrame(() => panel.setAttribute('data-open', ''));
+      } else {
+        panel.removeAttribute('data-open');
+        closeTimer = window.setTimeout(() => { panel.hidden = true; }, 260);
+      }
+      btn.setAttribute('aria-expanded', String(open));
+      document.documentElement.classList.toggle('overflow-hidden', open);
     }
-    btn.setAttribute('aria-expanded', String(open));
-    document.documentElement.classList.toggle('overflow-hidden', open);
+
+    btn.addEventListener('click', () => setMenu(!isOpen()));
+
+    panel.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setMenu(false));
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen()) setMenu(false);
+    });
+
+    // Leaving the page with the menu open would otherwise keep the scroll lock.
+    document.addEventListener('astro:before-swap', () => {
+      document.documentElement.classList.remove('overflow-hidden');
+    }, { once: true });
   }
 
-  const isOpen = () => panel?.hasAttribute('data-open') ?? false;
-
-  btn?.addEventListener('click', () => setMenu(!isOpen()));
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isOpen()) setMenu(false);
-  });
-
-  // Closing on navigation matters here: with view transitions the panel would
-  // otherwise stay open over the next page.
-  panel?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => setMenu(false));
-  });
+  initMenu();
+  document.addEventListener('astro:page-load', initMenu);
 </script>
