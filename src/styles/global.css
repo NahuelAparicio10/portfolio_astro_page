@@ -158,7 +158,10 @@ hr {
 	body {
 		font-size: 18px;
 	}
-	main {
+	/* Must honour the same opt-out as the desktop rule above. Without it the
+	   home page picked up 1em of side padding on mobile, which is what left a
+	   strip of background down each side of the full-width hero. */
+	main:not(.use-utility-layout) {
 		padding: 1em;
 	}
 }
